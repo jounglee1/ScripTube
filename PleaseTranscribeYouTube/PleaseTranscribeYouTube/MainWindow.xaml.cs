@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Windows.UI.Popups;
 
 namespace PleaseTranscribeYouTube
 {
@@ -28,7 +28,28 @@ namespace PleaseTranscribeYouTube
 
         private void xWebView_Loaded(object sender, RoutedEventArgs e)
         {
-            xWebView.Navigate("https://www.youtube.com/watch?v=L9rJ0vwBisE&html5=True");
+            xWebView.NavigateToLocal("yt.html");
+        }
+
+        private void xButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            xWebView.InvokeScript("playVideo");
+        }
+
+        private void xButtonPause_Click(object sender, RoutedEventArgs e)
+        {
+            xWebView.InvokeScript("pauseVideo");
+        }
+
+        private void xButtonStop_Click(object sender, RoutedEventArgs e)
+        {
+            xWebView.InvokeScript("stopVideo");
+        }
+
+        private async void xButtonGetTime_Click(object sender, RoutedEventArgs e)
+        {
+            string time = await xWebView.InvokeScriptAsync("getCurrentTime");
+            MessageBox.Show(time.ToString() + " 초");
         }
     }
 }

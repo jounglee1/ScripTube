@@ -11,9 +11,7 @@
         Width="800"
         AllowsTransparency="False"
         >
-    <Grid
-        x:Name="Grid1"
-        Grid.Row="1">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -22,5 +20,21 @@
             x:Name="xWebView"
             Loaded="xWebView_Loaded"
             />
+        <StackPanel
+            Grid.Column="1"
+            >
+            <Button
+                Content="start" Click="xButtonStart_Click"
+                />
+            <Button
+                Content="pause" Click="xButtonPause_Click"
+                />
+            <Button
+                Content="stop" Click="xButtonStop_Click"
+                />
+            <Button
+                Content="getTime" Click="xButtonGetTime_Click"
+                />
+        </StackPanel>
     </Grid>
 </Window>
