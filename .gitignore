@@ -2,3 +2,8 @@
 */**/bin/Release
 */**/obj/Debug
 */**/obj/Release
+
+*.exe
+*.pdb
+*.manifest
+*.cache
