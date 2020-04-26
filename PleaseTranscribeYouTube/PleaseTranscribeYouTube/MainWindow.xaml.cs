@@ -1,8 +1,11 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,6 +29,7 @@ namespace PleaseTranscribeYouTube
             InitializeComponent();
         }
 
+        [Obsolete]
         private void xWebView_Loaded(object sender, RoutedEventArgs e)
         {
             xWebView.NavigateToLocal("yt.html");
@@ -51,5 +55,22 @@ namespace PleaseTranscribeYouTube
             string time = await xWebView.InvokeScriptAsync("getCurrentTime");
             MessageBox.Show(time.ToString() + " 초");
         }
+
+        private async void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            xWebView.Visibility = Visibility.Collapsed;
+            var dialog = new YouTubeURLDialog();
+            if ((bool)(await DialogHost.Show(dialog, "RootDialog")))
+            {
+                xWebView.InvokeScript("destroyVideo");
+                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoID });
+            }
+            xWebView.Visibility = Visibility.Visible;
+        }
     }
 }
+
+/*
+http://video.google.com/timedtext?lang=[LANGUAGE]&v=[YOUTUBE VIDEO IDENTIFIER]
+http://video.google.com/timedtext?lang=en&v=cRpQOXV2cFg
+ */
