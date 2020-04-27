@@ -11,7 +11,6 @@
         Height="450"
         Width="800"
         AllowsTransparency="False"
-
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -19,6 +18,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
         >
 
     <Window.Resources>
@@ -32,75 +32,92 @@
     <materialDesign:DialogHost
         x:Name="RootDialogHost"
         Identifier="RootDialog">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem
-                Header="새 링크"
-                Click="MenuItem_Click"
-                />
-            <MenuItem Header="저장">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
                 <MenuItem
-                    Header="*.txt 파일로 저장"
+                    Header="새 링크"
+                    Click="MenuItem_Click"
                     />
-                <MenuItem
-                    Header="*.smi 파일로 저장"
-                    />
-                 <MenuItem
-                    Header="*.html 파일로 저장"
-                    />
-                <MenuItem
-                    Header="*.md 파일로 저장"
-                    />
-            </MenuItem>
-            <MenuItem Header="번역">
+                <MenuItem Header="저장">
+                    <MenuItem
+                        Header="*.txt 파일로 저장"
+                        />
+                    <MenuItem
+                        Header="*.smi 파일로 저장"
+                        />
+                     <MenuItem
+                        Header="*.html 파일로 저장"
+                        />
+                    <MenuItem
+                        Header="*.md 파일로 저장"
+                        />
+                </MenuItem>
+                <MenuItem Header="번역">
 
-            </MenuItem>
-        </Menu>
-        <Grid DockPanel.Dock="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="12"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <WPF:WebView
-                x:Name="xWebView"
-                Loaded="xWebView_Loaded"
-                />
-            <GridSplitter
-                Grid.Column="1"
-                Width="6"
-                Background="LightGray"
-                HorizontalAlignment="Stretch"
-                />
+                </MenuItem>
+            </Menu>
+            
+            <Grid
+                DockPanel.Dock="Bottom"
+                Margin="8, 0, 8, 8"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <materialDesign:Card
+                    Grid.Column="0"
+                    Padding="8"
+                    Margin="8"
+                    >
+                    <WPF:WebView
+                        x:Name="xWebView"
+                        Loaded="xWebView_Loaded"
+                        />
+                </materialDesign:Card>
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="4"
+                    Background="LightGray"
+                    HorizontalAlignment="Stretch"
+                    />
+                <materialDesign:Card
+                    Grid.Column="2"
+                    Padding="16"
+                    Margin="8"
+                    >
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                            Content="start"
+                            Margin="8"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Click="xButtonStart_Click"
+                            />
+                            <Button
+                            Content="pause"
+                            Margin="8"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Click="xButtonPause_Click"
+                            />
+                            <Button
+                            Content="stop"
+                            Margin="8"
+                            Click="xButtonStop_Click"
+                            />
+                            <Button
+                            Content="getTime"
+                            Margin="8"
+                            Click="xButtonGetTime_Click"
+                            />
+                        </StackPanel>
+                            
 
-            <materialDesign:Card Padding="32" Margin="8" Grid.Column="2">
-                <StackPanel>
-                    <Button
-                        Content="start"
-                        Margin="8"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        Click="xButtonStart_Click"
-                        />
-                    <Button
-                        Content="pause"
-                        Margin="8"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        Click="xButtonPause_Click"
-                        />
-                    <Button
-                        Content="stop"
-                        Margin="8"
-                        Click="xButtonStop_Click"
-                        />
-                    <Button
-                        Content="getTime"
-                        Margin="8"
-                        Click="xButtonGetTime_Click"
-                        />
-                    <TextBlock>자막 띄우는 카드</TextBlock>
-                </StackPanel>
+                        <TextBlock>자막 띄우는 카드</TextBlock>
+                    </StackPanel>
                 </materialDesign:Card>
             </Grid>
-    </DockPanel>
+        </DockPanel>
     </materialDesign:DialogHost>
 </Window>
