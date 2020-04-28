@@ -103,13 +103,15 @@
                             />
                             <Button
                             Content="stop"
-                            Margin="8"
                             Click="xButtonStop_Click"
                             />
                             <Button
                             Content="getTime"
-                            Margin="8"
                             Click="xButtonGetTime_Click"
+                            />
+                            <Button
+                            Content="parseXML"
+                            Click="xButtonParseXML_Click"
                             />
                         </StackPanel>
                             

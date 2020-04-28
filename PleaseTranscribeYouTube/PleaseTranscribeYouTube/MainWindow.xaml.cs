@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using Windows.UI.Popups;
 
 namespace PleaseTranscribeYouTube
@@ -24,6 +25,8 @@ namespace PleaseTranscribeYouTube
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string mLastVideoID = "tG2GJZcBKOE";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,15 +65,30 @@ namespace PleaseTranscribeYouTube
             var dialog = new YouTubeURLDialog();
             if ((bool)(await DialogHost.Show(dialog, "RootDialog")))
             {
+                mLastVideoID = dialog.VideoID;
                 xWebView.InvokeScript("destroyVideo");
-                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoID });
+                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { mLastVideoID });
             }
             xWebView.Visibility = Visibility.Visible;
         }
+
+        private void xButtonParseXML_Click(object sender, RoutedEventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            try
+            {
+                xmlDoc.Load("https://www.youtube.com/api/timedtext?lang=en&v=" + mLastVideoID);
+                foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes)
+                {
+                    var s0 = xmlNode.FirstChild; //ChildNodes[0];
+                    var start = xmlNode.Attributes["start"].Value;
+                    var dur = xmlNode.Attributes["dur"].Value;
+                }
+            }
+            catch (System.Xml.XmlException)
+            {
+                MessageBox.Show("자막 데이터가 없습니다. 자동 생성 자막 찾아야 함");
+            }
+        }
     }
 }
-
-/*
-http://video.google.com/timedtext?lang=[LANGUAGE]&v=[YOUTUBE VIDEO IDENTIFIER]
-http://video.google.com/timedtext?lang=en&v=cRpQOXV2cFg
- */

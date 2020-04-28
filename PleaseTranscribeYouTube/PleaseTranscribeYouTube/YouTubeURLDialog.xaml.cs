@@ -38,8 +38,6 @@ namespace PleaseTranscribeYouTube
             }
         }
 
-        //https://www.youtube.com/watch?v=3PrCie6lvY8
-
         string getYouTubeVideoID(string url)
         {
             try
