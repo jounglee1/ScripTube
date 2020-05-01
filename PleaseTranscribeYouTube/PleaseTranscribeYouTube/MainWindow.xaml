@@ -44,6 +44,9 @@
                     <MenuItem
                         Header="*.smi 파일로 저장"
                         />
+                    <MenuItem
+                        Header="*.srt 파일로 저장"
+                        />
                      <MenuItem
                         Header="*.html 파일로 저장"
                         />
@@ -87,7 +90,46 @@
                     Margin="8"
                     >
                     <Grid>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="64" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <WrapPanel>
+                            <CheckBox
+                                Content="번역"
+                                />
+                            <TextBlock
+                                Text="원문"
+                                />
+                            <ComboBox
+                                IsEditable="True"
+                                IsReadOnly="True"
+                                Text="영어"
+                                />
+                            <TextBlock
+                                Text="번역문"
+                                />
+                            <ComboBox
+                                IsEditable="True"
+                                IsReadOnly="True"
+                                Text="한국어"
+                                />
+                            <TextBlock
+                                Text="표시 언어"
+                                />
+                            <ComboBox
+                                IsEditable="True"
+                                IsReadOnly="True"
+                                >
+                                <ComboBoxItem Content="원문"/>
+                                <ComboBoxItem Content="번역문"/>
+                                <ComboBoxItem Content="둘다"/>
+                            </ComboBox>
+                        </WrapPanel>
+                        <ScrollViewer
+                            Grid.Row="1"
+                            VerticalScrollBarVisibility="Auto"
+                            >
                             <ItemsControl
                                 ItemsSource="{Binding Path=NowSubtitles, UpdateSourceTrigger=PropertyChanged}"
                                 >
