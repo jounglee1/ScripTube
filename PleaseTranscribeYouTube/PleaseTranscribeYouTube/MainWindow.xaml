@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PleaseTranscribeYouTube"
+        xmlns:classes="clr-namespace:PleaseTranscribeYouTube.Classes"
         xmlns:WPF="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Please Transcribe YouTube"
         Height="450"
         Width="800"
+
         AllowsTransparency="False"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -22,13 +25,9 @@
         >
 
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Red.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+
     </Window.Resources>
-    
+
     <materialDesign:DialogHost
         x:Name="RootDialogHost"
         Identifier="RootDialog">
@@ -87,37 +86,34 @@
                     Padding="16"
                     Margin="8"
                     >
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Button
-                            Content="start"
-                            Margin="8"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Click="xButtonStart_Click"
-                            />
-                            <Button
-                            Content="pause"
-                            Margin="8"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Click="xButtonPause_Click"
-                            />
-                            <Button
-                            Content="stop"
-                            Click="xButtonStop_Click"
-                            />
-                            <Button
-                            Content="getTime"
-                            Click="xButtonGetTime_Click"
-                            />
-                            <Button
-                            Content="parseXML"
-                            Click="xButtonParseXML_Click"
-                            />
-                        </StackPanel>
-                            
+                    <Grid>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl
+                                ItemsSource="{Binding Path=NowSubtitles, UpdateSourceTrigger=PropertyChanged}"
+                                >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="48" />
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                Grid.Column="0"
+                                                Text="{Binding StartTime}"
+                                                Foreground="LightSkyBlue"
+                                                />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Text="{Binding Text}"
+                                                />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
 
-                        <TextBlock>자막 띄우는 카드</TextBlock>
-                    </StackPanel>
                 </materialDesign:Card>
             </Grid>
         </DockPanel>

@@ -63,6 +63,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\MainViewModel.cs" />
+    <Compile Include="Classes\SubtitleViewModel.cs" />
     <Compile Include="Classes\YouTubeSubtitleData.cs" />
     <Compile Include="Classes\YouTubeVideoData.cs" />
     <Compile Include="YouTubeURLDialog.xaml.cs">

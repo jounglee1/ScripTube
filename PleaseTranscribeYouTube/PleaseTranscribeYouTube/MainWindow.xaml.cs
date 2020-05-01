@@ -1,6 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
+using PleaseTranscribeYouTube.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -23,13 +26,41 @@ namespace PleaseTranscribeYouTube
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private string mLastVideoID = "tG2GJZcBKOE";
+        private YouTubeVideoData mVideoData = new YouTubeVideoData("tG2GJZcBKOE");
+
+        private ObservableCollection<YouTubeSubtitleData> mNowSubtitles;
+        public ObservableCollection<YouTubeSubtitleData> NowSubtitles
+        {
+            get
+            {
+                return mNowSubtitles;
+            }
+            set
+            {
+                if (mNowSubtitles != value)
+                {
+                    mNowSubtitles = value;
+                    notifyPropertyChanged("NowSubtitles");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void notifyPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         [Obsolete]
@@ -65,30 +96,19 @@ namespace PleaseTranscribeYouTube
             var dialog = new YouTubeURLDialog();
             if ((bool)(await DialogHost.Show(dialog, "RootDialog")))
             {
-                mLastVideoID = dialog.VideoID;
                 xWebView.InvokeScript("destroyVideo");
-                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { mLastVideoID });
-            }
-            xWebView.Visibility = Visibility.Visible;
-        }
-
-        private void xButtonParseXML_Click(object sender, RoutedEventArgs e)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            try
-            {
-                xmlDoc.Load("https://www.youtube.com/api/timedtext?lang=en&v=" + mLastVideoID);
-                foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes)
+                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoID });
+                mVideoData = new YouTubeVideoData(dialog.VideoID);
+                if (mVideoData.IsSubtitleExisted)
                 {
-                    var s0 = xmlNode.FirstChild; //ChildNodes[0];
-                    var start = xmlNode.Attributes["start"].Value;
-                    var dur = xmlNode.Attributes["dur"].Value;
+                    NowSubtitles = mVideoData.SubtitleDatas["en"];
+                }
+                else
+                {
+                    NowSubtitles = null;
                 }
             }
-            catch (System.Xml.XmlException)
-            {
-                MessageBox.Show("자막 데이터가 없습니다. 자동 생성 자막 찾아야 함");
-            }
+            xWebView.Visibility = Visibility.Visible;
         }
     }
 }
