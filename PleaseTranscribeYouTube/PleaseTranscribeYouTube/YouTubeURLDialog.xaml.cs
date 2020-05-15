@@ -32,14 +32,14 @@ namespace PleaseTranscribeYouTube
         {
             string url = xTextBoxURL.Text;
             string idOrNull = getYouTubeVideoIDOrNull(url);
-            if (idOrNull == null || idOrNull.Length != 11)
-            {
-                VideoIDOrNull = null;
-            }
-            else
+            if (idOrNull != null && idOrNull.Length == 11)
             {
                 VideoIDOrNull = idOrNull;
                 xButtonClose.Command.Execute(true); // xButtonClose.CommandParameter
+            }
+            else
+            {
+                VideoIDOrNull = null;
             }
         }
 
@@ -69,7 +69,7 @@ namespace PleaseTranscribeYouTube
         private void xTextBoxURL_TextChanged(object sender, TextChangedEventArgs e)
         {
             string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
-            if (idOrNull != null && idOrNull.Length != 11)
+            if (idOrNull != null && idOrNull.Length == 11)
             {
                 xTextBlockError.Visibility = Visibility.Hidden;
             }
