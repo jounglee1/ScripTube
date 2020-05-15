@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PleaseTranscribeYouTube.Classes
+namespace ScripTube.Classes
 {
     public class SubtitleViewModel : INotifyPropertyChanged
     {

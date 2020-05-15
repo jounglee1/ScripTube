@@ -1,5 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
-using PleaseTranscribeYouTube.Classes;
+using ScripTube.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +21,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using Windows.UI.Popups;
 
-namespace PleaseTranscribeYouTube
+namespace ScripTube
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
