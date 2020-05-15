@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace PleaseTranscribeYouTube
 {
-    /// <summary>
-    /// YouTubeURLDialog.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class YouTubeURLDialog : UserControl
     {
         public string VideoIDOrNull;
@@ -28,14 +25,14 @@ namespace PleaseTranscribeYouTube
         public YouTubeURLDialog()
         {
             InitializeComponent();
-            xTextBoxURL.Text = Clipboard.GetText();
+            xTextBoxURL.Text = Clipboard.GetText().Trim();
         }
 
         private void xButtonOK_Click(object sender, RoutedEventArgs e)
         {
             string url = xTextBoxURL.Text;
             string idOrNull = getYouTubeVideoIDOrNull(url);
-            if (idOrNull == null || idOrNull.Length <= 1)
+            if (idOrNull == null || idOrNull.Length != 11)
             {
                 VideoIDOrNull = null;
             }
@@ -61,10 +58,6 @@ namespace PleaseTranscribeYouTube
                 {
                     return query["v"];
                 }
-                else if (query.AllKeys.Contains("video_id"))
-                {
-                    return query["video_id"];
-                }
                 return null;
             }
             catch (System.UriFormatException)
@@ -76,7 +69,7 @@ namespace PleaseTranscribeYouTube
         private void xTextBoxURL_TextChanged(object sender, TextChangedEventArgs e)
         {
             string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
-            if (idOrNull != null && idOrNull.Length > 0)
+            if (idOrNull != null && idOrNull.Length != 11)
             {
                 xTextBlockError.Visibility = Visibility.Hidden;
             }
