@@ -35,7 +35,6 @@ namespace PleaseTranscribeYouTube.Classes
             get => mbSubtitleExisted;
         }
 
-
         public YouTubeVideoData(string id)
         {
             mID = id;
@@ -44,41 +43,37 @@ namespace PleaseTranscribeYouTube.Classes
 
         private static string unescapeXml(string s)
         {
-            string unxml = s;
-            if (!string.IsNullOrEmpty(unxml))
+            StringBuilder sb = new StringBuilder(s);
+            if (sb.Length > 0)
             {
-                // replace entities with literal values
-                unxml = unxml.Replace("&#39;", "'");
-                unxml = unxml.Replace("&#34;", "\"");
-                unxml = unxml.Replace("&#62;", ">");
-                unxml = unxml.Replace("&#60;", "<");
-                unxml = unxml.Replace("&#38;", "&");
+                sb.Replace("&#39;", "'");
+                sb.Replace("&#34;", "\"");
+                sb.Replace("&#62;", ">");
+                sb.Replace("&#60;", "<");
+                sb.Replace("&#38;", "&");
             }
-            return unxml;
+            return sb.ToString();
         }
 
         private bool loadSubtitles(string language)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            mSubtitleDatas.Add(language, new ObservableCollection<YouTubeSubtitleData>());
+            var youtubeSubtitleData = new ObservableCollection<YouTubeSubtitleData>();
             try
             {
-                xmlDoc.Load("https://www.youtube.com/api/timedtext?lang=" + language + "&v=" + mID);
+                xmlDoc.Load($"https://www.youtube.com/api/timedtext?lang={language}&v={mID}");
                 foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes)
                 {
-                    var s0 = unescapeXml(xmlNode.FirstChild.InnerText);
-                    var start = xmlNode.Attributes["start"].Value;
-                    var dur = xmlNode.Attributes["dur"].Value;
-                    mSubtitleDatas[language].Add(new YouTubeSubtitleData(s0, start, dur));
+                    youtubeSubtitleData.Add(new YouTubeSubtitleData(unescapeXml(xmlNode.FirstChild.InnerText), xmlNode.Attributes["start"].Value, xmlNode.Attributes["dur"].Value));
                 }
+                mSubtitleDatas.Add(language, youtubeSubtitleData);
                 return true;
             }
             catch (System.Xml.XmlException)
             {
-                mSubtitleDatas.Remove(language);
                 Debug.Fail("자막 데이터가 없습니다. 자동 생성 자막 찾아야 함");
-                return false;
             }
+            return false;
         }
     }
 }
