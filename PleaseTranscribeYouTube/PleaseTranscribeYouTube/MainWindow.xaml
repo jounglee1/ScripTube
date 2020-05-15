@@ -21,7 +21,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" Closing="xWindow_Closing"
         >
 
     <Window.Resources>

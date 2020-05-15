@@ -28,7 +28,7 @@ namespace PleaseTranscribeYouTube
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private YouTubeVideoData mVideoData = new YouTubeVideoData("tG2GJZcBKOE");
+        private YouTubeVideoData mVideoData = null;
 
         private ObservableCollection<YouTubeSubtitleData> mNowSubtitles;
         public ObservableCollection<YouTubeSubtitleData> NowSubtitles
@@ -55,7 +55,6 @@ namespace PleaseTranscribeYouTube
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
 
         public MainWindow()
         {
@@ -94,11 +93,11 @@ namespace PleaseTranscribeYouTube
         {
             xWebView.Visibility = Visibility.Collapsed;
             var dialog = new YouTubeURLDialog();
-            if ((bool)(await DialogHost.Show(dialog, "RootDialog")))
+            if ((bool)await DialogHost.Show(dialog, "RootDialog"))
             {
                 xWebView.InvokeScript("destroyVideo");
-                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoID });
-                mVideoData = new YouTubeVideoData(dialog.VideoID);
+                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoIDOrNull });
+                mVideoData = new YouTubeVideoData(dialog.VideoIDOrNull);
                 if (mVideoData.IsSubtitleExisted)
                 {
                     NowSubtitles = mVideoData.SubtitleDatas["en"];
@@ -109,6 +108,11 @@ namespace PleaseTranscribeYouTube
                 }
             }
             xWebView.Visibility = Visibility.Visible;
+        }
+
+        private void xWindow_Closing(object sender, CancelEventArgs e)
+        {
+            xWebView.InvokeScript("destroyVideo");
         }
     }
 }
