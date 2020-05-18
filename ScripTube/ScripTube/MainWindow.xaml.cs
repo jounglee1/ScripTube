@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -95,8 +96,15 @@ namespace ScripTube
             var dialog = new YouTubeURLDialog();
             if ((bool)await DialogHost.Show(dialog, "RootDialog"))
             {
-                xWebView.InvokeScript("destroyVideo");
-                xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoIDOrNull });
+                try
+                {
+                    xWebView.InvokeScript("destroyVideo");
+                    xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoIDOrNull });
+                }
+                catch (System.AggregateException)
+                {
+                    return;
+                }
                 mVideoData = new YouTubeVideoData(dialog.VideoIDOrNull);
                 if (mVideoData.IsSubtitleExisted)
                 {

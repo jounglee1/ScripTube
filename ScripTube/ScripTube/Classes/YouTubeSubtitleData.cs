@@ -10,13 +10,17 @@ namespace ScripTube.Classes
     {
         public string Text { get; }
         public double StartSeconds { get;}
-        public double DurationSeconds { get;}
+        public double DurationSeconds { get; }
+        public string LanguageCode { get; }
+        public string LanguageName { get; }
 
-        public YouTubeSubtitleData(string text, string start, string duration)
+        public YouTubeSubtitleData(string text, string start, string duration, string languageCode, string languageName)
         {
             Text = text;
             StartSeconds = double.Parse(start);
             DurationSeconds = double.Parse(duration);
+            LanguageCode = languageCode;
+            LanguageName = languageName;
         }
 
         public string StartTime

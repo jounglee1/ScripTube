@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using ScripTube.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -25,14 +26,14 @@ namespace ScripTube
         public YouTubeURLDialog()
         {
             InitializeComponent();
-            xTextBoxURL.Text = Clipboard.GetText().Trim();
+            xTextBoxURL.Text = "https://www.youtube.com/watch?v=qC5KtatMcUw";//Clipboard.GetText().Trim();
         }
 
         private void xButtonOK_Click(object sender, RoutedEventArgs e)
         {
             string url = xTextBoxURL.Text;
             string idOrNull = getYouTubeVideoIDOrNull(url);
-            if (idOrNull != null && idOrNull.Length == 11)
+            if (idOrNull != null && idOrNull.Length == YouTubeVideoData.VIDEO_ID_LENGTH)
             {
                 VideoIDOrNull = idOrNull;
                 xButtonClose.Command.Execute(true); // xButtonClose.CommandParameter
@@ -69,7 +70,7 @@ namespace ScripTube
         private void xTextBoxURL_TextChanged(object sender, TextChangedEventArgs e)
         {
             string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
-            if (idOrNull != null && idOrNull.Length == 11)
+            if (idOrNull != null && idOrNull.Length == YouTubeVideoData.VIDEO_ID_LENGTH)
             {
                 xTextBlockError.Visibility = Visibility.Hidden;
             }
