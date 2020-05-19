@@ -1,5 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
-using ScripTube.Classes;
+using ScripTube.Classes.YouTube;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,40 +27,11 @@ namespace ScripTube
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
-        private YouTubeVideoData mVideoData = null;
-
-        private ObservableCollection<YouTubeSubtitleData> mNowSubtitles;
-        public ObservableCollection<YouTubeSubtitleData> NowSubtitles
-        {
-            get
-            {
-                return mNowSubtitles;
-            }
-            set
-            {
-                if (mNowSubtitles != value)
-                {
-                    mNowSubtitles = value;
-                    notifyPropertyChanged("NowSubtitles");
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void notifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
         [Obsolete]
@@ -105,22 +76,15 @@ namespace ScripTube
                 {
                     return;
                 }
-                mVideoData = new YouTubeVideoData(dialog.VideoIDOrNull);
-                if (mVideoData.IsSubtitleExisted)
-                {
-                    NowSubtitles = mVideoData.SubtitleDatas["en"];
-                }
-                else
-                {
-                    NowSubtitles = null;
-                }
+                xViewModel.Entity = new Entity(dialog.VideoIDOrNull);
             }
             xWebView.Visibility = Visibility.Visible;
         }
 
         private void xWindow_Closing(object sender, CancelEventArgs e)
         {
-            xWebView.InvokeScript("destroyVideo");
+            xWebView.Close();
+            //xWebView.InvokeScript("destroyVideo");
         }
     }
 }

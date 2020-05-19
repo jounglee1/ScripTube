@@ -64,9 +64,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\MainViewModel.cs" />
-    <Compile Include="Classes\SubtitleViewModel.cs" />
-    <Compile Include="Classes\YouTubeSubtitleData.cs" />
-    <Compile Include="Classes\YouTubeVideoData.cs" />
+    <Compile Include="Classes\YouTube\SubtitleItem.cs" />
+    <Compile Include="Classes\YouTube\Entity.cs" />
+    <Compile Include="Classes\YouTube\Subtitle.cs" />
     <Compile Include="YouTubeURLDialog.xaml.cs">
       <DependentUpon>YouTubeURLDialog.xaml</DependentUpon>
     </Compile>

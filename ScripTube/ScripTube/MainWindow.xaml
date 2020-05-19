@@ -24,9 +24,9 @@
         WindowStartupLocation="CenterScreen" Closing="xWindow_Closing"
         >
 
-    <Window.Resources>
-
-    </Window.Resources>
+    <Window.DataContext>
+        <classes:MainViewModel x:Name="xViewModel"/>
+    </Window.DataContext>
 
     <materialDesign:DialogHost
         x:Name="RootDialogHost"
@@ -102,9 +102,10 @@
                                 Text="원문"
                                 />
                             <ComboBox
-                                IsEditable="True"
                                 IsReadOnly="True"
-                                Text="영어"
+                                ItemsSource="{Binding Path=Subtitles, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Path=SelectedSubtitle, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="LanguageName"
                                 />
                             <TextBlock
                                 Text="번역문"
@@ -126,12 +127,13 @@
                                 <ComboBoxItem Content="둘다"/>
                             </ComboBox>
                         </WrapPanel>
+
                         <ScrollViewer
                             Grid.Row="1"
                             VerticalScrollBarVisibility="Auto"
                             >
                             <ItemsControl
-                                ItemsSource="{Binding Path=NowSubtitles, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
                                 >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -154,6 +156,7 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
+
                     </Grid>
 
                 </materialDesign:Card>
