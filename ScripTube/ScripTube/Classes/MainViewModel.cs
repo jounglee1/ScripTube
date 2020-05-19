@@ -48,8 +48,11 @@ namespace ScripTube.Classes
                     mEntity = value;
                     notifyPropertyChanged("Entity");
                     notifyPropertyChanged("Subtitles");
-                    notifyPropertyChanged("SubtitleItems");
                     notifyPropertyChanged("Languages");
+                    if (mEntity.IsSubtitleExisted)
+                    {
+                        SelectedSubtitle = Subtitles[0];
+                    }
                 }
             }
         }
@@ -75,23 +78,6 @@ namespace ScripTube.Classes
                     return SelectedSubtitle.Items;
                 }
                 return null;
-            }
-        }
-
-        public List<String> Languages
-        {
-            get
-            {
-                if (mEntity == null)
-                {
-                    return null;
-                }
-                var list = new List<String>();
-                for (int i = 0; i <  mEntity.Subtitles.Count; ++i)
-                {
-                    list.Add(mEntity.Subtitles[i].LanguageName);
-                }
-                return list;
             }
         }
 

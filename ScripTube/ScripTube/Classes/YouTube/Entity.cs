@@ -76,7 +76,7 @@ namespace ScripTube.Classes.YouTube
                 }
                 catch (System.Xml.XmlException)
                 {
-                    Debug.Fail("자막 데이터가 없습니다. 자동 생성 자막 찾아야 함");
+                    Debug.Fail("자막 데이터를 불러오는 도중 실패");
                 }
             }
         }
