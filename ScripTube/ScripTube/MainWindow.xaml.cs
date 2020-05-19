@@ -76,7 +76,7 @@ namespace ScripTube
                 {
                     return;
                 }
-                xViewModel.Entity = new Entity(dialog.VideoIDOrNull);
+                xMainViewModel.Entity = new Entity(dialog.VideoIDOrNull);
             }
             xWebView.Visibility = Visibility.Visible;
         }
