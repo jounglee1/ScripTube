@@ -79,6 +79,10 @@ namespace ScripTube
                 {
                     return;
                 }
+                if (!dialog.EntityOrNull.IsSubtitleExisted)
+                {
+                    MessageBox.Show("지원하는 스크립트가 없습니다.", Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
             xWebView.Visibility = Visibility.Visible;
         }
