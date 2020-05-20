@@ -11,6 +11,7 @@ namespace ScripTube.Classes.YouTube
         public string Text { get; }
         public double StartSeconds { get;}
         public double DurationSeconds { get; }
+        public bool IsOneHourExcessed { get; }
 
         public string StartTime
         {
@@ -19,15 +20,22 @@ namespace ScripTube.Classes.YouTube
                 int total = Convert.ToInt32(StartSeconds);
                 int min = total / 60;
                 int sec = total % 60;
+                if (IsOneHourExcessed)
+                {
+                    int hour = min / 60;
+                    min %= 60;
+                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
+                }
                 return $"{min.ToString("D2")}:{sec.ToString("D2")}";
             }
         }
 
-        public SubtitleItem(string text, string start, string duration)
+        public SubtitleItem(string text, string start, string duration, bool bOneHourExcessed)
         {
             Text = unescapeXml(text);
             StartSeconds = double.Parse(start);
             DurationSeconds = double.Parse(duration);
+            IsOneHourExcessed = bOneHourExcessed;
         }
 
         private string unescapeXml(string s)

@@ -17,7 +17,7 @@ namespace ScripTube.Classes.YouTube
         private ObservableCollection<SubtitleItem> mItems = new ObservableCollection<SubtitleItem>();
         public ObservableCollection<SubtitleItem> Items
         {
-            get => mItems;
+            get { return mItems; }
         }
 
         public Subtitle(JToken languageCode, JToken languageName, JToken asr)

@@ -25,17 +25,19 @@ namespace ScripTube.Classes.YouTube
         private ObservableCollection<Subtitle> mSubtitles = new ObservableCollection<Subtitle>();
         public ObservableCollection<Subtitle> Subtitles
         {
-            get => mSubtitles;
+            get { return mSubtitles; }
         }
 
         public bool IsSubtitleExisted
         {
-            get => (mSubtitles.Count > 0);
+            get { return (mSubtitles.Count > 0); }
         }
 
         public string Title { get; }
 
         public bool IsAvailable { get; }
+
+        public int LengthSeconds { get; }
 
         public Entity(string id)
         {
@@ -51,6 +53,7 @@ namespace ScripTube.Classes.YouTube
             if (IsAvailable)
             {
                 Title = mMetadata["videoDetails"]["title"].ToString();
+                LengthSeconds = Convert.ToInt32(mMetadata["videoDetails"]["lengthSeconds"]);
                 loadSubtitles();
             }
         }
@@ -70,7 +73,7 @@ namespace ScripTube.Classes.YouTube
                     xmlDoc.Load(jToken["baseUrl"].ToString());
                     foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes)
                     {
-                        subtitle.AddItem(new SubtitleItem((xmlNode.FirstChild.InnerText), xmlNode.Attributes["start"].Value, xmlNode.Attributes["dur"].Value));
+                        subtitle.AddItem(new SubtitleItem((xmlNode.FirstChild.InnerText), xmlNode.Attributes["start"].Value, xmlNode.Attributes["dur"].Value, LengthSeconds >= 3600));
                     }
                     mSubtitles.Add(subtitle);
                 }
