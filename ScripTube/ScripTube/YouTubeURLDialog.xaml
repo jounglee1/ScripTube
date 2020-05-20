@@ -33,7 +33,6 @@
                     Width="400"
                     Margin="10"
                     TextChanged="xTextBoxURL_TextChanged"
-                    AcceptsReturn="True"
                     />
                 <TextBlock x:Name="xTextBlockError" Text="올바른 URL이 아닙니다." Foreground="Red" Visibility="Hidden" />
                 <StackPanel
