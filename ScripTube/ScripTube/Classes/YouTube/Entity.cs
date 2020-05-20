@@ -18,9 +18,14 @@ namespace ScripTube.Classes.YouTube
         public static string VIDEO_INFO_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
         private static string PLAYER_RESPONSE_NAME = "player_response=";
 
-        private JObject mMetadata;
-
         public string ID { get; }
+        public string Title { get; }
+        public EVideoStatus Status { get; }
+        public int LengthSeconds { get; }
+        public bool IsSubtitleExisted
+        {
+            get { return (mSubtitles.Count > 0); }
+        }
 
         private ObservableCollection<Subtitle> mSubtitles = new ObservableCollection<Subtitle>();
         public ObservableCollection<Subtitle> Subtitles
@@ -28,34 +33,35 @@ namespace ScripTube.Classes.YouTube
             get { return mSubtitles; }
         }
 
-        public bool IsSubtitleExisted
-        {
-            get { return (mSubtitles.Count > 0); }
-        }
-
-        public string Title { get; }
-
-        public bool IsAvailable { get; }
-
-        public int LengthSeconds { get; }
+        private JObject mMetadata;
 
         public Entity(string id)
         {
-            Debug.Assert(id != null && id.Length == VIDEO_ID_LENGTH);
             ID = id;
+            mMetadata = getVideoInformationOrNull(ID);
+            Debug.Assert(mMetadata != null);
 
-            mMetadata = Entity.GetVideoInformationOrNull(ID);
-            Debug.Assert(mMetadata != null);            
-            
-            IsAvailable = (mMetadata["playabilityStatus"]["status"].ToString() == "OK"); // "UNPLAYABLE", "ERROR"
-            Debug.Assert(IsAvailable);
-
-            if (IsAvailable)
+            Status = loadStatus(mMetadata["playabilityStatus"]["status"]);
+            if (Status == EVideoStatus.OK)
             {
                 Title = mMetadata["videoDetails"]["title"].ToString();
                 LengthSeconds = Convert.ToInt32(mMetadata["videoDetails"]["lengthSeconds"]);
                 loadSubtitles();
             }
+        }
+
+        private EVideoStatus loadStatus(JToken jToken)
+        {
+            string str = jToken.ToString();
+            if (str == "OK")
+            {
+                return EVideoStatus.OK;
+            }
+            else if (str == "UNPLAYABLE")
+            {
+                return EVideoStatus.UNPLAYABLE;
+            }
+            return EVideoStatus.ERROR;
         }
 
         private void loadSubtitles()
@@ -84,7 +90,8 @@ namespace ScripTube.Classes.YouTube
             }
         }
 
-        public static JObject GetVideoInformationOrNull(string videoId)
+
+        private static JObject getVideoInformationOrNull(string videoId)
         {
             string innerText = System.Web.HttpUtility.UrlDecode(getAllStreamFromURL(string.Format(VIDEO_INFO_URL, videoId)));
             foreach (var attribute in innerText.Split('&'))

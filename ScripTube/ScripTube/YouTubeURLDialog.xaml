@@ -39,10 +39,11 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     >
-                    <Button 
-                        Content="적용"
+                    <Button
+                        x:Name="xButtonLoad"
+                        Content="불러오기"
                         IsDefault="True"
-                        Click="xButtonOK_Click"
+                        Click="xButtonLoad_Click"
                         Margin="0, 0, 8, 0"
                         >
                     </Button>

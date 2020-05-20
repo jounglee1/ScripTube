@@ -22,7 +22,7 @@ namespace ScripTube
 {
     public partial class YouTubeURLDialog : UserControl
     {
-        public string VideoIDOrNull;
+        public Entity EntityOrNull;
 
         public YouTubeURLDialog()
         {
@@ -30,18 +30,41 @@ namespace ScripTube
             xTextBoxURL.Text = "https://www.youtube.com/watch?v=qC5KtatMcUw";//Clipboard.GetText().Trim();
         }
 
-        private void xButtonOK_Click(object sender, RoutedEventArgs e)
+        private void xButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            string url = xTextBoxURL.Text;
-            string idOrNull = getYouTubeVideoIDOrNull(url);
-            if (idOrNull != null && idOrNull.Length == Entity.VIDEO_ID_LENGTH)
+            string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
+            var entity = new Entity(idOrNull);
+            if (entity.Status == EVideoStatus.OK)
             {
-                VideoIDOrNull = idOrNull;
+                EntityOrNull = entity;
                 xButtonClose.Command.Execute(true); // xButtonClose.CommandParameter
+            }
+            else if (entity.Status == EVideoStatus.UNPLAYABLE)
+            {
+                MessageBox.Show("저작권의 이유로 인하여 불러올 수 없는 동영상입니다.");
+                xTextBoxURL.Focus();
+                xTextBoxURL.SelectAll();
+            }
+            else if (entity.Status == EVideoStatus.ERROR)
+            {
+                MessageBox.Show("유효하지 않은 동영상입니다.");
+                xTextBoxURL.Focus();
+                xTextBoxURL.SelectAll();
+            }
+        }
+
+        private void xTextBoxURL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
+            if (isIdStringValid(idOrNull))
+            {
+                xButtonLoad.IsEnabled = true;
+                xTextBlockError.Visibility = Visibility.Hidden;
             }
             else
             {
-                VideoIDOrNull = null;
+                xButtonLoad.IsEnabled = false;
+                xTextBlockError.Visibility = Visibility.Visible;
             }
         }
 
@@ -68,17 +91,9 @@ namespace ScripTube
             }
         }
 
-        private void xTextBoxURL_TextChanged(object sender, TextChangedEventArgs e)
+        private bool isIdStringValid(string idOrNull)
         {
-            string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
-            if (idOrNull != null && idOrNull.Length == Entity.VIDEO_ID_LENGTH)
-            {
-                xTextBlockError.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                xTextBlockError.Visibility = Visibility.Visible;
-            }
+            return idOrNull != null && idOrNull.Length == Entity.VIDEO_ID_LENGTH;
         }
     }
 }

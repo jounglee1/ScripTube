@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -67,16 +68,17 @@ namespace ScripTube
             var dialog = new YouTubeURLDialog();
             if ((bool)await DialogHost.Show(dialog, "RootDialog"))
             {
+                Debug.Assert(dialog.EntityOrNull != null);
+                xMainViewModel.Entity = dialog.EntityOrNull;
                 try
                 {
                     xWebView.InvokeScript("destroyVideo");
-                    xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoIDOrNull });
+                    xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.EntityOrNull.ID });
                 }
                 catch (System.AggregateException)
                 {
                     return;
                 }
-                xMainViewModel.Entity = new Entity(dialog.VideoIDOrNull);
             }
             xWebView.Visibility = Visibility.Visible;
         }
@@ -84,7 +86,6 @@ namespace ScripTube
         private void xWindow_Closing(object sender, CancelEventArgs e)
         {
             xWebView.Close();
-            //xWebView.InvokeScript("destroyVideo");
         }
     }
 }
