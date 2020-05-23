@@ -111,7 +111,6 @@
                                 Text="번역문"
                                 />
                             <ComboBox
-                                IsEditable="True"
                                 IsReadOnly="True"
                                 Text="한국어"
                                 />

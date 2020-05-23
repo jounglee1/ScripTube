@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,22 +36,22 @@ namespace ScripTube.Classes
             }
         }
 
-        private Entity mEntity;
-        public Entity Entity
+        private Video mVideo;
+        public Video Video
         {
             get
             {
-                return mEntity;
+                return mVideo;
             }
             set
             {
-                if (mEntity != value)
+                if (mVideo != value)
                 {
-                    mEntity = value;
-                    notifyPropertyChanged("Entity");
+                    mVideo = value;
+                    notifyPropertyChanged("Video");
                     notifyPropertyChanged("Subtitles");
                     notifyPropertyChanged("Languages");
-                    if (mEntity.IsSubtitleExisted)
+                    if (mVideo.IsSubtitleExisted)
                     {
                         SelectedSubtitle = Subtitles[0];
                     }
@@ -61,9 +63,9 @@ namespace ScripTube.Classes
         {
             get
             {
-                if (mEntity != null && mEntity.IsSubtitleExisted)
+                if (mVideo != null && mVideo.IsSubtitleExisted)
                 {
-                    return mEntity.Subtitles;
+                    return mVideo.Subtitles;
                 }
                 return null;
             }

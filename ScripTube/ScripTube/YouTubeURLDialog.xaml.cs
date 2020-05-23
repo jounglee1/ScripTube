@@ -22,7 +22,7 @@ namespace ScripTube
 {
     public partial class YouTubeURLDialog : UserControl
     {
-        public Entity EntityOrNull;
+        public Video VideoOrNull;
 
         public YouTubeURLDialog()
         {
@@ -33,19 +33,19 @@ namespace ScripTube
         private void xButtonLoad_Click(object sender, RoutedEventArgs e)
         {
             string idOrNull = getYouTubeVideoIDOrNull(xTextBoxURL.Text);
-            var entity = new Entity(idOrNull);
-            if (entity.Status == EVideoStatus.OK)
+            var video = new Video(idOrNull);
+            if (video.Status == EVideoStatus.OK)
             {
-                EntityOrNull = entity;
+                VideoOrNull = video;
                 xButtonClose.Command.Execute(true); // xButtonClose.CommandParameter
             }
-            else if (entity.Status == EVideoStatus.UNPLAYABLE)
+            else if (video.Status == EVideoStatus.UNPLAYABLE)
             {
                 MessageBox.Show("저작권의 이유로 인하여 불러올 수 없는 동영상입니다.");
                 xTextBoxURL.Focus();
                 xTextBoxURL.SelectAll();
             }
-            else if (entity.Status == EVideoStatus.ERROR)
+            else if (video.Status == EVideoStatus.ERROR)
             {
                 MessageBox.Show("유효하지 않은 동영상입니다.");
                 xTextBoxURL.Focus();
@@ -93,7 +93,7 @@ namespace ScripTube
 
         private bool isIdStringValid(string idOrNull)
         {
-            return idOrNull != null && idOrNull.Length == Entity.VIDEO_ID_LENGTH;
+            return idOrNull != null && idOrNull.Length == Video.ID_LENGTH;
         }
     }
 }

@@ -12,10 +12,10 @@ using System.Xml;
 
 namespace ScripTube.Classes.YouTube
 {
-    public class Entity
+    public class Video
     {
-        public static int VIDEO_ID_LENGTH = 11;        
-        public static string VIDEO_INFO_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
+        public static int ID_LENGTH = 11;        
+        public static string METADATA_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
         private static string PLAYER_RESPONSE_NAME = "player_response=";
 
         public string ID { get; }
@@ -35,7 +35,7 @@ namespace ScripTube.Classes.YouTube
 
         private JObject mMetadata;
 
-        public Entity(string id)
+        public Video(string id)
         {
             ID = id;
             mMetadata = getVideoInformationOrNull(ID);
@@ -93,7 +93,7 @@ namespace ScripTube.Classes.YouTube
 
         private static JObject getVideoInformationOrNull(string videoId)
         {
-            string innerText = System.Web.HttpUtility.UrlDecode(getAllStreamFromURL(string.Format(VIDEO_INFO_URL, videoId)));
+            string innerText = System.Web.HttpUtility.UrlDecode(getAllStreamFromURL(string.Format(METADATA_URL, videoId)));
             foreach (var attribute in innerText.Split('&'))
             {
                 if (attribute.IndexOf(PLAYER_RESPONSE_NAME) == 0)

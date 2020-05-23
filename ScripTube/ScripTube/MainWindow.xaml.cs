@@ -68,18 +68,18 @@ namespace ScripTube
             var dialog = new YouTubeURLDialog();
             if ((bool)await DialogHost.Show(dialog, "RootDialog"))
             {
-                Debug.Assert(dialog.EntityOrNull != null);
-                xMainViewModel.Entity = dialog.EntityOrNull;
+                Debug.Assert(dialog.VideoOrNull != null);
+                xMainViewModel.Video = dialog.VideoOrNull;
                 try
                 {
                     xWebView.InvokeScript("destroyVideo");
-                    xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.EntityOrNull.ID });
+                    xWebView.InvokeScript("onYouTubeIframeAPIReady", new string[] { dialog.VideoOrNull.ID });
                 }
                 catch (System.AggregateException)
                 {
                     return;
                 }
-                if (!dialog.EntityOrNull.IsSubtitleExisted)
+                if (!dialog.VideoOrNull.IsSubtitleExisted)
                 {
                     MessageBox.Show("지원하는 스크립트가 없습니다.", Title, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
