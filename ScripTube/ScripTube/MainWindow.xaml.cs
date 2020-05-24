@@ -30,9 +30,41 @@ namespace ScripTube
     /// </summary>
     public partial class MainWindow : Window
     {
+        System.Windows.Threading.DispatcherTimer mDispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
+            mDispatcherTimer.Tick += DispatcherTimer_Tick;
+            mDispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
+            mDispatcherTimer.Start();
+        }
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (xMainViewModel.SelectedSubtitle == null)
+            {
+                return;
+            }
+            try
+            {
+                string time = xWebView.InvokeScript("getCurrentTime");
+                double d;
+                if (double.TryParse(time, out d))
+                {
+                    int index = xMainViewModel.SelectedSubtitle.GetIndexBySeconds(d);
+                    if (xListView.SelectedIndex != index)
+                    {
+                        xListView.ScrollIntoView(xListView.SelectedItem);
+                    }
+                    xListView.SelectedIndex = index;
+                }
+            }
+            catch (System.AggregateException)
+            {
+
+            }
+            
         }
 
         [Obsolete]
@@ -89,7 +121,21 @@ namespace ScripTube
 
         private void xWindow_Closing(object sender, CancelEventArgs e)
         {
+            xWebView.InvokeScript("stopVideo");
             xWebView.Close();
+        }
+
+        private void xTextBlockTimeStamp_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var textBlock = (sender as TextBlock);
+            var subtitleItem = textBlock.DataContext as SubtitleItem;
+            xWebView.InvokeScript("seekTo", new string[] { subtitleItem.StartSeconds.ToString() });
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem;
+            var subtitle = item as SubtitleItem;
         }
     }
 }

@@ -31,5 +31,29 @@ namespace ScripTube.Classes.YouTube
         {
             mItems.Add(item);
         }
+
+        public int GetIndexBySeconds(double currentTime)
+        {
+            int left = 0;
+            int right = mItems.Count - 1;
+            int mid = (left + right) / 2;
+            while (left < right)
+            {
+                if (currentTime >= mItems[mid].StartSeconds && currentTime < mItems[mid].StartSeconds + mItems[mid].DurationSeconds)
+                {
+                    return mid;
+                }
+                if (currentTime < mItems[mid].StartSeconds)
+                {
+                    right = mid - 1;
+                }
+                else if (currentTime > mItems[mid].StartSeconds)
+                {
+                    left = mid + 1;
+                }
+                mid = (left + right) / 2;
+            }
+            return mid;
+        }
     }
 }

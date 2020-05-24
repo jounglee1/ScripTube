@@ -12,7 +12,7 @@ namespace ScripTube.Classes.YouTube
         public double StartSeconds { get;}
         public double DurationSeconds { get; }
         public bool IsOneHourExcessed { get; }
-        public string StartTime
+        public string StartTimeFormat
         {
             get
             {

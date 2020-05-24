@@ -100,6 +100,7 @@
                                 />
                             <TextBlock
                                 Text="원문"
+                                Height="auto"
                                 />
                             <ComboBox
                                 IsReadOnly="True"
@@ -127,35 +128,35 @@
                             </ComboBox>
                         </WrapPanel>
 
-                        <ScrollViewer
+                        <ListView
+                            x:Name="xListView"
                             Grid.Row="1"
-                            VerticalScrollBarVisibility="Auto"
+                            ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="ListView_SelectionChanged"
                             >
-                            <ItemsControl
-                                ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
-                                >
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto" />
-                                                <ColumnDefinition Width="auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock
-                                                Grid.Column="0"
-                                                Text="{Binding StartTime}"
-                                                Foreground="LightSkyBlue"
-                                                Margin="0, 0, 8, 0"
-                                                />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                Text="{Binding Text}"
-                                                />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Text="{Binding StartTimeFormat}"
+                                            Foreground="LightSkyBlue"
+                                            Margin="0, 0, 8, 0"
+                                            Cursor="Hand"
+                                            MouseDown="xTextBlockTimeStamp_MouseDown"
+                                            />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{Binding Text}"
+                                            />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
                     </Grid>
 

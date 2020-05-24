@@ -66,7 +66,7 @@ namespace ScripTube.Classes.YouTube
 
         private void loadSubtitles()
         {
-            if (mMetadata["captions"] == null) // no subtitles
+            if (mMetadata["captions"]["playerCaptionsTracklistRenderer"]["captionTracks"] == null) // no subtitles
             {
                 return;
             }
