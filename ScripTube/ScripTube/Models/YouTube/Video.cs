@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using ScripTube.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace ScripTube.Classes.YouTube
+namespace ScripTube.Models.YouTube
 {
     public class Video
     {

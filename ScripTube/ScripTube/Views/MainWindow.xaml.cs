@@ -1,5 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
-using ScripTube.Classes.YouTube;
+using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,11 +23,8 @@ using System.Windows.Shapes;
 using System.Xml;
 using Windows.UI.Popups;
 
-namespace ScripTube
+namespace ScripTube.Views
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class MainWindow : Window
     {
         System.Windows.Threading.DispatcherTimer mDispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -42,7 +39,7 @@ namespace ScripTube
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (xMainViewModel.SelectedSubtitle == null)
+            if (xMainWindowViewModel.SelectedSubtitle == null)
             {
                 return;
             }
@@ -52,7 +49,7 @@ namespace ScripTube
                 double d;
                 if (double.TryParse(time, out d))
                 {
-                    int index = xMainViewModel.SelectedSubtitle.GetIndexBySeconds(d);
+                    int index = xMainWindowViewModel.SelectedSubtitle.GetIndexBySeconds(d);
                     if (xListView.SelectedIndex != index)
                     {
                         xListView.ScrollIntoView(xListView.SelectedItem);
@@ -101,7 +98,7 @@ namespace ScripTube
             if ((bool)await DialogHost.Show(dialog, "RootDialog"))
             {
                 Debug.Assert(dialog.VideoOrNull != null);
-                xMainViewModel.Video = dialog.VideoOrNull;
+                xMainWindowViewModel.Video = dialog.VideoOrNull;
                 try
                 {
                     xWebView.InvokeScript("destroyVideo");
@@ -121,7 +118,14 @@ namespace ScripTube
 
         private void xWindow_Closing(object sender, CancelEventArgs e)
         {
-            xWebView.InvokeScript("stopVideo");
+            try
+            {
+                xWebView.InvokeScript("stopVideo");
+            }
+            catch (System.AggregateException)
+            {
+
+            }
             xWebView.Close();
         }
 

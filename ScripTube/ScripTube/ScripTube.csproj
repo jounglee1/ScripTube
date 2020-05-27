@@ -63,15 +63,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\MainViewModel.cs" />
-    <Compile Include="Classes\YouTube\EVideoStatus.cs" />
-    <Compile Include="Classes\YouTube\SubtitleItem.cs" />
-    <Compile Include="Classes\YouTube\Video.cs" />
-    <Compile Include="Classes\YouTube\Subtitle.cs" />
-    <Compile Include="YouTubeURLDialog.xaml.cs">
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Enums\EVideoStatus.cs" />
+    <Compile Include="Models\YouTube\SubtitleItem.cs" />
+    <Compile Include="Models\YouTube\Video.cs" />
+    <Compile Include="Models\YouTube\Subtitle.cs" />
+    <Compile Include="Views\YouTubeURLDialog.xaml.cs">
       <DependentUpon>YouTubeURLDialog.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -79,11 +79,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="YouTubeURLDialog.xaml">
+    <Page Include="Views\YouTubeURLDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,5 +131,6 @@
       <Version>4.7.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

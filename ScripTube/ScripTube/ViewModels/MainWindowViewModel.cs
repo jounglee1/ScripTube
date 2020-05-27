@@ -1,4 +1,5 @@
-﻿using ScripTube.Classes.YouTube;
+﻿
+using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,15 +10,10 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScripTube.Classes
+namespace ScripTube.ViewModels
 {
-    class MainViewModel : INotifyPropertyChanged
+    class MainWindowViewModel : INotifyPropertyChanged
     {
-        public MainViewModel()
-        {
-
-        }
-
         private Subtitle mSelectedSubtitle;
         public Subtitle SelectedSubtitle
         {

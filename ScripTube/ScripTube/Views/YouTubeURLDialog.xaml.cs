@@ -1,6 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
-using ScripTube.Classes;
-using ScripTube.Classes.YouTube;
+using ScripTube.Enums;
+using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ScripTube
+namespace ScripTube.Views
 {
     public partial class YouTubeURLDialog : UserControl
     {

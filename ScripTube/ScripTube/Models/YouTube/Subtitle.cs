@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScripTube.Classes.YouTube
+namespace ScripTube.Models.YouTube
 {
     public class Subtitle
     {
