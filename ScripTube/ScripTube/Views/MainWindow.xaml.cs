@@ -49,12 +49,8 @@ namespace ScripTube.Views
                 double d;
                 if (double.TryParse(time, out d))
                 {
-                    int index = xMainWindowViewModel.SelectedSubtitle.GetIndexBySeconds(d);
-                    if (xListView.SelectedIndex != index)
-                    {
-                        xListView.ScrollIntoView(xListView.SelectedItem);
-                    }
-                    xListView.SelectedIndex = index;
+                    var item = xMainWindowViewModel.SelectedSubtitle.HighlightSubtitleItem(d);
+                    xListView.ScrollIntoView(item);
                 }
             }
             catch (System.AggregateException)
@@ -120,6 +116,7 @@ namespace ScripTube.Views
         {
             try
             {
+                mDispatcherTimer.Stop();
                 xWebView.InvokeScript("stopVideo");
             }
             catch (System.AggregateException)
@@ -131,15 +128,23 @@ namespace ScripTube.Views
 
         private void xTextBlockTimeStamp_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            mDispatcherTimer.Stop();
             var textBlock = (sender as TextBlock);
             var subtitleItem = textBlock.DataContext as SubtitleItem;
             xWebView.InvokeScript("seekTo", new string[] { subtitleItem.StartSeconds.ToString() });
+            xMainWindowViewModel.SelectedSubtitle.HighlightSubtitleItem(subtitleItem.StartSeconds);
+            mDispatcherTimer.Start();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = (sender as ListView).SelectedItem;
             var subtitle = item as SubtitleItem;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://papago.naver.com/?sk=auto&tk=ko&st=hello+world~~");
         }
     }
 }

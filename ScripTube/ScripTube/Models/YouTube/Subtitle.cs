@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ScripTube.Models.YouTube
 {
@@ -20,6 +21,8 @@ namespace ScripTube.Models.YouTube
             get { return mItems; }
         }
 
+        private int mLastHighlightedIndex;
+
         public Subtitle(JToken languageCode, JToken languageName, JToken asr)
         {
             LanguageCode = languageCode.ToString();
@@ -32,7 +35,7 @@ namespace ScripTube.Models.YouTube
             mItems.Add(item);
         }
 
-        public int GetIndexBySeconds(double currentTime)
+        private int getIndexBySeconds(double currentTime)
         {
             int left = 0;
             int right = mItems.Count - 1;
@@ -54,6 +57,15 @@ namespace ScripTube.Models.YouTube
                 mid = (left + right) / 2;
             }
             return mid;
+        }
+
+        public SubtitleItem HighlightSubtitleItem(double currentTime)
+        {
+            mItems[mLastHighlightedIndex].Visibility = Visibility.Hidden;
+            int index = getIndexBySeconds(currentTime);
+            mItems[index].Visibility = Visibility.Visible;
+            mLastHighlightedIndex = index;
+            return mItems[index];
         }
     }
 }

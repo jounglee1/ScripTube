@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ScripTube.Models.YouTube
 {
-    public class SubtitleItem
+    public class SubtitleItem : INotifyPropertyChanged
     {
         public string Text { get; }
         public double StartSeconds { get;}
         public double DurationSeconds { get; }
         public bool IsOneHourExcessed { get; }
+
         public string StartTimeFormat
         {
             get
@@ -27,6 +30,14 @@ namespace ScripTube.Models.YouTube
                 }
                 return $"{min.ToString("D2")}:{sec.ToString("D2")}";
             }
+        }
+
+        private Visibility mVisibility = Visibility.Hidden;
+
+        public Visibility Visibility
+        {
+            get { return mVisibility; }
+            set { mVisibility = value; notifyPropertyChanged(nameof(Visibility)); }
         }
 
         public SubtitleItem(string text, string start, string duration, bool bOneHourExcessed)
@@ -46,6 +57,16 @@ namespace ScripTube.Models.YouTube
             sb.Replace("&#60;", "<");
             sb.Replace("&#62;", ">");
             return sb.ToString();
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void notifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

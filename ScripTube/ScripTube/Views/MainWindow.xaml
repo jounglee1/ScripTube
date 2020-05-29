@@ -53,8 +53,9 @@
                         Header="*.md 파일로 저장"
                         />
                 </MenuItem>
-                <MenuItem Header="번역">
-
+                <MenuItem Header="번역"
+                          Click="MenuItem_Click_1"
+                          >
                 </MenuItem>
             </Menu>
             
@@ -95,7 +96,7 @@
                         </Grid.RowDefinitions>
                         <WrapPanel>
                             <CheckBox
-                                Content="번역"
+                                Content="자동 스크롤"
                                 />
                             <TextBlock
                                 Text="원문"
@@ -132,24 +133,35 @@
                             Grid.Row="1"
                             ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
                             SelectionChanged="ListView_SelectionChanged"
+                            SelectionMode="Extended"
                             >
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="IsSelected" Value="{Binding SomeItemSelected, Mode=TwoWay}" />
+                                </Style>
+                            </ListView.Resources>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
+                                        <Rectangle
+                                            Fill="DarkSlateBlue"
+                                            Visibility="{Binding Visibility}"
+                                            />
                                         <TextBlock
-                                            Grid.Column="0"
+                                            Grid.Column="1"
                                             Text="{Binding StartTimeFormat}"
                                             Foreground="LightSkyBlue"
-                                            Margin="0, 0, 8, 0"
+                                            Margin="8, 0, 8, 0"
                                             Cursor="Hand"
                                             MouseDown="xTextBlockTimeStamp_MouseDown"
                                             />
                                         <TextBlock
-                                            Grid.Column="1"
+                                            Grid.Column="2"
                                             Text="{Binding Text}"
                                             />
                                     </Grid>
