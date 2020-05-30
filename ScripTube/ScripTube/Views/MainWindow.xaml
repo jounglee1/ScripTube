@@ -39,6 +39,7 @@
                 <MenuItem Header="저장">
                     <MenuItem
                         Header="*.txt 파일로 저장"
+                        Click="MenuItem_SaveTXT"
                         />
                     <MenuItem
                         Header="*.smi 파일로 저장"
@@ -161,6 +162,7 @@
                                             MouseDown="xTextBlockTimeStamp_MouseDown"
                                             />
                                         <TextBlock
+                                            x:Name="xTextBlock_SubTitle"
                                             Grid.Column="2"
                                             Text="{Binding Text}"
                                             />
