@@ -41,7 +41,6 @@ namespace ScripTube.Models.YouTube
 
         public void SaveSubtitle()
         {
-            string dir = "";
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             saveFileDialog.DefaultExt = "*.txt";
             saveFileDialog.Filter = "텍스트 파일 (*.txt)|*.txt|모든 파일(*.*)|*.*";
@@ -55,8 +54,6 @@ namespace ScripTube.Models.YouTube
 
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                dir = saveFileDialog.FileName;
-
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
                 

@@ -39,7 +39,7 @@
                 <MenuItem Header="저장">
                     <MenuItem
                         Header="*.txt 파일로 저장"
-                        Click="MenuItem_SaveTXT"
+                        Click="MenuItem_Click_SaveTXT"
                         />
                     <MenuItem
                         Header="*.smi 파일로 저장"
