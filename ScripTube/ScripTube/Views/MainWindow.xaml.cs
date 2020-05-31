@@ -149,7 +149,7 @@ namespace ScripTube.Views
 
         private void MenuItem_SaveTXT(object sender, RoutedEventArgs e)
         {
-            if(Models.YouTube.SubtitleItem.)
+            xMainWindowViewModel.SelectedSubtitle.SaveSubtitle();
         }
 
     }

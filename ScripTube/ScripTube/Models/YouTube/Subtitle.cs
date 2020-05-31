@@ -1,11 +1,15 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace ScripTube.Models.YouTube
 {
@@ -33,6 +37,40 @@ namespace ScripTube.Models.YouTube
         public void AddItem(SubtitleItem item)
         {
             mItems.Add(item);
+        }
+
+        public void SaveSubtitle()
+        {
+            string dir = "";
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.DefaultExt = "*.txt";
+            saveFileDialog.Filter = "텍스트 파일 (*.txt)|*.txt|모든 파일(*.*)|*.*";
+
+            string[] subs = new string[Items.Count];
+
+            for (int i = 0; i < Items.Count; i++)
+            {
+                subs[i] = Items[i].StartTimeFormat + "  |  " + Items[i].Text;
+            }
+
+            if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                dir = saveFileDialog.FileName;
+
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
+                StreamWriter streamWriter = new StreamWriter(fileStream);
+                
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    streamWriter.WriteLine(subs[i]);
+                }
+
+                streamWriter.Flush();
+                streamWriter.Close();
+                fileStream.Close();
+
+            }
+            
         }
 
         private int getIndexBySeconds(double currentTime)
@@ -67,5 +105,7 @@ namespace ScripTube.Models.YouTube
             mLastHighlightedIndex = index;
             return mItems[index];
         }
+
+        
     }
 }

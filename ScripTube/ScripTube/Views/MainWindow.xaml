@@ -162,7 +162,6 @@
                                             MouseDown="xTextBlockTimeStamp_MouseDown"
                                             />
                                         <TextBlock
-                                            x:Name="xTextBlock_SubTitle"
                                             Grid.Column="2"
                                             Text="{Binding Text}"
                                             />
