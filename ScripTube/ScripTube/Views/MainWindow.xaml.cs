@@ -149,7 +149,7 @@ namespace ScripTube.Views
 
         private void MenuItem_Click_SaveTXT(object sender, RoutedEventArgs e)
         {
-            xMainWindowViewModel.SelectedSubtitle.SaveSubtitle();
+            xMainWindowViewModel.SelectedSubtitle.SaveSubtitleTXT();
         }
 
     }

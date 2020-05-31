@@ -39,7 +39,7 @@ namespace ScripTube.Models.YouTube
             mItems.Add(item);
         }
 
-        public void SaveSubtitle()
+        public void SaveSubtitleTXT()
         {
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             saveFileDialog.DefaultExt = "*.txt";
