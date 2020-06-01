@@ -151,6 +151,5 @@ namespace ScripTube.Views
         {
             xMainWindowViewModel.SelectedSubtitle.SaveSubtitleTXT();
         }
-
     }
 }

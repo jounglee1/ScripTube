@@ -8,7 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+<<<<<<< .merge_file_a11088
 using System.Windows.Controls.Primitives;
+=======
+>>>>>>> .merge_file_a06836
 using System.Windows.Forms;
 
 namespace ScripTube.Models.YouTube
@@ -96,6 +99,37 @@ namespace ScripTube.Models.YouTube
             return mid;
         }
 
+        public void SaveSubtitleTXT()
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.DefaultExt = "*.txt";
+            saveFileDialog.Filter = "텍스트 파일 (*.txt)|*.txt|모든 파일(*.*)|*.*";
+
+            var subItemText = new List<string>();
+            var subItemTime = new List<string>();
+
+            for (int i = 0; i < Items.Count; i++)
+            {
+                subItemText.Add(Items[i].Text);
+                subItemTime.Add(Items[i].StartTimeFormat);
+            }
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
+                StreamWriter streamWriter = new StreamWriter(fileStream);
+
+                foreach (var subItems in subItemTime.Zip(subItemText, Tuple.Create)) // Zip으로 두 리스트를 병합 
+                {
+                    streamWriter.WriteLine(subItems.Item1 + " | " + subItems.Item2);
+                }
+
+                streamWriter.Flush();
+                streamWriter.Close();
+                fileStream.Close();
+            }
+
+        }
         public SubtitleItem HighlightSubtitleItem(double currentTime)
         {
             mItems[mLastHighlightedIndex].Visibility = Visibility.Hidden;
