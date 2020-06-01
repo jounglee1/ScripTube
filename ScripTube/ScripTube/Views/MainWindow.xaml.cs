@@ -146,5 +146,10 @@ namespace ScripTube.Views
         {
             System.Diagnostics.Process.Start("https://papago.naver.com/?sk=auto&tk=ko&st=hello+world~~");
         }
+
+        private void MenuItem_Click_SaveTXT(object sender, RoutedEventArgs e)
+        {
+            xMainWindowViewModel.SelectedSubtitle.SaveSubtitleTXT();
+        }
     }
 }
