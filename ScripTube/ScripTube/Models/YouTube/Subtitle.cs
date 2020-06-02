@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace ScripTube.Models.YouTube
@@ -100,5 +102,7 @@ namespace ScripTube.Models.YouTube
             mLastHighlightedIndex = index;
             return mItems[index];
         }
+
+        
     }
 }
