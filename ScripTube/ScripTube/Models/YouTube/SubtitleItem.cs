@@ -32,6 +32,26 @@ namespace ScripTube.Models.YouTube
             }
         }
 
+        public string StartTimeFormatSRT
+        {
+            get
+            {
+                double total = StartSeconds;
+                int min = (Convert.ToInt32(total)) / 60;
+                double sec = total % (Convert.ToDouble(60));
+                if (IsOneHourExcessed)
+                {
+                    int hour = min / 60;
+                    min %= 60;
+                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
+                }
+                else
+                {
+                    return "00:01:02";
+                }
+            }
+        }
+
         private Visibility mVisibility = Visibility.Hidden;
 
         public Visibility Visibility

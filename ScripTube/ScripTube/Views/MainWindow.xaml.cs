@@ -151,5 +151,10 @@ namespace ScripTube.Views
         {
             xMainWindowViewModel.SelectedSubtitle.SaveSubtitleTXT();
         }
+
+        private void MenuItem_Click_SaveSRT(object sender, RoutedEventArgs e)
+        {
+            xMainWindowViewModel.SelectedSubtitle.SaveSubtitleSRT();
+        }
     }
 }

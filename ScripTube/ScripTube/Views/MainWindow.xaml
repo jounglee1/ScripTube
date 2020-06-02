@@ -46,6 +46,7 @@
                         />
                     <MenuItem
                         Header="*.srt 파일로 저장"
+                        Click="MenuItem_Click_SaveSRT"
                         />
                      <MenuItem
                         Header="*.html 파일로 저장"
