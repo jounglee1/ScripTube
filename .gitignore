@@ -13,8 +13,12 @@
 *.sln.docstates
 
 # Build results
-#[Dd]ebug/
-#[Rr]elease/
+[Dd]ebug/
+![Dd]ebug/yt.html
+
+[Rr]elease/
+![Rr]elease/yt.html
+
 x64/
 #[Bb]in/
 [Oo]bj/
