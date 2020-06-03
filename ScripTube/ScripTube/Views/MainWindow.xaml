@@ -1,179 +1,245 @@
-﻿<Window x:Class="ScripTube.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:ScripTube.ViewModels"
-        xmlns:WPF="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+﻿<Window
+    x:Class="ScripTube.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:m="clr-namespace:ScripTube.Models"
+    xmlns:vm="clr-namespace:ScripTube.ViewModels"
+    xmlns:cmd="clr-namespace:ScripTube.ViewModels.Commands"
+    xmlns:cvtr="clr-namespace:ScripTube.Views.Converters"
+    xmlns:ctrl="clr-namespace:ScripTube.Views.Controls"
+    xmlns:wpf="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:mvvmlight="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d"
+    
+    Title="ScripTube"
+    Height="450"
+    Width="800"
+    AllowsTransparency="False"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Regular"
+    TextElement.FontSize="13"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    WindowStartupLocation="CenterScreen"
+    >
+
+    <!-- Resources -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <vm:MainWindowViewModel x:Key="mainWindowViewModel" />
+            <Style
+                TargetType="{x:Type ctrl:UrlTextBox}"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    
+    <Grid DataContext="{StaticResource mainWindowViewModel}">
         
-        mc:Ignorable="d"
-        Title=" "
-        Height="450"
-        Width="800"
-
-        AllowsTransparency="False"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStartupLocation="CenterScreen" Closing="xWindow_Closing"
-        >
-
-    <Window.DataContext>
-        <vm:MainWindowViewModel x:Name="xMainWindowViewModel"/>
-    </Window.DataContext>
-
-    <materialDesign:DialogHost
-        x:Name="RootDialogHost"
-        Identifier="RootDialog">
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem
-                    Header="새 링크"
-                    Click="MenuItem_Click"
-                    />
-                <MenuItem Header="저장">
-                    <MenuItem
-                        Header="*.txt 파일로 저장"
-                        Click="MenuItem_Click_SaveTXT"
-                        />
-                    <MenuItem
-                        Header="*.smi 파일로 저장"
-                        />
-                    <MenuItem
-                        Header="*.srt 파일로 저장"
-                        />
-                     <MenuItem
-                        Header="*.html 파일로 저장"
-                        />
-                    <MenuItem
-                        Header="*.md 파일로 저장"
-                        />
-                </MenuItem>
-                <MenuItem Header="번역"
-                          Click="MenuItem_Click_1"
-                          >
-                </MenuItem>
-            </Menu>
-            
-            <Grid
-                DockPanel.Dock="Bottom"
-                Margin="8, 0, 8, 8"
-                >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="12"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <materialDesign:Card
-                    Grid.Column="0"
-                    Padding="8"
-                    Margin="8"
-                    >
-                    <WPF:WebView
-                        x:Name="xWebView"
-                        Loaded="xWebView_Loaded"
-                        />
-                </materialDesign:Card>
-                <GridSplitter
-                    Grid.Column="1"
-                    Width="4"
-                    Background="LightGray"
-                    HorizontalAlignment="Stretch"
-                    />
-                <materialDesign:Card
-                    Grid.Column="2"
-                    Padding="16"
-                    Margin="8"
-                    >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="64" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <WrapPanel>
-                            <CheckBox
-                                Content="자동 스크롤"
-                                />
-                            <TextBlock
-                                Text="원문"
-                                Height="auto"
-                                />
-                            <ComboBox
-                                IsReadOnly="True"
-                                ItemsSource="{Binding Path=Subtitles, UpdateSourceTrigger=PropertyChanged}"
-                                SelectedItem="{Binding Path=SelectedSubtitle, UpdateSourceTrigger=PropertyChanged}"
-                                DisplayMemberPath="LanguageName"
-                                />
-                            <TextBlock
-                                Text="번역문"
-                                />
-                            <ComboBox
-                                IsReadOnly="True"
-                                Text="한국어"
-                                />
-                            <TextBlock
-                                Text="표시 언어"
-                                />
-                            <ComboBox
-                                IsEditable="True"
-                                IsReadOnly="True"
-                                >
-                                <ComboBoxItem Content="원문"/>
-                                <ComboBoxItem Content="번역문"/>
-                                <ComboBoxItem Content="둘다"/>
-                            </ComboBox>
-                        </WrapPanel>
-
-                        <ListView
-                            x:Name="xListView"
-                            Grid.Row="1"
-                            ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
-                            SelectionChanged="ListView_SelectionChanged"
-                            SelectionMode="Extended"
+        <!-- Dialog Host -->
+        <md:DialogHost
+            x:Name="DialogHost"
+            IsOpen="{Binding IsDialogOpen}"
+            CloseOnClickAway="True"
+            >
+            <md:DialogHost.DialogContent>
+                <Grid Margin="24">
+                    <StackPanel>
+                        <TextBlock
+                            Text="유튜브 URL"
+                            Padding="8"
+                            />
+                        <ctrl:UrlTextBox
+                            Width="400"
+                            Margin="10"
+                            Text="{Binding Path=TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsSelectedText="{Binding IsSelectedText}"
                             >
-                            <ListView.Resources>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="IsSelected" Value="{Binding SomeItemSelected, Mode=TwoWay}" />
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="4" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle
-                                            Fill="DarkSlateBlue"
-                                            Visibility="{Binding Visibility}"
-                                            />
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            Text="{Binding StartTimeFormat}"
-                                            Foreground="LightSkyBlue"
-                                            Margin="8, 0, 8, 0"
-                                            Cursor="Hand"
-                                            MouseDown="xTextBlockTimeStamp_MouseDown"
-                                            />
-                                        <TextBlock
-                                            Grid.Column="2"
-                                            Text="{Binding Text}"
-                                            />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <mvvmlight:EventToCommand Command="{Binding TextChangedCommand}" PassEventArgsToCommand="True" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ctrl:UrlTextBox>
+                        <TextBlock
+                            Text="올바른 URL이 아닙니다."
+                            Foreground="Red"
+                            Visibility="{Binding IsValidUrl, Converter={cvtr:InvertBooleanToVisiblityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                            />
+                        <StackPanel
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            >
+                            <Button
+                                Content="불러오기"
+                                IsDefault="True"
+                                Command="{Binding Source={StaticResource mainWindowViewModel}, Path=ImportVideoCommand}"
+                                CommandParameter="{Binding TextUrl, Converter={cvtr:UrlToVideoIdConverter}}"
+                                Margin="0, 0, 8, 0"
+                                />
+                            <Button
+                                x:Name="xButtonClose"
+                                Content="취소"
+                                Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                                >
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                        False
+                                    </system:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </md:DialogHost.DialogContent>
 
-                    </Grid>
+            <!-- MainWindow -->            
+            
+            <!-- Upper Menu -->
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem
+                        Header="새 링크"
+                        Command="{x:Static md:DialogHost.OpenDialogCommand}"
+                        />
+                    <MenuItem Header="저장">
+                        <MenuItem
+                            Header="*.txt 파일로 저장"
+                            Command="{Binding Path=SaveScriptCommand}"
+                            CommandParameter="{Binding SelectedSubtitle}"
+                            />
+                        <MenuItem
+                            Header="*.smi 파일로 저장"
+                            />
+                        <MenuItem
+                            Header="*.srt 파일로 저장"
+                            />
+                        <MenuItem
+                            Header="*.html 파일로 저장"
+                            />
+                        <MenuItem
+                            Header="*.md 파일로 저장"
+                            />
+                    </MenuItem>
+                </Menu>
 
-                </materialDesign:Card>
-            </Grid>
-        </DockPanel>
-    </materialDesign:DialogHost>
+                <Grid
+                    DockPanel.Dock="Bottom"
+                    Margin="8, 0, 8, 8"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Video Card -->
+                    <md:Card
+                        Grid.Column="0"
+                        Padding="8"
+                        Margin="8"
+                        >
+                        <ctrl:VideoPlayer
+                            x:Name="xVideoPlayer"
+                            Visibility="{Binding Path=IsDialogOpen, Mode=OneWay, Converter={cvtr:InvertBooleanToVisiblityConverter}}"
+                            VideoSource="{Binding TargetVideo}"
+                            CurrentTime="{Binding CurrentVideoTime, Mode=OneWayToSource}"
+                            SetTime="{Binding SetVideoTime, Mode=OneWay}"
+                            />
+                    </md:Card>
+                    
+                    <!-- GridSplitter -->
+                    <GridSplitter
+                        Grid.Column="1"
+                        Width="4"
+                        Background="LightGray"
+                        HorizontalAlignment="Stretch"
+                        />
+                    
+                    <!-- Script Card -->
+                    <md:Card
+                        Grid.Column="2"
+                        Padding="16"
+                        Margin="8"
+                        >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="64" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <WrapPanel>
+                                <CheckBox
+                                    Content="자동 스크롤"
+                                    IsChecked="{Binding IsAutoScroll}"
+                                    />
+                                <TextBlock
+                                    Text="표시 언어"
+                                    Height="Auto"
+                                    />
+                                <ComboBox
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding Path=Subtitles, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding Path=SelectedSubtitle, UpdateSourceTrigger=PropertyChanged}"
+                                    DisplayMemberPath="LanguageName"
+                                    />
+                            </WrapPanel>
+
+                            <ListView
+                                x:Name="xListView"
+                                Grid.Row="1"
+                                ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionMode="Extended"
+                                >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle
+                                                Fill="DarkSlateBlue"
+                                                Visibility="{Binding Path=IsHighlighted, Converter={cvtr:BooleanToVisibilityConverter}}"
+                                                >
+                                            </Rectangle>
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Cursor="Hand"
+                                                Text="{Binding StartTimeFormat}"
+                                                Foreground="LightSkyBlue"
+                                                Margin="8, 0, 8, 0"
+                                                >
+                                                <TextBlock.InputBindings>
+                                                    <MouseBinding
+                                                        MouseAction="LeftClick"
+                                                        Command="{Binding Source={StaticResource mainWindowViewModel}, Path=PlayerSeekToCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        />
+                                                </TextBlock.InputBindings>
+                                            </TextBlock>
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                Text="{Binding Text}"
+                                                />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </md:Card>
+                    
+                </Grid>
+            </DockPanel>
+        </md:DialogHost>
+
+    </Grid>
 </Window>

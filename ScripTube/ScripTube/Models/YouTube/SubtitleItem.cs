@@ -15,6 +15,20 @@ namespace ScripTube.Models.YouTube
         public double DurationSeconds { get; }
         public bool IsOneHourExcessed { get; }
 
+        public bool mbHighlighted;
+        public bool IsHighlighted
+        {
+            get
+            {
+                return mbHighlighted;
+            }
+            set
+            {
+                mbHighlighted = value;
+                notifyPropertyChanged(nameof(IsHighlighted));
+            }
+        }
+
         public string StartTimeFormat
         {
             get
@@ -32,13 +46,7 @@ namespace ScripTube.Models.YouTube
             }
         }
 
-        private Visibility mVisibility = Visibility.Hidden;
-
-        public Visibility Visibility
-        {
-            get { return mVisibility; }
-            set { mVisibility = value; notifyPropertyChanged(nameof(Visibility)); }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public SubtitleItem(string text, string start, string duration, bool bOneHourExcessed)
         {
@@ -59,8 +67,6 @@ namespace ScripTube.Models.YouTube
             return sb.ToString();
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
         private void notifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
