@@ -182,7 +182,8 @@ namespace ScripTube.ViewModels
         public ICommand ShowDialogCommand { get; }
         public ImportVideoCommand ImportVideoCommand { get; set; }
         public ICommand PlayerSeekToCommand { get; }
-        public ICommand SaveScriptCommand { get; }
+        public ICommand SaveScriptAsTXTCommand { get; }
+        public ICommand SaveScriptAsSRTCommand { get; }
         #endregion
 
         private int mLastHighlightedIndex;
@@ -192,7 +193,8 @@ namespace ScripTube.ViewModels
             ShowDialogCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(showHostDialog);
             ImportVideoCommand = new ImportVideoCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
-            SaveScriptCommand = new SaveScriptCommand(this);
+            SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand(this);
+            SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand(this);
         }
 
         public void SelectAllText()

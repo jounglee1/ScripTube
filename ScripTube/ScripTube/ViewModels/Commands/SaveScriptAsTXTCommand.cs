@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace ScripTube.ViewModels.Commands
 {
-    class SaveScriptCommand : ICommand
+    class SaveScriptAsTXTCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -26,7 +26,7 @@ namespace ScripTube.ViewModels.Commands
 
         public MainWindowViewModel ViewModel { get; }
 
-        public SaveScriptCommand(MainWindowViewModel viewModel)
+        public SaveScriptAsTXTCommand(MainWindowViewModel viewModel)
         {
             ViewModel = viewModel;
         }
@@ -59,10 +59,18 @@ namespace ScripTube.ViewModels.Commands
                     FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                     StreamWriter streamWriter = new StreamWriter(fileStream);
 
+                    /*
                     foreach (var subItems in subItemTime.Zip(subItemText, Tuple.Create)) // Zip으로 두 리스트를 병합 
                     {
                         streamWriter.WriteLine(subItems.Item1 + " | " + subItems.Item2);
                     }
+                    */
+
+                    foreach (string subItem in subItemTime.Zip(subItemText, (time, text) => $"{time} | {text}"))
+                    {
+                        streamWriter.WriteLine(subItem);
+                    }
+
 
                     streamWriter.Flush();
                     streamWriter.Close();

@@ -107,13 +107,13 @@
             <DockPanel>
                 <Menu DockPanel.Dock="Top">
                     <MenuItem
-                        Header="새 링크"
-                        Command="{x:Static md:DialogHost.OpenDialogCommand}"
-                        />
+                    Header="새 링크"
+                    Command="{x:Static md:DialogHost.OpenDialogCommand}"
+                    />
                     <MenuItem Header="저장">
                         <MenuItem
                             Header="*.txt 파일로 저장"
-                            Command="{Binding Path=SaveScriptCommand}"
+                            Command="{Binding Path=SaveScriptAsTXTCommand}"
                             CommandParameter="{Binding SelectedSubtitle}"
                             />
                         <MenuItem
@@ -121,6 +121,8 @@
                             />
                         <MenuItem
                             Header="*.srt 파일로 저장"
+                            Command="{Binding Path=SaveScriptAsSRTCommand}"
+                            CommandParameter="{Binding SelectedSubtitle}"
                             />
                         <MenuItem
                             Header="*.html 파일로 저장"
