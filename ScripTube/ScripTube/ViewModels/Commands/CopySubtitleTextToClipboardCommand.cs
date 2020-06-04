@@ -12,10 +12,6 @@ namespace ScripTube.ViewModels.Commands
 {
     class CopySubtitleTextToClipboardCommand : ICommand
     {
-        private static string NEW_LINE = "%0A%0A";
-        private static string PAPAGO_URL = "https://papago.naver.com/?sk=auto&tk=ko&hn=1&st=";
-        private static int MAX_STRING_SIZE = 5000;
-
         public event EventHandler CanExecuteChanged
         {
             add
