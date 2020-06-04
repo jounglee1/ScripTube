@@ -24,13 +24,6 @@ namespace ScripTube.ViewModels.Commands
             }
         }
 
-        public MainWindowViewModel ViewModel { get; }
-
-        public SaveScriptAsTXTCommand(MainWindowViewModel viewModel)
-        {
-            ViewModel = viewModel;
-        }
-
         public bool CanExecute(object parameter)
         {
             return true;
@@ -39,6 +32,7 @@ namespace ScripTube.ViewModels.Commands
         public void Execute(object parameter)
         {
             var subtitle = parameter as Subtitle;
+
             if (subtitle != null)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -66,11 +60,17 @@ namespace ScripTube.ViewModels.Commands
                     }
                     */
 
+                    /*
                     foreach (string subItem in subItemTime.Zip(subItemText, (time, text) => $"{time} | {text}"))
                     {
                         streamWriter.WriteLine(subItem);
                     }
+                    */
 
+                    for (int i = 0; i < subtitle.Items.Count; i++)
+                    {
+                        streamWriter.WriteLine(subItemTime[i] + " | " + subItemText[i]);
+                    }
 
                     streamWriter.Flush();
                     streamWriter.Close();

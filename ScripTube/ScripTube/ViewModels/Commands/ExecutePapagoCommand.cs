@@ -27,13 +27,6 @@ namespace ScripTube.ViewModels.Commands
             }
         }
 
-        public MainWindowViewModel ViewModel { get; }
-
-        public ExecutePapagoCommand(MainWindowViewModel viewModel)
-        {
-            ViewModel = viewModel;
-        }
-
         public bool CanExecute(object parameter)
         {
             IEnumerable enumerable = parameter as IEnumerable;

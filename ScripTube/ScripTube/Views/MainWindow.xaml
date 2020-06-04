@@ -123,7 +123,9 @@
                             />
                         <MenuItem
                             Header="*.smi 파일로 저장"
-                            />
+                            Command="{Binding Path=SaveScriptAsSMICommand}"
+                            CommandParameter="{Binding}"
+                           />
                         <MenuItem
                             Header="*.srt 파일로 저장"
                             Command="{Binding Path=SaveScriptAsSRTCommand}"

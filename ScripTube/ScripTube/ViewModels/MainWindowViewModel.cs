@@ -1,5 +1,4 @@
-﻿
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using ScripTube.Models.YouTube;
 using ScripTube.Utils;
 using ScripTube.ViewModels.Commands;
@@ -70,6 +69,8 @@ namespace ScripTube.ViewModels
         #endregion
 
         #region MainWindow Properties
+
+
         private Video mTargetVideo;
         public Video TargetVideo
         {
@@ -192,6 +193,7 @@ namespace ScripTube.ViewModels
         public ImportVideoCommand ImportVideoCommand { get; set; }
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
+        public ICommand SaveScriptAsSMICommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
         #endregion
@@ -203,9 +205,10 @@ namespace ScripTube.ViewModels
             ShowDialogCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(showHostDialog);
             ImportVideoCommand = new ImportVideoCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
-            SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand(this);
-            SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand(this);
-            ExecutePapagoCommand = new ExecutePapagoCommand(this);
+            SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
+            SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
+            SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
+            ExecutePapagoCommand = new ExecutePapagoCommand();
         }
 
         public void SelectAllText()
@@ -217,29 +220,6 @@ namespace ScripTube.ViewModels
         private void showHostDialog()
         {
             IsDialogOpen = true;
-        }
-
-/*
-        private RelayCommand<TextChangedEventArgs> mTextChangedCommand;
-        public ICommand TextChangedCommand
-        {
-            get
-            {
-                return mTextChangedCommand ??
-                    (mTextChangedCommand = new RelayCommand<TextChangedEventArgs>(executeTextChanged));
-            }
-        }
-        
-        private void executeTextChanged(TextChangedEventArgs e)
-        {
-
-        }
-*/
-
-
-        private bool canExecuteTextChanged(object args)
-        {
-            return true;
         }
 
         private void select(double currentTime)

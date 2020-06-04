@@ -53,18 +53,40 @@ namespace ScripTube.Models.YouTube
             {
                 double total = StartSeconds;
                 int min = (Convert.ToInt32(total)) / 60;
-                double sec = total % (Convert.ToDouble(60));
+                double sec = total % 60;
                 double dec = sec % 1;
                 
                 if (IsOneHourExcessed)
                 {
                     int hour = min / 60;
                     min %= 60;
-                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
+                    return $"{hour.ToString("00")}:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
                 }
                 else
                 {
-                    return $"{min.ToString("D2")}:{sec.ToString("D2")}";
+                    return $"00:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
+                }
+            }
+        }
+
+        public string EndTimeFormatSRT
+        {
+            get
+            {
+                double total = StartSeconds + DurationSeconds;
+                int min = (Convert.ToInt32(total)) / 60;
+                double sec = total % 60;
+                double dec = sec % 1;
+
+                if (IsOneHourExcessed)
+                {
+                    int hour = min / 60;
+                    min %= 60;
+                    return $"{hour.ToString("00")}:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
+                }
+                else
+                {
+                    return $"00:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
                 }
             }
         }
