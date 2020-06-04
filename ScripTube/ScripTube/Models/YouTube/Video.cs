@@ -69,7 +69,7 @@ namespace ScripTube.Models.YouTube
 
         private void loadSubtitles()
         {
-            if (mMetadata["captions"]["playerCaptionsTracklistRenderer"]["captionTracks"] == null) // no subtitles
+            if (mMetadata["captions"] == null)
             {
                 return;
             }
