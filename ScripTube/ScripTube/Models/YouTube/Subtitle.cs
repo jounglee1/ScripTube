@@ -25,8 +25,6 @@ namespace ScripTube.Models.YouTube
             get { return mItems; }
         }
 
-        private int mLastHighlightedIndex;
-
         public Subtitle(JToken languageCode, JToken languageName, JToken asr)
         {
             LanguageCode = languageCode.ToString();
@@ -39,7 +37,7 @@ namespace ScripTube.Models.YouTube
             mItems.Add(item);
         }
 
-        private int getIndexBySeconds(double currentTime)
+        public int GetIndexBySeconds(double currentTime)
         {
             int left = 0;
             int right = mItems.Count - 1;
@@ -62,88 +60,5 @@ namespace ScripTube.Models.YouTube
             }
             return mid;
         }
-
-        public void SaveSubtitleTXT()
-        {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.DefaultExt = "*.txt";
-            saveFileDialog.Filter = "텍스트 파일 (*.txt)|*.txt|모든 파일(*.*)|*.*";
-
-            var subItemText = new List<string>();
-            var subItemTime = new List<string>();
-
-            for (int i = 0; i < Items.Count; i++)
-            {
-                subItemText.Add(Items[i].Text);
-                subItemTime.Add(Items[i].StartTimeFormat);
-            }
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
-                StreamWriter streamWriter = new StreamWriter(fileStream);
-
-/*                foreach (var subItems in subItemTime.Zip(subItemText, Tuple.Create)) // Zip으로 두 리스트를 병합 
-                {
-                    streamWriter.WriteLine(subItems.Item1 + " | " + subItems.Item2);
-                }*/
-
-                foreach (string subItem in subItemTime.Zip(subItemText, (time, text) => $"{time} | {text}"))
-                {
-                    streamWriter.WriteLine(subItem);
-                }
-
-
-                streamWriter.Flush();
-                streamWriter.Close();
-                fileStream.Close();
-            }
-        }
-
-        public void SaveSubtitleSRT()
-        {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.DefaultExt = "*.srt";
-            saveFileDialog.Filter = "SRT 파일 (*.srt)|*.srt|모든 파일(*.*)|*.*";
-
-            var subItemText = new List<string>();
-            var subItemTime = new List<string>();
-
-            for (int i = 0; i < Items.Count; i++)
-            {
-                subItemText.Add(Items[i].Text);
-                subItemTime.Add(Items[i].StartTimeFormatSRT);
-            }
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
-                StreamWriter streamWriter = new StreamWriter(fileStream);
-
-
-                for(int i = 0; i < Items.Count; i++)
-                {
-                    streamWriter.WriteLine(i);
-                    streamWriter.WriteLine(subItemTime[i]);
-                    streamWriter.WriteLine(subItemText[i]);
-                }
-
-
-                streamWriter.Flush();
-                streamWriter.Close();
-                fileStream.Close();
-            }
-        }
-
-        public SubtitleItem HighlightSubtitleItem(double currentTime)
-        {
-            mItems[mLastHighlightedIndex].Visibility = Visibility.Hidden;
-            int index = getIndexBySeconds(currentTime);
-            mItems[index].Visibility = Visibility.Visible;
-            mLastHighlightedIndex = index;
-            return mItems[index];
-        }
-
-        
     }
 }

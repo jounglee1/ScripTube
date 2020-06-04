@@ -3,6 +3,7 @@ using ScripTube.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,14 +16,11 @@ namespace ScripTube.Models.YouTube
 {
     public class Video
     {
-        public static int ID_LENGTH = 11;        
-        public static string METADATA_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
-        private static string PLAYER_RESPONSE_NAME = "player_response=";
-
         public string ID { get; }
         public string Title { get; }
         public EVideoStatus Status { get; }
         public int LengthSeconds { get; }
+
         public bool IsSubtitleExisted
         {
             get { return (mSubtitles.Count > 0); }
@@ -33,8 +31,6 @@ namespace ScripTube.Models.YouTube
         {
             get { return mSubtitles; }
         }
-
-        private JObject mMetadata;
 
         public Video(string id)
         {
@@ -50,6 +46,12 @@ namespace ScripTube.Models.YouTube
                 loadSubtitles();
             }
         }
+
+        public static int ID_LENGTH = 11;
+        public static string METADATA_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
+        private static string PLAYER_RESPONSE_NAME = "player_response=";
+
+        private JObject mMetadata;
 
         private EVideoStatus loadStatus(JToken jToken)
         {
@@ -90,7 +92,6 @@ namespace ScripTube.Models.YouTube
                 }
             }
         }
-
 
         private static JObject getVideoInformationOrNull(string videoId)
         {
