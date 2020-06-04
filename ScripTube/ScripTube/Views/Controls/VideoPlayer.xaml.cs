@@ -3,6 +3,7 @@ using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +94,19 @@ namespace ScripTube.Views.Controls
         public void Stop()
         {
             xWebView.InvokeScript("stopVideo");
+        }
+
+        public void Snapshot(string path)
+        {
+            var topLeftCorner = xWebView.PointToScreen(new System.Windows.Point(0, 0));
+            var topLeftGdiPoint = new System.Drawing.Point((int)topLeftCorner.X, (int)topLeftCorner.Y);
+            var size = new System.Drawing.Size((int)xWebView.ActualWidth, (int)xWebView.ActualHeight);
+            Bitmap screenShot = new Bitmap((int)xWebView.ActualWidth, (int)xWebView.ActualHeight);
+            using (var graphics = Graphics.FromImage(screenShot))
+            {
+                graphics.CopyFromScreen(topLeftGdiPoint, new System.Drawing.Point(), size, CopyPixelOperation.SourceCopy);
+            }
+            screenShot.Save(path);
         }
 
         private static void notifyVideoSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs args)
