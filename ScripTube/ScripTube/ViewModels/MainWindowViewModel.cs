@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -19,21 +20,25 @@ namespace ScripTube.ViewModels
     class MainWindowViewModel : BaseViewModel
     {
         #region DialogHost Properties
-        private bool mIsDialogOpen;
+        private bool mbDialogOpen;
         public bool IsDialogOpen
         {
             get
             {
-                return mIsDialogOpen;
+                return mbDialogOpen;
             }
             set
             {
-                mIsDialogOpen = value;
+                mbDialogOpen = value;
                 notifyPropertyChanged(nameof(IsDialogOpen));
+                if (mbDialogOpen)
+                {
+                    TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
+                }
             }
         }
 
-        private string mTextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
+        private string mTextUrl;
         public string TextUrl
         {
             get
