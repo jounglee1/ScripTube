@@ -106,9 +106,15 @@ namespace ScripTube.Models.YouTube
             StringBuilder sb = new StringBuilder(str);
             sb.Replace("&#34;", "\"");
             sb.Replace("&#38;", "&");
-            sb.Replace("&#39;", "'");
+            sb.Replace("&#39;", "\'");
             sb.Replace("&#60;", "<");
             sb.Replace("&#62;", ">");
+
+            sb.Replace("&quot;", "\"");
+            sb.Replace("&amp;", "&");
+            sb.Replace("&apos;", "\'");
+            sb.Replace("&lt;", "<");
+            sb.Replace("&gt;", ">");
             return sb.ToString();
         }
 
