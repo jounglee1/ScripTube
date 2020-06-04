@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Bookmark\BookmarkItem.cs" />
+    <Compile Include="Models\Bookmark\BookmarkTray.cs" />
+    <Compile Include="Enums\EBookmarkSortingType.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\YouTubeUtil.cs" />
