@@ -60,16 +60,11 @@ namespace ScripTube.Models.YouTube
                 {
                     int hour = min / 60;
                     min %= 60;
-                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString()}";
+                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
                 }
                 else
                 {
-<<<<<<< HEAD
-                    int hour = 0;
-                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("00")}";
-=======
                     return $"{min.ToString("D2")}:{sec.ToString("D2")}";
->>>>>>> 47c80a708979bae70514f20b8913de657735c0a4
                 }
             }
         }
