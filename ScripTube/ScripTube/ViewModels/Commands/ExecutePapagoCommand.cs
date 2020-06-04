@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ScripTube.ViewModels.Commands
 {
@@ -48,8 +50,14 @@ namespace ScripTube.ViewModels.Commands
                 int count = 0;
                 foreach (var item in subtitleItems)
                 {
-                    if (count + item.Text.Length > MAX_STRING_SIZE)
+                    string plainText = item.Text.Replace('\n', ' ').Trim();
+                    string encodedText = HttpUtility.UrlEncode(plainText, Encoding.UTF8);
+                    StringBuilder sbLine = new StringBuilder(encodedText);
+                    sbLine.Replace('+', ' ');
+                    string formattedText = sbLine.ToString();
+                    if (count + formattedText.Length > MAX_STRING_SIZE)
                     {
+                        sb.Length -= NEW_LINE.Length;
                         System.Diagnostics.Process.Start(sb.ToString());
                         count = 0;
                         sb.Clear();
@@ -57,12 +65,16 @@ namespace ScripTube.ViewModels.Commands
                     }
                     else
                     {
-                        sb.Append(item.Text);
+                        sb.Append(formattedText);
                         sb.Append(NEW_LINE);
-                        count += item.Text.Length + NEW_LINE.Length;
+                        count += formattedText.Length + NEW_LINE.Length;
                     }
                 }
-                System.Diagnostics.Process.Start(sb.ToString());
+                sb.Length -= NEW_LINE.Length;
+                if (sb.Length > PAPAGO_URL.Length)
+                {
+                    System.Diagnostics.Process.Start(sb.ToString());
+                }
             }
         }
     }
