@@ -195,12 +195,13 @@ namespace ScripTube.ViewModels
         }
 
         public ICommand ShowDialogCommand { get; }
-        public ImportVideoCommand ImportVideoCommand { get; set; }
+        public ICommand ImportVideoCommand { get; set; }
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSMICommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
+        public ICommand CopySubtitleTextToClipboardCommand { get; }
         #endregion
 
         private int mLastHighlightedIndex;
@@ -214,6 +215,7 @@ namespace ScripTube.ViewModels
             SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();
+            CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();
         }
 
         public void SelectAllText()
