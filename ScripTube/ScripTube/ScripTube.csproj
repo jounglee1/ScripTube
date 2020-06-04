@@ -68,6 +68,8 @@
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\YouTubeUtil.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Commands\CopySubtitleTextToClipboardCommand.cs" />
+    <Compile Include="ViewModels\Commands\ExecutePapagoCommand.cs" />
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
@@ -98,6 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Converters\VideoTitleToWindowTitleConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

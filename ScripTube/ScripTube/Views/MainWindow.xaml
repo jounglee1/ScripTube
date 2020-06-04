@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:m="clr-namespace:ScripTube.Models"
     xmlns:vm="clr-namespace:ScripTube.ViewModels"
     xmlns:cmd="clr-namespace:ScripTube.ViewModels.Commands"
     xmlns:cvtr="clr-namespace:ScripTube.Views.Converters"
@@ -14,9 +13,7 @@
     xmlns:mvvmlight="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    
-    Title="ScripTube"
-    Height="450"
+    Height="800"
     Width="800"
     AllowsTransparency="False"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -32,6 +29,7 @@
     <!-- Resources -->
     <Window.Resources>
         <ResourceDictionary>
+            <cvtr:VideoTitleToWindowTitleConverter x:Key="VideoTitleToWindowTitleConverter"/>
             <vm:MainWindowViewModel x:Key="mainWindowViewModel" />
             <Style
                 TargetType="{x:Type ctrl:UrlTextBox}"
@@ -39,8 +37,15 @@
                 />
         </ResourceDictionary>
     </Window.Resources>
-
     
+    <Window.DataContext>
+        <StaticResourceExtension ResourceKey="mainWindowViewModel"/>   
+    </Window.DataContext>
+
+    <Window.Title>
+        <Binding Path="WindowTitle" Converter="{StaticResource VideoTitleToWindowTitleConverter}" Mode="OneWay"/>
+    </Window.Title>
+
     <Grid DataContext="{StaticResource mainWindowViewModel}">
         
         <!-- Dialog Host -->
@@ -107,10 +112,10 @@
             <DockPanel>
                 <Menu DockPanel.Dock="Top">
                     <MenuItem
-                    Header="새 링크"
-                    Command="{x:Static md:DialogHost.OpenDialogCommand}"
-                    />
-                    <MenuItem Header="저장">
+                        Header="새 링크"
+                        Command="{x:Static md:DialogHost.OpenDialogCommand}"
+                        />
+                    <MenuItem Header ="저장">
                         <MenuItem
                             Header="*.txt 파일로 저장"
                             Command="{Binding Path=SaveScriptAsTXTCommand}"
@@ -135,10 +140,14 @@
 
                 <Grid
                     DockPanel.Dock="Bottom"
-                    Margin="8, 0, 8, 8"
                     >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="12"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
@@ -168,13 +177,14 @@
                     
                     <!-- Script Card -->
                     <md:Card
-                        Grid.Column="2"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="3"
                         Padding="16"
                         Margin="8"
                         >
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="64" />
+                                <RowDefinition Height="36" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <WrapPanel>
@@ -224,7 +234,7 @@
                                                     <MouseBinding
                                                         MouseAction="LeftClick"
                                                         Command="{Binding Source={StaticResource mainWindowViewModel}, Path=PlayerSeekToCommand}"
-                                                        CommandParameter="{Binding}"
+                                                        CommandParameter="{Binding }"
                                                         />
                                                 </TextBlock.InputBindings>
                                             </TextBlock>
@@ -235,11 +245,48 @@
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
+                                
+                                <ListView.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem
+                                            Header="파파고로 번역"
+                                            Command="{Binding ExecutePapagoCommand}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems}"
+                                            >
+                                            <MenuItem.Icon>
+                                                <md:PackIcon Kind="Twitter" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem
+                                            Header="클립보드에 복사"
+                                            >
+                                            <MenuItem.Icon>
+                                                <md:PackIcon Kind="ClipboardMultipleOutline" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </ListView.ContextMenu>
                             </ListView>
                         </Grid>
                     </md:Card>
+
+                    <GridSplitter
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Margin="4"
+                        Height="4"
+                        Background="LightGray"
+                        HorizontalAlignment="Stretch"
+                        />
+
+                    <md:Card
+                        Grid.Column="2"
+                        Margin="8"
+                        >
+                    </md:Card>
                     
                 </Grid>
+                
             </DockPanel>
         </md:DialogHost>
 

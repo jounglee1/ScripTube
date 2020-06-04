@@ -84,6 +84,7 @@ namespace ScripTube.ViewModels
                     mTargetVideo = value;
                     notifyPropertyChanged(nameof(TargetVideo));
                     notifyPropertyChanged(nameof(Subtitles));
+                    notifyPropertyChanged(nameof(WindowTitle));
                     if (mTargetVideo.IsSubtitleExisted)
                     {
                         SelectedSubtitle = Subtitles[0];
@@ -179,11 +180,20 @@ namespace ScripTube.ViewModels
             }
         }
 
+        public string WindowTitle
+        {
+            get
+            {
+                return (mTargetVideo == null ? string.Empty : mTargetVideo.Title);
+            }
+        }
+
         public ICommand ShowDialogCommand { get; }
         public ImportVideoCommand ImportVideoCommand { get; set; }
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
+        public ICommand ExecutePapagoCommand { get; }
         #endregion
 
         private int mLastHighlightedIndex;
@@ -195,6 +205,7 @@ namespace ScripTube.ViewModels
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand(this);
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand(this);
+            ExecutePapagoCommand = new ExecutePapagoCommand(this);
         }
 
         public void SelectAllText()
