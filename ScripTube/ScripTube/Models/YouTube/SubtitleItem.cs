@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Windows.UI.WebUI;
 
 namespace ScripTube.Models.YouTube
 {
@@ -39,15 +40,18 @@ namespace ScripTube.Models.YouTube
                 double total = StartSeconds;
                 int min = (Convert.ToInt32(total)) / 60;
                 double sec = total % (Convert.ToDouble(60));
+                double dec = sec % 1;
+                
                 if (IsOneHourExcessed)
                 {
                     int hour = min / 60;
                     min %= 60;
-                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
+                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString()}";
                 }
                 else
                 {
-                    return "00:01:02";
+                    int hour = 0;
+                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("00")}";
                 }
             }
         }
