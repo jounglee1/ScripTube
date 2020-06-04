@@ -53,6 +53,7 @@
             x:Name="DialogHost"
             IsOpen="{Binding IsDialogOpen}"
             CloseOnClickAway="True"
+            Margin="8"
             >
             <md:DialogHost.DialogContent>
                 <Grid Margin="24">
@@ -251,7 +252,7 @@
                                 <ListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem
-                                            Header="파파고로 번역"
+                                            Header="파파고로 번역 (브라우저)"
                                             Command="{Binding ExecutePapagoCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems}"
                                             >
