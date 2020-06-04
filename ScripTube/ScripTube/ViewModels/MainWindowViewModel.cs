@@ -70,6 +70,8 @@ namespace ScripTube.ViewModels
         #endregion
 
         #region MainWindow Properties
+
+
         private Video mTargetVideo;
         public Video TargetVideo
         {
@@ -183,6 +185,7 @@ namespace ScripTube.ViewModels
         public ImportVideoCommand ImportVideoCommand { get; set; }
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
+        public ICommand SaveScriptAsSMICommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
         #endregion
 
@@ -194,6 +197,7 @@ namespace ScripTube.ViewModels
             ImportVideoCommand = new ImportVideoCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand(this);
+            SaveScriptAsSMICommand = new SaveScriptAsSMICommand(this);
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand(this);
         }
 

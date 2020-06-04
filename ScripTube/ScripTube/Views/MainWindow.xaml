@@ -114,11 +114,13 @@
                         <MenuItem
                             Header="*.txt 파일로 저장"
                             Command="{Binding Path=SaveScriptAsTXTCommand}"
-                            CommandParameter="{Binding SelectedSubtitle}"
+                            CommandParameter="{Binding MainWindowViewModel}"
                             />
                         <MenuItem
                             Header="*.smi 파일로 저장"
-                            />
+                            Command="{Binding Path=SaveScriptAsSMICommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}}"  <!-- !!!!!!!!!!!!1-->
+                           />
                         <MenuItem
                             Header="*.srt 파일로 저장"
                             Command="{Binding Path=SaveScriptAsSRTCommand}"

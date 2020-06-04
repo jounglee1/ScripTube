@@ -71,6 +71,7 @@
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\Commands\SaveScriptAsSMICommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsSRTCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsTXTCommand.cs" />
     <Compile Include="ViewModels\Commands\TextChangedCommand.cs" />
