@@ -46,14 +46,12 @@ namespace ScripTube.ViewModels.Commands
 
             var subItemText = new List<string>();
             var subItemStartTime = new List<string>();
-            var subItemEndTime = new List<string>();
             string videoTitle = video.Title;
 
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
                 subItemText.Add(subtitle.Items[i].Text);
-                subItemStartTime.Add(subtitle.Items[i].StartSeconds.ToString());
-                subItemEndTime.Add((subtitle.Items[i].StartSeconds+subtitle.Items[i].DurationSeconds).ToString());
+                subItemStartTime.Add((subtitle.Items[i].StartSeconds*1000).ToString());
             }
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
