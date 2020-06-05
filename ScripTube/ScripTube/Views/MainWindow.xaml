@@ -51,7 +51,7 @@
         <!-- Dialog Host -->
         <md:DialogHost
             x:Name="DialogHost"
-            IsOpen="{Binding IsDialogOpen}"
+            IsOpen="{Binding Path=IsDialogOpen}"
             CloseOnClickAway="True"
             Margin="8"
             >
@@ -65,8 +65,8 @@
                         <ctrl:UrlTextBox
                             Width="400"
                             Margin="10"
-                            Text="{Binding Path=TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            IsSelectedText="{Binding IsSelectedText}"
+                            Text="{Binding Path=ImportUrlDialogViewModel.TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsSelectedText="{Binding Path=ImportUrlDialogViewModel.IsUrlTextAllSelected}"
                             >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
@@ -77,7 +77,7 @@
                         <TextBlock
                             Text="올바른 URL이 아닙니다."
                             Foreground="Red"
-                            Visibility="{Binding IsValidUrl, Converter={cvtr:InvertBooleanToVisiblityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                            Visibility="{Binding Path=ImportUrlDialogViewModel.IsValidUrl, Converter={cvtr:InvertBooleanToVisiblityConverter}, UpdateSourceTrigger=PropertyChanged}"
                             />
                         <StackPanel
                             Orientation="Horizontal"
@@ -86,8 +86,8 @@
                             <Button
                                 Content="불러오기"
                                 IsDefault="True"
-                                Command="{Binding Source={StaticResource mainWindowViewModel}, Path=ImportVideoCommand}"
-                                CommandParameter="{Binding TextUrl, Converter={cvtr:UrlToVideoIdConverter}}"
+                                Command="{Binding Source={StaticResource mainWindowViewModel}, Path=ImportUrlDialogViewModel.ImportVideoCommand}"
+                                CommandParameter="{Binding Path=ImportUrlDialogViewModel.TextUrl, Converter={cvtr:UrlToVideoIdConverter}}"
                                 Margin="0, 0, 8, 0"
                                 />
                             <Button
@@ -288,6 +288,23 @@
                         Grid.Column="2"
                         Margin="8"
                         >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Button
+                                Style="{DynamicResource MaterialDesignFlatButton}"
+                                >
+                                <md:PackIcon Kind="BookmarkPlusOutline" Width="auto" Height="auto" />
+                            </Button>
+                            <ListView
+                                Grid.Row="1"
+                                >
+                                
+                            </ListView>
+                        </Grid>
+ 
                     </md:Card>
                     
                 </Grid>

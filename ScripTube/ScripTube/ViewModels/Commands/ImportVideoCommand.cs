@@ -24,12 +24,12 @@ namespace ScripTube.ViewModels.Commands
                 CommandManager.RequerySuggested -= value;
             }
         }
+        
+        public ImportUrlDialogViewModel ImportUrlDialogViewModel { get; }
 
-        public MainWindowViewModel ViewModel { get; }
-
-        public ImportVideoCommand(MainWindowViewModel viewModel)
+        public ImportVideoCommand(ImportUrlDialogViewModel importUrlDialogViewModel)
         {
-            ViewModel = viewModel;
+            ImportUrlDialogViewModel = importUrlDialogViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -50,8 +50,8 @@ namespace ScripTube.ViewModels.Commands
                 var video = new Video(id);
                 if (video.Status == EVideoStatus.OK)
                 {
-                    ViewModel.TargetVideo = video;
-                    ViewModel.IsDialogOpen = false;
+                    ImportUrlDialogViewModel.Parent.TargetVideo = video;
+                    ImportUrlDialogViewModel.Parent.IsDialogOpen = false;
                     if (!video.IsSubtitleExisted)
                     {
                         MessageBox.Show("자막이 없는 동영상입니다.", "경고", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -60,12 +60,12 @@ namespace ScripTube.ViewModels.Commands
                 else if (video.Status == EVideoStatus.UNPLAYABLE)
                 {
                     MessageBox.Show("저작권의 이유로 인하여 불러올 수 없는 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ViewModel.SelectAllText();
+                    ImportUrlDialogViewModel.SelectAllText();
                 }
                 else if (video.Status == EVideoStatus.ERROR)
                 {
                     MessageBox.Show("유효하지 않은 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ViewModel.SelectAllText();
+                    ImportUrlDialogViewModel.SelectAllText();
                 }
             }
         }

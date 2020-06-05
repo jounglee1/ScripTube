@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
+using ScripTube.Models.Bookmark;
 using ScripTube.Models.YouTube;
 using ScripTube.Utils;
 using ScripTube.ViewModels.Commands;
@@ -19,7 +20,9 @@ namespace ScripTube.ViewModels
 {
     class MainWindowViewModel : BaseViewModel
     {
-        #region DialogHost Properties
+        public ImportUrlDialogViewModel ImportUrlDialogViewModel { get; }
+
+        #region MainWindow Properties
         private bool mbDialogOpen;
         public bool IsDialogOpen
         {
@@ -33,48 +36,10 @@ namespace ScripTube.ViewModels
                 notifyPropertyChanged(nameof(IsDialogOpen));
                 if (mbDialogOpen)
                 {
-                    TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
+                    ImportUrlDialogViewModel.TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
                 }
             }
         }
-
-        private string mTextUrl;
-        public string TextUrl
-        {
-            get
-            {
-                return mTextUrl;
-            }
-            set
-            {
-                mTextUrl = value;
-                notifyPropertyChanged(nameof(TextUrl));
-                notifyPropertyChanged(nameof(IsValidUrl));
-            }
-        }
-
-        public bool IsValidUrl
-        {
-            get
-            {
-                return YouTubeUtil.GetVideoIdByUrl(mTextUrl) != string.Empty;
-            }
-        }
-
-        private bool mbUrlTextAllSelected;
-        public bool IsUrlTextAllSelected
-        {
-            get { return mbUrlTextAllSelected; }
-            set
-            {
-                mbUrlTextAllSelected = value;
-                notifyPropertyChanged(nameof(IsUrlTextAllSelected));
-            }
-        }
-        #endregion
-
-        #region MainWindow Properties
-
 
         private Video mTargetVideo;
         public Video TargetVideo
@@ -193,9 +158,7 @@ namespace ScripTube.ViewModels
                 return (mTargetVideo == null ? string.Empty : mTargetVideo.Title);
             }
         }
-
-        public ICommand ShowDialogCommand { get; }
-        public ICommand ImportVideoCommand { get; set; }
+        
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSMICommand { get; }
@@ -208,25 +171,14 @@ namespace ScripTube.ViewModels
 
         public MainWindowViewModel()
         {
-            ShowDialogCommand = new GalaSoft.MvvmLight.CommandWpf.RelayCommand(showHostDialog);
-            ImportVideoCommand = new ImportVideoCommand(this);
+            ImportUrlDialogViewModel = new ImportUrlDialogViewModel(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
             SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();
             CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();
-        }
-
-        public void SelectAllText()
-        {
-            mbUrlTextAllSelected = false;
-            IsUrlTextAllSelected = true;
-        }
-
-        private void showHostDialog()
-        {
-            IsDialogOpen = true;
+            createCacheFolder();
         }
 
         private void select(double currentTime)
@@ -236,6 +188,16 @@ namespace ScripTube.ViewModels
             items[mLastHighlightedIndex].IsHighlighted = false;
             items[index].IsHighlighted = true;
             mLastHighlightedIndex = index;
+        }
+
+        private void showHostDialog()
+        {
+            IsDialogOpen = true;
+        }
+
+        private void createCacheFolder()
+        {
+            System.IO.Directory.CreateDirectory(BookmarkTray.CACHE_FOLDER_NAME);
         }
     }
 }
