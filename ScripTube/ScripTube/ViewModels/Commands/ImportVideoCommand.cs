@@ -1,7 +1,9 @@
 ﻿using ScripTube.Enums;
+using ScripTube.Models.Bookmark;
 using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,6 +54,7 @@ namespace ScripTube.ViewModels.Commands
                 {
                     ImportUrlDialogViewModel.Parent.TargetVideo = video;
                     ImportUrlDialogViewModel.Parent.IsDialogOpen = false;
+                    ImportUrlDialogViewModel.Parent.BookmarkItems = new ObservableCollection<BookmarkItem>();
                     if (!video.IsSubtitleExisted)
                     {
                         MessageBox.Show("자막이 없는 동영상입니다.", "경고", MessageBoxButton.OK, MessageBoxImage.Exclamation);

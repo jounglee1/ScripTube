@@ -158,7 +158,7 @@
                     <!-- Video Card -->
                     <md:Card
                         Grid.Column="0"
-                        Padding="8"
+                        Padding="1"
                         Margin="8"
                         >
                         <ctrl:VideoPlayer
@@ -182,7 +182,7 @@
                     <md:Card
                         Grid.Row="2"
                         Grid.ColumnSpan="3"
-                        Padding="16"
+
                         Margin="8"
                         >
                         <Grid>
@@ -233,7 +233,7 @@
                                                 Margin="8, 0, 8, 0"
                                                 >
                                                 <TextBlock.Text>
-                                                    <MultiBinding Converter="{cvtr:SecondsToTimeFormatStringConverter}">
+                                                    <MultiBinding Converter="{cvtr:SecondsToTimeFormatStringMultiConverter}">
                                                         <Binding Path="IsOneHourExcessed" />
                                                         <Binding Path="StartSeconds" />
                                                     </MultiBinding>
@@ -298,15 +298,58 @@
                                 <RowDefinition Height="48" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Button
-                                Style="{DynamicResource MaterialDesignFlatButton}"
-                                >
-                                <md:PackIcon Kind="BookmarkPlusOutline" Width="auto" Height="auto" />
-                            </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Button
+                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                    Command="{Binding Path=AddBookmarkCommand}"
+                                    CommandParameter="{Binding }"
+                                    >
+                                    <md:PackIcon Kind="BookmarkPlus" Width="auto" Height="auto" />
+                                </Button>
+                                <Button
+                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                    Command="{Binding Path=RemoveBookmarkCommand}"
+                                    CommandParameter="{Binding }"
+                                    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                    >
+                                    <md:PackIcon Kind="BookmarkOffOutline" Width="auto" Height="auto" BorderBrush="{DynamicResource PrimaryHueMidBrush}"/>
+                                </Button>
+                            </StackPanel>
+
                             <ListView
                                 Grid.Row="1"
+                                ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                 >
-                                
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24" />
+                                                <RowDefinition Height="24" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                Grid.RowSpan="2"
+                                                Source="{Binding Path=BitmapImage}"
+                                                />
+                                            <TextBlock
+                                                Padding="6"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Memo}"
+                                                FontWeight="Bold"
+                                                />
+                                            <TextBlock
+                                                Padding="6"
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
+                                                />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
                             </ListView>
                         </Grid>
  

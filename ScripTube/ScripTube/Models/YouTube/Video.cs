@@ -97,6 +97,16 @@ namespace ScripTube.Models.YouTube
             }
         }
 
+        private void loadBookmark()
+        {
+
+        }
+
+        private void saveBookmark()
+        {
+
+        }
+
         private static JObject getVideoInformationOrNull(string videoId)
         {
             string innerText = System.Web.HttpUtility.UrlDecode(getAllStreamFromURL(string.Format(METADATA_URL, videoId)));

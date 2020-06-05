@@ -138,6 +138,20 @@ namespace ScripTube.ViewModels
             }
         }
 
+        private ObservableCollection<BookmarkItem> mBookmarkItems;// = new ObservableCollection<BookmarkItem>();
+        public ObservableCollection<BookmarkItem> BookmarkItems
+        {
+            get
+            {
+                return mBookmarkItems;
+            }
+            set
+            {
+                mBookmarkItems = value;
+                notifyPropertyChanged(nameof(BookmarkItems));
+            }
+        }
+
         private bool mbAutoScroll;
         public bool IsAutoScroll
         {
@@ -163,6 +177,8 @@ namespace ScripTube.ViewModels
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSMICommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
+        public ICommand AddBookmarkCommand { get; }
+        public ICommand RemoveBookmarkCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
         public ICommand CopySubtitleTextToClipboardCommand { get; }
         #endregion
@@ -176,6 +192,8 @@ namespace ScripTube.ViewModels
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
             SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
+            AddBookmarkCommand = new AddBookmarkCommand();
+            RemoveBookmarkCommand = new RemoveBookmarkCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();
             CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();
             createCacheFolder();
