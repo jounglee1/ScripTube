@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using ScripTube.Enums;
+using ScripTube.Models.Bookmark;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,10 +33,13 @@ namespace ScripTube.Models.YouTube
             get { return mSubtitles; }
         }
 
+        public BookmarkTray BookmarkTray { get; }
+
         public Video(string id)
         {
             ID = id;
             mMetadata = getVideoInformationOrNull(ID);
+
             Debug.Assert(mMetadata != null);
 
             Status = loadStatus(mMetadata["playabilityStatus"]["status"]);
