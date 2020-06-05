@@ -5,24 +5,26 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace ScripTube.Views.Converters
 {
-    class SecondsToTimeFormatStringConverter : ConverterMarkupExtension<SecondsToTimeFormatStringConverter>
+    class SecondsToTimeFormatStringMultiConverter : MultiConverterMarkupExtension<SecondsToTimeFormatStringMultiConverter>
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (values == null || !(values[0] is bool) || !(values[1] is double))
             {
                 return "--:--:--";
             }
 
-            int seconds = (int)(double)value;
+            bool bHourExcessed = (bool)values[0];
+            int seconds = (int)(double)values[1];
 
             int min = seconds / 60;
             int sec = seconds % 60;
 
-            if (seconds >= 3600)
+            if (bHourExcessed)
             {
                 int hour = min / 60;
                 min %= 60;
@@ -31,7 +33,7 @@ namespace ScripTube.Views.Converters
             return string.Format("{0}:{1}", min.ToString("D2"), sec.ToString("D2"));
         }
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

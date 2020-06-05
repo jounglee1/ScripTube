@@ -69,13 +69,16 @@
     <Compile Include="Enums\EBookmarkSortingType.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
+    <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
     <Compile Include="Utils\YouTubeUtil.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Commands\AddBookmarkCommand.cs" />
     <Compile Include="ViewModels\Commands\CopySubtitleTextToClipboardCommand.cs" />
     <Compile Include="ViewModels\Commands\ExecutePapagoCommand.cs" />
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\Commands\RemoveBookmarkCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsSMICommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsSRTCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsTXTCommand.cs" />
@@ -90,6 +93,8 @@
     </Compile>
     <Compile Include="Views\Converters\InvertBooleanToVisiblityConverter.cs" />
     <Compile Include="Views\Converters\BooleanToVisiblityConverter.cs" />
+    <Compile Include="Views\Converters\SecondsToTimeFormatStringConverter.cs" />
+    <Compile Include="Views\Converters\SecondsToTimeFormatStringMultiConverter.cs" />
     <Compile Include="Views\Converters\UrlToVideoIdConverter.cs" />
     <Compile Include="Views\Controls\UrlTextBox.cs" />
     <Page Include="Views\Controls\VideoPlayer.xaml">
