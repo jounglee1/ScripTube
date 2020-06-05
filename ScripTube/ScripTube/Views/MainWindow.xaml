@@ -29,7 +29,7 @@
     <!-- Resources -->
     <Window.Resources>
         <ResourceDictionary>
-            <cvtr:VideoTitleToWindowTitleConverter x:Key="VideoTitleToWindowTitleConverter"/>
+            <cvtr:VideoTitleToWindowTitleConverter x:Key="VideoTitleToWindowTitleConverter" />
             <vm:MainWindowViewModel x:Key="mainWindowViewModel" />
             <Style
                 TargetType="{x:Type ctrl:UrlTextBox}"
@@ -229,10 +229,15 @@
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Cursor="Hand"
-                                                Text="{Binding StartTimeFormat}"
                                                 Foreground="LightSkyBlue"
                                                 Margin="8, 0, 8, 0"
                                                 >
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{cvtr:SecondsToTimeFormatStringConverter}">
+                                                        <Binding Path="IsOneHourExcessed" />
+                                                        <Binding Path="StartSeconds" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
                                                 <TextBlock.InputBindings>
                                                     <MouseBinding
                                                         MouseAction="LeftClick"
