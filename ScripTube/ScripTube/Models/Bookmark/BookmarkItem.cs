@@ -9,22 +9,10 @@ namespace ScripTube.Models.Bookmark
 {
     public class BookmarkItem
     {
-        private double mSeconds;
-        private string mMemo;
-        private string mImagePath;
-        private Bitmap mBitmap;
-        private DateTime mCreatedDateTime = DateTime.Now;
-
-        public BookmarkItem(double seconds, string imagePath)
-            : this(seconds, imagePath, string.Empty)
-        {
-        }
-
-        private BookmarkItem(double seconds, string imagePath, string memo)
-        {
-            mSeconds = seconds;
-            mMemo = memo;
-            mImagePath = imagePath;
-        }
+        public double Seconds { get; set; }
+        public string Memo { get; set; }
+        public string ImagePath { get; set; }
+        public Bitmap Bitmap { get; set; }
+        public DateTime CreatedDateTime { get; set; }
     }
 }
