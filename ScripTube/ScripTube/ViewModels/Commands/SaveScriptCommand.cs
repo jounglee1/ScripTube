@@ -34,7 +34,7 @@ namespace ScripTube.ViewModels.Commands
 
         private delegate void SaveMethod(StreamWriter streamWriter, Video video, Subtitle subtitle);
 
-        private SaveMethod[] mMethods = new SaveMethod[]
+        private static SaveMethod[] METHODS = new SaveMethod[]
         {
             new SaveMethod(saveAsHTML),
             new SaveMethod(saveAsSMI),
@@ -42,9 +42,27 @@ namespace ScripTube.ViewModels.Commands
             new SaveMethod(saveAsTXT),
         };
 
-        private static string[] EXTENSIONS = new string[] { ".html", ".smi", ".srt", ".txt", ".*" };
-        private static string[] EXTENSION_NAMES = new string[] { "HTML", "SMI", "SRT", "텍스트", "모든" };
+        private static string[] EXTENSIONS = new string[]
+        {
+            ".html",
+            ".smi",
+            ".srt",
+            ".txt",
+            ".*"
+        };
+
+        private static string[] EXTENSION_NAMES = new string[]
+        {
+            "HTML",
+            "SMI",
+            "SRT",
+            "텍스트",
+            "모든"
+        };
+
         private static string EXTENSION_FILTER;
+
+        private int mLastFilterIndex;
 
         public bool CanExecute(object parameter)
         {
@@ -65,9 +83,12 @@ namespace ScripTube.ViewModels.Commands
 
             var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             saveFileDialog.Filter = EXTENSION_FILTER;
+            saveFileDialog.FilterIndex = mLastFilterIndex;
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
+                mLastFilterIndex = saveFileDialog.FilterIndex;
+
                 string ext = Path.GetExtension(saveFileDialog.FileName).ToLower();
 
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
@@ -75,11 +96,11 @@ namespace ScripTube.ViewModels.Commands
 
                 // 등록되지 않은 확장자는 txt 저장 방식을 따른다
                 SaveMethod saveMethod = saveAsTXT;
-                for (int i = 0; i < mMethods.Length; ++i)
+                for (int i = 0; i < METHODS.Length; ++i)
                 {
                     if (EXTENSIONS[i] == ext)
                     {
-                        saveMethod = mMethods[i];
+                        saveMethod = METHODS[i];
                         break;
                     }
                 }
