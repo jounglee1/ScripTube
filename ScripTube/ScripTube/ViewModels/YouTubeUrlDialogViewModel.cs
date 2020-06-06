@@ -9,9 +9,27 @@ using System.Windows.Input;
 
 namespace ScripTube.ViewModels
 {
-    class ImportUrlDialogViewModel : BaseViewModel
+    class YouTubeUrlDialogViewModel : BaseViewModel
     {
         #region DialogHost Properties
+        private bool mbDialogOpen;
+        public bool IsDialogOpen
+        {
+            get
+            {
+                return mbDialogOpen;
+            }
+            set
+            {
+                mbDialogOpen = value;
+                notifyPropertyChanged(nameof(IsDialogOpen));
+                if (mbDialogOpen)
+                {
+                    TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
+                }
+            }
+        }
+
         private string mTextUrl;
         public string TextUrl
         {
@@ -52,7 +70,7 @@ namespace ScripTube.ViewModels
 
         public MainWindowViewModel Parent { get; }
 
-        public ImportUrlDialogViewModel(MainWindowViewModel mainWindowViewModel)
+        public YouTubeUrlDialogViewModel(MainWindowViewModel mainWindowViewModel)
         {
             ImportVideoCommand = new ImportVideoCommand(this);
             Parent = mainWindowViewModel;

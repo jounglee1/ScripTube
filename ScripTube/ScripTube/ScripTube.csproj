@@ -67,6 +67,7 @@
     <Compile Include="Models\Bookmark\BookmarkItem.cs" />
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
     <Compile Include="Enums\EBookmarkSortingType.cs" />
+    <Compile Include="Models\DialogBox\YouTubeUrlDialog.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
@@ -76,13 +77,14 @@
     <Compile Include="ViewModels\Commands\CopySubtitleTextToClipboardCommand.cs" />
     <Compile Include="ViewModels\Commands\ExecutePapagoCommand.cs" />
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenYouTubeUrlDialogCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\Commands\RemoveBookmarkCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsSMICommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsSRTCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptAsTXTCommand.cs" />
-    <Compile Include="ViewModels\ImportUrlDialogViewModel.cs" />
+    <Compile Include="ViewModels\YouTubeUrlDialogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Enums\EVideoStatus.cs" />
     <Compile Include="Models\YouTube\SubtitleItem.cs" />

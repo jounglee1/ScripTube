@@ -20,27 +20,9 @@ namespace ScripTube.ViewModels
 {
     class MainWindowViewModel : BaseViewModel
     {
-        public ImportUrlDialogViewModel ImportUrlDialogViewModel { get; }
+        public YouTubeUrlDialogViewModel YouTubeUrlDialogViewModel { get; }
 
         #region MainWindow Properties
-        private bool mbDialogOpen;
-        public bool IsDialogOpen
-        {
-            get
-            {
-                return mbDialogOpen;
-            }
-            set
-            {
-                mbDialogOpen = value;
-                notifyPropertyChanged(nameof(IsDialogOpen));
-                if (mbDialogOpen)
-                {
-                    ImportUrlDialogViewModel.TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
-                }
-            }
-        }
-
         private Video mTargetVideo;
         public Video TargetVideo
         {
@@ -173,6 +155,7 @@ namespace ScripTube.ViewModels
             }
         }
         
+        public ICommand OpenYouTubeUrlDialogCommand { get; }
         public ICommand PlayerSeekToCommand { get; }
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSMICommand { get; }
@@ -187,7 +170,8 @@ namespace ScripTube.ViewModels
 
         public MainWindowViewModel()
         {
-            ImportUrlDialogViewModel = new ImportUrlDialogViewModel(this);
+            YouTubeUrlDialogViewModel = new YouTubeUrlDialogViewModel(this);
+            OpenYouTubeUrlDialogCommand = new OpenYouTubeUrlDialogCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
             SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
@@ -206,11 +190,6 @@ namespace ScripTube.ViewModels
             items[mLastHighlightedIndex].IsHighlighted = false;
             items[index].IsHighlighted = true;
             mLastHighlightedIndex = index;
-        }
-
-        private void showHostDialog()
-        {
-            IsDialogOpen = true;
         }
 
         private void createCacheFolder()
