@@ -36,28 +36,28 @@ namespace ScripTube.ViewModels.Commands
 
         private static SaveMethod[] METHODS = new SaveMethod[]
         {
-            new SaveMethod(saveAsHTML),
+            new SaveMethod(saveAsTXT),
             new SaveMethod(saveAsSMI),
             new SaveMethod(saveAsSRT),
-            new SaveMethod(saveAsTXT),
+            new SaveMethod(saveAsHTML),
         };
 
         private static string[] EXTENSIONS = new string[]
         {
-            ".html",
+            ".txt",
             ".smi",
             ".srt",
-            ".txt",
-            ".*"
+            ".html",
+            ".*",
         };
 
         private static string[] EXTENSION_NAMES = new string[]
         {
-            "HTML",
+            "텍스트",
             "SMI",
             "SRT",
-            "텍스트",
-            "모든"
+            "HTML",
+            "모든",
         };
 
         private static string EXTENSION_FILTER;
@@ -84,6 +84,7 @@ namespace ScripTube.ViewModels.Commands
             var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             saveFileDialog.Filter = EXTENSION_FILTER;
             saveFileDialog.FilterIndex = mLastFilterIndex;
+            saveFileDialog.FileName = getFilenameExceptIllegalCharacter(video.Title);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -219,6 +220,21 @@ namespace ScripTube.ViewModels.Commands
             {
                 streamWriter.WriteLine("[{0}] {1}", subItemTime[i], subItemText[i]);
             }
+        }
+
+        private static string getFilenameExceptIllegalCharacter(string filename)
+        {
+            var sb = new StringBuilder(filename);
+            char c = '+';
+            sb.Replace('\\', c);
+            sb.Replace('/', c);
+            sb.Replace(':', c);
+            sb.Replace('*', c);
+            sb.Replace('?', c);
+            sb.Replace('<', c);
+            sb.Replace('>', c);
+            sb.Replace('|', c);
+            return sb.ToString();
         }
     }
 }
