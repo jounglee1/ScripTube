@@ -48,6 +48,7 @@ namespace ScripTube.Models.YouTube
                 Title = mMetadata["videoDetails"]["title"].ToString();
                 LengthSeconds = Convert.ToInt32(mMetadata["videoDetails"]["lengthSeconds"]);
                 loadSubtitles();
+                BookmarkTray = new BookmarkTray(id) { SortingType = EBookmarkSortingType.CREATED_ASCENDING };
             }
         }
 
@@ -95,16 +96,6 @@ namespace ScripTube.Models.YouTube
                     Debug.Fail("자막 데이터를 불러오는 도중 실패");
                 }
             }
-        }
-
-        private void loadBookmark()
-        {
-
-        }
-
-        private void saveBookmark()
-        {
-
         }
 
         private static JObject getVideoInformationOrNull(string videoId)

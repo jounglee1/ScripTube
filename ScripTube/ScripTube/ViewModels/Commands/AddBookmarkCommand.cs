@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -27,7 +28,8 @@ namespace ScripTube.ViewModels.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            var viewModel = parameter as MainWindowViewModel;
+            return (viewModel != null && viewModel.BookmarkItems != null);
         }
 
         public void Execute(object parameter)
@@ -39,16 +41,17 @@ namespace ScripTube.ViewModels.Commands
                 if (items != null)
                 {
                     string path = "https://i.pinimg.com/originals/0e/a5/d2/0ea5d20fdca383697c5af70ba588ef4a.jpg";
-                    //JsonConvert.SerializeObject(product);
 
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
                     bitmap.UriSource = new Uri(path);
                     bitmap.EndInit();
 
-                    var item = new BookmarkItem() { Seconds = viewModel.CurrentVideoTime, Memo = "memo", ImagePath = path, BitmapImage = bitmap };
+                    var item = new BookmarkItem() { Seconds = viewModel.CurrentVideoTime, Memo = "memo", ImagePath = path };
 
                     items.Add(item);
+
+                    viewModel.TargetVideo.BookmarkTray.SaveAsJson();
                 }
             }
         }

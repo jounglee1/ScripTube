@@ -38,6 +38,7 @@ namespace ScripTube.ViewModels
                     notifyPropertyChanged(nameof(TargetVideo));
                     notifyPropertyChanged(nameof(Subtitles));
                     notifyPropertyChanged(nameof(WindowTitle));
+                    BookmarkItems = mTargetVideo.BookmarkTray.Items;
                     if (mTargetVideo.IsSubtitleExisted)
                     {
                         SelectedSubtitle = Subtitles[0];
@@ -120,12 +121,12 @@ namespace ScripTube.ViewModels
             }
         }
 
-        private ObservableCollection<BookmarkItem> mBookmarkItems;// = new ObservableCollection<BookmarkItem>();
+        private ObservableCollection<BookmarkItem> mBookmarkItems;
         public ObservableCollection<BookmarkItem> BookmarkItems
         {
             get
             {
-                return mBookmarkItems;
+                return mTargetVideo?.BookmarkTray.Items;
             }
             set
             {
@@ -164,6 +165,7 @@ namespace ScripTube.ViewModels
         public ICommand RemoveBookmarkCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
         public ICommand CopySubtitleTextToClipboardCommand { get; }
+        public ICommand CopyTimeAndSubtitleTextToClipboardCommand { get; }
         #endregion
 
         private int mLastHighlightedIndex;
@@ -180,7 +182,7 @@ namespace ScripTube.ViewModels
             RemoveBookmarkCommand = new RemoveBookmarkCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();
             CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();
-            createCacheFolder();
+            CopyTimeAndSubtitleTextToClipboardCommand = new CopyTimeAndSubtitleTextToClipboardCommand();
         }
 
         private void select(double currentTime)
@@ -190,11 +192,6 @@ namespace ScripTube.ViewModels
             items[mLastHighlightedIndex].IsHighlighted = false;
             items[index].IsHighlighted = true;
             mLastHighlightedIndex = index;
-        }
-
-        private void createCacheFolder()
-        {
-            System.IO.Directory.CreateDirectory(BookmarkTray.CACHE_FOLDER_NAME);
         }
     }
 }

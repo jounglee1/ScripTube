@@ -13,7 +13,6 @@ namespace ScripTube.Models.Bookmark
         public double Seconds { get; set; }
         public string Memo { get; set; }
         public string ImagePath { get; set; }
-        public BitmapImage BitmapImage { get; set; }
         public DateTime CreatedDateTime { get; set; }
     }
 }

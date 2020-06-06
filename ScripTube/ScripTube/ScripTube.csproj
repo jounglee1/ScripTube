@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Commands\AddBookmarkCommand.cs" />
     <Compile Include="ViewModels\Commands\CopySubtitleTextToClipboardCommand.cs" />
+    <Compile Include="ViewModels\Commands\CopyTimeAndSubtitleTextToClipboardCommand.cs" />
     <Compile Include="ViewModels\Commands\ExecutePapagoCommand.cs" />
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenYouTubeUrlDialogCommand.cs" />

@@ -50,7 +50,6 @@ namespace ScripTube.ViewModels.Commands
                 if (video.Status == EVideoStatus.OK)
                 {
                     YouTubeUrlDialogViewModel.Parent.TargetVideo = video;
-                    YouTubeUrlDialogViewModel.Parent.BookmarkItems = new ObservableCollection<BookmarkItem>();
                     if (!video.IsSubtitleExisted)
                     {
                         MessageBox.Show("자막이 없는 동영상입니다.", "경고", MessageBoxButton.OK, MessageBoxImage.Exclamation);

@@ -23,7 +23,8 @@ namespace ScripTube.ViewModels.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            var viewModel = parameter as MainWindowViewModel;
+            return (viewModel != null && viewModel.BookmarkItems != null);
         }
 
         public void Execute(object parameter)
