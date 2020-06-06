@@ -1,7 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ScripTube.Enums;
 using ScripTube.Models.Bookmark;
-using ScripTube.Models.DialogBox;
 using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:dialog="clr-namespace:ScripTube.Models.DialogBox"
     xmlns:vm="clr-namespace:ScripTube.ViewModels"
     xmlns:cmd="clr-namespace:ScripTube.ViewModels.Commands"
     xmlns:cvtr="clr-namespace:ScripTube.Views.Converters"
@@ -43,11 +42,11 @@
                     <StackPanel>
                         <TextBlock
                             Text="유튜브 URL"
-                            Padding="8"
+                            Style="{StaticResource MaterialDesignBody1TextBlock}"
                             />
                         <ctrl:UrlTextBox
-                            Width="400"
-                            Margin="10"
+                            Margin="0,16,0,0"
+                            Width="360"
                             Text="{Binding Path=TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsSelectedText="{Binding Path=IsUrlTextAllSelected}"
                             >
@@ -57,11 +56,24 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ctrl:UrlTextBox>
-                        <TextBlock
-                            Text="올바른 URL이 아닙니다."
-                            Foreground="Red"
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Margin="0,8,0,0"
                             Visibility="{Binding Path=IsValidUrl, Converter={cvtr:InvertBooleanToVisiblityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                            />
+                            >
+                            <md:PackIcon
+                                Kind="ErrorOutline"
+                                Height="16"
+                                Width="16"
+                                Margin="0, 0, 4, 0"
+                                Foreground="Red"
+                                />
+                            <TextBlock
+                                Text="올바른 URL이 아닙니다."
+                                Foreground="Red"                                
+                                />
+                        </StackPanel>
+
                         <StackPanel
                             Orientation="Horizontal"
                             HorizontalAlignment="Right"

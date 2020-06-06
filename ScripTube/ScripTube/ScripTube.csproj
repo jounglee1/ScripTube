@@ -67,7 +67,6 @@
     <Compile Include="Models\Bookmark\BookmarkItem.cs" />
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
     <Compile Include="Enums\EBookmarkSortingType.cs" />
-    <Compile Include="Models\DialogBox\YouTubeUrlDialog.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
@@ -144,9 +143,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.24</Version>
-    </PackageReference>
     <PackageReference Include="MaterialDesignThemes">
       <Version>3.1.3</Version>
     </PackageReference>
@@ -166,6 +162,8 @@
       <Version>2.0.20525</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\DialogBox\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
