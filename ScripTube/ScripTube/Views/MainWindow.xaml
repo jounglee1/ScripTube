@@ -137,6 +137,8 @@
                                 />
                         <MenuItem
                                 Header="*.html 파일로 저장"
+                                Command="{Binding Path=SaveScriptAsHTMLCommand}"
+                                CommandParameter="{Binding}"
                                 />
                         <MenuItem
                                 Header="*.md 파일로 저장"

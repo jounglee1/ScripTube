@@ -69,7 +69,7 @@ namespace ScripTube.ViewModels.Commands
 
                     for (int i = 0; i < subtitle.Items.Count; i++)
                     {
-                        streamWriter.WriteLine(subItemTime[i] + " | " + subItemText[i]);
+                        streamWriter.WriteLine("[{0}] {1}", subItemTime[i], subItemText[i]);
                     }
 
                     streamWriter.Flush();

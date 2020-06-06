@@ -161,6 +161,7 @@ namespace ScripTube.ViewModels
         public ICommand SaveScriptAsTXTCommand { get; }
         public ICommand SaveScriptAsSMICommand { get; }
         public ICommand SaveScriptAsSRTCommand { get; }
+        public ICommand SaveScriptAsHTMLCommand { get; }
         public ICommand AddBookmarkCommand { get; }
         public ICommand RemoveBookmarkCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
@@ -178,6 +179,7 @@ namespace ScripTube.ViewModels
             SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
             SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
             SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
+            SaveScriptAsHTMLCommand = new SaveScriptAsHTMLCommand();
             AddBookmarkCommand = new AddBookmarkCommand();
             RemoveBookmarkCommand = new RemoveBookmarkCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();
