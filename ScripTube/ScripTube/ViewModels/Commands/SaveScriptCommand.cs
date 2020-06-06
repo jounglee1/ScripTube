@@ -127,26 +127,16 @@ namespace ScripTube.ViewModels.Commands
 
         private static void saveAsHTML(StreamWriter streamWriter, Video video, Subtitle subtitle)
         {
-            var subItemText = new List<string>();
-            var subItemTime = new List<string>();
-            string videoTitle = video.Title;
-
-            for (int i = 0; i < subtitle.Items.Count; i++)
-            {
-                subItemText.Add(subtitle.Items[i].Text);
-                subItemTime.Add(subtitle.Items[i].StartTimeFormat);
-            }
-
             streamWriter.WriteLine("<!DOCTYPE HTML>");
             streamWriter.WriteLine("<HTML>");
             streamWriter.WriteLine("<HEAD>");
-            streamWriter.WriteLine("<TITLE>" + videoTitle + "</TITLE>");
+            streamWriter.WriteLine("<TITLE>" + video.Title + "</TITLE>");
             streamWriter.WriteLine("</HEAD>");
             streamWriter.WriteLine("<BODY>");
 
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
-                streamWriter.WriteLine("<P>[{0}] {1}</P>", subItemTime[i], subItemText[i]);
+                streamWriter.WriteLine("<P>[{0}] {1}</P>", subtitle.Items[i].StartTimeFormat, subtitle.Items[i].Text);
                 streamWriter.WriteLine("\r\n");
             }
 
@@ -156,27 +146,16 @@ namespace ScripTube.ViewModels.Commands
 
         private static void saveAsSMI(StreamWriter streamWriter, Video video, Subtitle subtitle)
         {
-            var subItemText = new List<string>();
-            var subItemStartTime = new List<string>();
-            string videoTitle = video.Title;
-
-            for (int i = 0; i < subtitle.Items.Count; i++)
-            {
-                subItemText.Add(subtitle.Items[i].Text);
-                subItemStartTime.Add((subtitle.Items[i].StartSeconds * 1000).ToString());
-            }
-
             streamWriter.WriteLine("<SAMI>");
             streamWriter.WriteLine("<HEAD>");
-            streamWriter.WriteLine("<TITLE>{0}</TITLE>", videoTitle);
+            streamWriter.WriteLine("<TITLE>{0}</TITLE>", video.Title);
             streamWriter.WriteLine("</HEAD>");
             streamWriter.WriteLine("<BODY>");
 
-
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
-                streamWriter.WriteLine("<SYNC Start={0}>", subItemStartTime[i]);
-                streamWriter.WriteLine("<P Class=KRCC>{0}</P>", subItemText[i]);
+                streamWriter.WriteLine("<SYNC Start={0}>", (subtitle.Items[i].StartSeconds * 1000).ToString());
+                streamWriter.WriteLine("<P Class=KRCC>{0}</P>", subtitle.Items[i].Text);
                 streamWriter.WriteLine("\r\n");
             }
 
@@ -186,39 +165,19 @@ namespace ScripTube.ViewModels.Commands
 
         private static void saveAsSRT(StreamWriter streamWriter, Video video, Subtitle subtitle)
         {
-            var subItemText = new List<string>();
-            var subItemStartTime = new List<string>();
-            var subItemEndTime = new List<string>();
-
-            for (int i = 0; i < subtitle.Items.Count; i++)
-            {
-                subItemText.Add(subtitle.Items[i].Text);
-                subItemStartTime.Add(subtitle.Items[i].StartTimeFormatSRT);
-                subItemEndTime.Add(subtitle.Items[i].EndTimeFormatSRT);
-            }
-
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
                 streamWriter.WriteLine(i);
-                streamWriter.WriteLine("{0} --> {1}", subItemStartTime[i], subItemEndTime[i]);
-                streamWriter.WriteLine(subItemText[i]);
+                streamWriter.WriteLine("{0} --> {1}", subtitle.Items[i].StartTimeFormatSRT, subtitle.Items[i].EndTimeFormatSRT);
+                streamWriter.WriteLine(subtitle.Items[i].Text);
             }
         }
 
         private static void saveAsTXT(StreamWriter streamWriter, Video video, Subtitle subtitle)
         {
-            var subItemText = new List<string>();
-            var subItemTime = new List<string>();
-
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
-                subItemText.Add(subtitle.Items[i].Text);
-                subItemTime.Add(subtitle.Items[i].StartTimeFormat);
-            }
-
-            for (int i = 0; i < subtitle.Items.Count; i++)
-            {
-                streamWriter.WriteLine("[{0}] {1}", subItemTime[i], subItemText[i]);
+                streamWriter.WriteLine("[{0}] {1}", subtitle.Items[i].StartTimeFormat, subtitle.Items[i].Text);
             }
         }
 
