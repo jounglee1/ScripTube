@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace ScripTube.ViewModels.Commands
 {
-    class SaveScriptAsSMICommand : ICommand
+    class SaveScriptAsHTMLCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -41,17 +41,17 @@ namespace ScripTube.ViewModels.Commands
             var video = viewModel.TargetVideo as Video;
 
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.DefaultExt = "*.smi";
-            saveFileDialog.Filter = "SMI 파일 (*.smi)|*.smi|모든 파일(*.*)|*.*";
+            saveFileDialog.DefaultExt = "*.html";
+            saveFileDialog.Filter = "HTML 파일 (*.html)|*.html|모든 파일(*.*)|*.*";
 
             var subItemText = new List<string>();
-            var subItemStartTime = new List<string>();
+            var subItemTime = new List<string>();
             string videoTitle = video.Title;
 
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
                 subItemText.Add(subtitle.Items[i].Text);
-                subItemStartTime.Add((subtitle.Items[i].StartSeconds*1000).ToString());
+                subItemTime.Add(subtitle.Items[i].StartTimeFormat);
             }
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -59,22 +59,22 @@ namespace ScripTube.ViewModels.Commands
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
 
-                streamWriter.WriteLine("<SAMI>");
+                streamWriter.WriteLine("<!DOCTYPE HTML>");
+                streamWriter.WriteLine("<HTML>");
                 streamWriter.WriteLine("<HEAD>");
-                streamWriter.WriteLine("<TITLE>{0}</TITLE>", videoTitle);
+                streamWriter.WriteLine("<TITLE>" + videoTitle + "</TITLE>");
                 streamWriter.WriteLine("</HEAD>");
                 streamWriter.WriteLine("<BODY>");
 
 
                 for (int i = 0; i < subtitle.Items.Count; i++)
                 {
-                    streamWriter.WriteLine("<SYNC Start={0}>", subItemStartTime[i]);
-                    streamWriter.WriteLine("<P Class=KRCC>{0}</P>", subItemText[i]);
+                    streamWriter.WriteLine("<P>[{0}] {1}</P>",subItemTime[i], subItemText[i]);
                     streamWriter.WriteLine("\r\n");
                 }
 
                 streamWriter.WriteLine("</BODY>");
-                streamWriter.WriteLine("</SAMI>");
+                streamWriter.WriteLine("</HTML>");
 
                 streamWriter.Flush();
                 streamWriter.Close();
