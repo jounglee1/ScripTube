@@ -50,11 +50,6 @@
                             Text="{Binding Path=TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsSelectedText="{Binding Path=IsUrlTextAllSelected}"
                             >
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <mvvmlight:EventToCommand Command="{Binding TextChangedCommand}" PassEventArgsToCommand="True" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </ctrl:UrlTextBox>
                         <StackPanel
                             Orientation="Horizontal"
