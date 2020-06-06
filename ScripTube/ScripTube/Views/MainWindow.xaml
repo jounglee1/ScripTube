@@ -119,30 +119,18 @@
                             Header="새 링크"
                             Command="{Binding Path=OpenYouTubeUrlDialogCommand}"
                             />
-                    <MenuItem Header ="저장">
+                    <MenuItem Header="저장">
                         <MenuItem
-                                Header="*.txt 파일로 저장"
-                                Command="{Binding Path=SaveScriptAsTXTCommand}"
-                                CommandParameter="{Binding SelectedSubtitle}"
-                                />
-                        <MenuItem
-                                Header="*.smi 파일로 저장"
-                                Command="{Binding Path=SaveScriptAsSMICommand}"
-                                CommandParameter="{Binding}"
-                               />
-                        <MenuItem
-                                Header="*.srt 파일로 저장"
-                                Command="{Binding Path=SaveScriptAsSRTCommand}"
-                                CommandParameter="{Binding SelectedSubtitle}"
-                                />
-                        <MenuItem
-                                Header="*.html 파일로 저장"
-                                Command="{Binding Path=SaveScriptAsHTMLCommand}"
-                                CommandParameter="{Binding}"
-                                />
-                        <MenuItem
-                                Header="*.md 파일로 저장"
-                                />
+                                Header="자막 파일 저장"
+                                Command="{Binding Path=SaveScriptCommand}"
+                                >
+                            <MenuItem.CommandParameter>
+                                <MultiBinding Converter="{cvtr:VideoAndSubtitleMultiConverter}">
+                                    <Binding Path="TargetVideo" Source="{StaticResource mainWindowViewModel}"/>
+                                    <Binding Path="SelectedSubtitle" Source="{StaticResource mainWindowViewModel}"/>
+                                </MultiBinding>
+                            </MenuItem.CommandParameter>
+                        </MenuItem>
                     </MenuItem>
                 </Menu>
 

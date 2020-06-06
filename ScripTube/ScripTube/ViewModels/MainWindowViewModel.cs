@@ -155,13 +155,10 @@ namespace ScripTube.ViewModels
                 return (mTargetVideo == null ? string.Empty : mTargetVideo.Title);
             }
         }
-        
+
         public ICommand OpenYouTubeUrlDialogCommand { get; }
         public ICommand PlayerSeekToCommand { get; }
-        public ICommand SaveScriptAsTXTCommand { get; }
-        public ICommand SaveScriptAsSMICommand { get; }
-        public ICommand SaveScriptAsSRTCommand { get; }
-        public ICommand SaveScriptAsHTMLCommand { get; }
+        public ICommand SaveScriptCommand { get; }
         public ICommand AddBookmarkCommand { get; }
         public ICommand RemoveBookmarkCommand { get; }
         public ICommand ExecutePapagoCommand { get; }
@@ -176,10 +173,7 @@ namespace ScripTube.ViewModels
             YouTubeUrlDialogViewModel = new YouTubeUrlDialogViewModel(this);
             OpenYouTubeUrlDialogCommand = new OpenYouTubeUrlDialogCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
-            SaveScriptAsTXTCommand = new SaveScriptAsTXTCommand();
-            SaveScriptAsSMICommand = new SaveScriptAsSMICommand();
-            SaveScriptAsSRTCommand = new SaveScriptAsSRTCommand();
-            SaveScriptAsHTMLCommand = new SaveScriptAsHTMLCommand();
+            SaveScriptCommand = new SaveScriptCommand();
             AddBookmarkCommand = new AddBookmarkCommand();
             RemoveBookmarkCommand = new RemoveBookmarkCommand();
             ExecutePapagoCommand = new ExecutePapagoCommand();

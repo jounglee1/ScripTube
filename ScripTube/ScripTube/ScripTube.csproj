@@ -81,10 +81,7 @@
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
     <Compile Include="ViewModels\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\Commands\RemoveBookmarkCommand.cs" />
-    <Compile Include="ViewModels\Commands\SaveScriptAsHTMLCommand .cs" />
-    <Compile Include="ViewModels\Commands\SaveScriptAsSMICommand.cs" />
-    <Compile Include="ViewModels\Commands\SaveScriptAsSRTCommand.cs" />
-    <Compile Include="ViewModels\Commands\SaveScriptAsTXTCommand.cs" />
+    <Compile Include="ViewModels\Commands\SaveScriptCommand.cs" />
     <Compile Include="ViewModels\YouTubeUrlDialogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Enums\EVideoStatus.cs" />
@@ -112,6 +109,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Converters\VideoAndSubtitleMultiConverter.cs" />
     <Compile Include="Views\Converters\VideoTitleToWindowTitleConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
