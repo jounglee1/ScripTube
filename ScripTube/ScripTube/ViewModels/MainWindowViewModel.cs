@@ -135,6 +135,20 @@ namespace ScripTube.ViewModels
             }
         }
 
+        private Thumbnail mTargetThumbnail;
+        public Thumbnail TargetThumbnail
+        {
+            get
+            {
+                return mTargetThumbnail;
+            }
+            set
+            {
+                mTargetThumbnail = value;
+                notifyPropertyChanged(nameof(TargetThumbnail));
+            }
+        }
+
         private bool mbAutoScroll;
         public bool IsAutoScroll
         {

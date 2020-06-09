@@ -40,14 +40,10 @@ namespace ScripTube.ViewModels.Commands
                 var items = viewModel.BookmarkItems;
                 if (items != null)
                 {
-                    string path = "https://i.pinimg.com/originals/0e/a5/d2/0ea5d20fdca383697c5af70ba588ef4a.jpg";
+                    string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + viewModel.CurrentVideoTime.GetHashCode() + ".png");
+                    viewModel.TargetThumbnail = new Thumbnail(filename);
 
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(path);
-                    bitmap.EndInit();
-
-                    var item = new BookmarkItem() { Seconds = viewModel.CurrentVideoTime, Memo = "memo", ImagePath = path };
+                    var item = new BookmarkItem() { Seconds = viewModel.CurrentVideoTime, Memo = "memo", ImagePath = filename };
 
                     items.Add(item);
 

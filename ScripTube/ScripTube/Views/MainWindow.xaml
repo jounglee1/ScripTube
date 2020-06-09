@@ -158,6 +158,7 @@
                             VideoSource="{Binding TargetVideo}"
                             CurrentTime="{Binding CurrentVideoTime, Mode=OneWayToSource}"
                             SetTime="{Binding SetVideoTime, Mode=OneWay}"
+                            GenerateThumbnail="{Binding TargetThumbnail}"
                             />
                     </md:Card>
 
@@ -331,16 +332,23 @@
                                 </Button>
                             </StackPanel>
 
+
                             <ListView
                                 Grid.Row="1"
                                 ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                 >
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="24" />
-                                                <RowDefinition Height="24" />
+                                                <RowDefinition Height="32" />
+                                                <RowDefinition Height="32" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -362,6 +370,7 @@
                                                 Grid.Column="1"
                                                 Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
                                                 />
+
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

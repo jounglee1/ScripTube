@@ -1,14 +1,18 @@
 ﻿using Microsoft.Toolkit.Wpf.UI.Controls;
+using ScripTube.Models.Bookmark;
 using ScripTube.Models.YouTube;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -36,22 +40,14 @@ namespace ScripTube.Views.Controls
         public double SetTime
         {
             get { return (double)GetValue(SetTimeProperty); }
-            set
-            {
-            }
+            set { SetCurrentValue(SetTimeProperty, value); }
         }
 
-        public static readonly DependencyProperty VideoSourceProperty =
-            DependencyProperty.Register(nameof(VideoSource), typeof(Video), typeof(VideoPlayer), new PropertyMetadata(null, notifyVideoSourcePropertyChanged));
-        public static readonly DependencyProperty CurrentTimeProperty =
-            DependencyProperty.Register(nameof(CurrentTime), typeof(double), typeof(VideoPlayer), new PropertyMetadata(0.0, notifyCurrentTimePropertyChanged));
-        public static readonly DependencyProperty SetTimeProperty =
-            DependencyProperty.Register(nameof(SetTime), typeof(double), typeof(VideoPlayer), new PropertyMetadata(0.0, notifySetTimePropertyChanged));
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private System.Windows.Threading.DispatcherTimer mTimer = new System.Windows.Threading.DispatcherTimer();
+        public Thumbnail GenerateThumbnail
+        {
+            get { return (Thumbnail)GetValue(GenerateThumbnailProperty); }
+            set { SetValue(GenerateThumbnailProperty, value); }
+        }
 
         [Obsolete]
         public VideoPlayer()
@@ -61,6 +57,19 @@ namespace ScripTube.Views.Controls
             mTimer.Tick += mTimer_Tick;
             mTimer.Interval = TimeSpan.FromMilliseconds(500);
         }
+
+        public static readonly DependencyProperty VideoSourceProperty =
+            DependencyProperty.Register(nameof(VideoSource), typeof(Video), typeof(VideoPlayer), new PropertyMetadata(null, notifyVideoSourcePropertyChanged));
+        public static readonly DependencyProperty CurrentTimeProperty =
+            DependencyProperty.Register(nameof(CurrentTime), typeof(double), typeof(VideoPlayer), new PropertyMetadata(0.0, notifyCurrentTimePropertyChanged));
+        public static readonly DependencyProperty SetTimeProperty =
+            DependencyProperty.Register(nameof(SetTime), typeof(double), typeof(VideoPlayer), new PropertyMetadata(0.0, notifySetTimePropertyChanged));
+        public static readonly DependencyProperty GenerateThumbnailProperty =
+            DependencyProperty.Register(nameof(GenerateThumbnail), typeof(Thumbnail), typeof(VideoPlayer), new PropertyMetadata(null, notifyGenerateThumbnailPropertyChanged));
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private System.Windows.Threading.DispatcherTimer mTimer = new System.Windows.Threading.DispatcherTimer();
 
         [Obsolete]
         public void NavigateToLocal(string relativePath)
@@ -78,7 +87,6 @@ namespace ScripTube.Views.Controls
             {
                 return;
             }
-            
         }
 
         public void Play()
@@ -96,7 +104,7 @@ namespace ScripTube.Views.Controls
             xWebView.InvokeScript("stopVideo");
         }
 
-        public void Snapshot(string path)
+        private void snapshot(Thumbnail thumbnail)
         {
             var topLeftCorner = xWebView.PointToScreen(new System.Windows.Point(0, 0));
             var topLeftGdiPoint = new System.Drawing.Point((int)topLeftCorner.X, (int)topLeftCorner.Y);
@@ -105,8 +113,30 @@ namespace ScripTube.Views.Controls
             using (var graphics = Graphics.FromImage(screenShot))
             {
                 graphics.CopyFromScreen(topLeftGdiPoint, new System.Drawing.Point(), size, CopyPixelOperation.SourceCopy);
+                
             }
-            screenShot.Save(path);
+            if (!File.Exists(thumbnail.ImagePath))
+            {
+                screenShot.Save(thumbnail.ImagePath, ImageFormat.Png);
+            }
+            thumbnail.Bitmap = screenShot;
+            thumbnail.BitmapSource = convert(screenShot);
+        }
+
+        private BitmapSource convert(Bitmap bitmap)
+        {
+            var bitmapData = bitmap.LockBits(
+                new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+            var bitmapSource = BitmapSource.Create(
+                bitmapData.Width, bitmapData.Height,
+                bitmap.HorizontalResolution, bitmap.VerticalResolution,
+                PixelFormats.Bgr24, null,
+                bitmapData.Scan0, bitmapData.Stride * bitmapData.Height, bitmapData.Stride);
+
+            bitmap.UnlockBits(bitmapData);
+            return bitmapSource;
         }
 
         private static void notifyVideoSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs args)
@@ -147,6 +177,16 @@ namespace ScripTube.Views.Controls
             {
                 player.SeekTo((double)e.NewValue);
                 player.notifyPropertyChanged(nameof(SetTime));
+            }
+        }
+
+        private static void notifyGenerateThumbnailPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
+        {
+            var player = source as VideoPlayer;
+            if (player != null)
+            {
+                player.snapshot(player.GenerateThumbnail);
+                player.notifyPropertyChanged(nameof(GenerateThumbnail));
             }
         }
 

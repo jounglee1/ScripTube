@@ -16,7 +16,7 @@ namespace ScripTube.Models.Bookmark
     {
         public string VideoId { get; }
 
-        private ObservableCollection<BookmarkItem> mItems;
+        private ObservableCollection<BookmarkItem> mItems = new ObservableCollection<BookmarkItem>();
         public ObservableCollection<BookmarkItem> Items
         {
             get
