@@ -116,9 +116,9 @@
             <DockPanel>
                 <Menu DockPanel.Dock="Top">
                     <MenuItem
-                            Header="새 링크"
-                            Command="{Binding Path=OpenYouTubeUrlDialogCommand}"
-                            />
+                        Header="새 링크"
+                        Command="{Binding Path=OpenYouTubeUrlDialogCommand}"
+                        />
                     <MenuItem Header="저장">
                         <MenuItem
                                 Header="자막 파일 저장"
@@ -314,7 +314,12 @@
                                 <RowDefinition Height="36" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
                                 <Button
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     Command="{Binding Path=AddBookmarkCommand}"
@@ -323,6 +328,7 @@
                                     <md:PackIcon Kind="BookmarkPlus" Width="auto" Height="auto" />
                                 </Button>
                                 <Button
+                                    Grid.Column="1"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     Command="{Binding Path=RemoveBookmarkCommand}"
                                     CommandParameter="{Binding ElementName=xListViewBookmark, Path=SelectedItem}"
@@ -335,7 +341,7 @@
                                         BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
                                         />
                                 </Button>
-                            </StackPanel>
+                            </Grid>
 
                             <ListView
                                 x:Name="xListViewBookmark"
