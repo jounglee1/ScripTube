@@ -36,7 +36,7 @@ namespace ScripTube.Models.Bookmark
         {
             VideoId = videoId;
             createCacheFolder();
-            LoadAsJson();
+            loadAsJson();
         }
 
         public static readonly string CACHE_FOLDER_NAME = "Cache";
@@ -48,14 +48,27 @@ namespace ScripTube.Models.Bookmark
             System.IO.Directory.CreateDirectory(BookmarkTray.CACHE_FOLDER_NAME);
         }
 
-        public void AddItem()
+        public void AddItem(BookmarkItem item)
         {
-
+            mItems.Add(item);
+            saveAsJson();
         }
 
-        public void LoadAsJson()
+        public bool RemoveItem(BookmarkItem item)
         {
-            string path = getJsonPath();
+            bool bSuccess = mItems.Remove(item);
+            if (File.Exists(item.ImagePath))
+            {
+                File.Delete(item.ImagePath);
+            }
+            saveAsJson();
+            return bSuccess;
+        }
+
+        private void loadAsJson()
+        {
+            string path = generateJsonPath();
+
             if (!File.Exists(path))
             {
                 return;
@@ -68,13 +81,13 @@ namespace ScripTube.Models.Bookmark
             }
         }
 
-        public void SaveAsJson()
+        private void saveAsJson()
         {
             string json = JsonConvert.SerializeObject(Items, Formatting.Indented);
-            System.IO.File.WriteAllText(getJsonPath(), json);
+            System.IO.File.WriteAllText(generateJsonPath(), json);
         }
 
-        private string getJsonPath()
+        private string generateJsonPath()
         {
             return string.Format("{0}.{1}", Path.Combine(CACHE_FOLDER_NAME, VideoId), "json");
         }

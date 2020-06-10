@@ -37,17 +37,12 @@ namespace ScripTube.ViewModels.Commands
             var viewModel = parameter as MainWindowViewModel;
             if (viewModel != null)
             {
-                var items = viewModel.BookmarkItems;
-                if (items != null)
+                var tray = viewModel.TargetVideo.BookmarkTray;
+                if (tray != null)
                 {
                     string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + viewModel.CurrentVideoTime.GetHashCode() + ".png");
                     viewModel.TargetThumbnail = new Thumbnail(filename);
-
-                    var item = new BookmarkItem() { Seconds = viewModel.CurrentVideoTime, Memo = "memo", ImagePath = filename };
-
-                    items.Add(item);
-
-                    viewModel.TargetVideo.BookmarkTray.SaveAsJson();
+                    tray.AddItem(new BookmarkItem("memo", viewModel.CurrentVideoTime, filename));
                 }
             }
         }

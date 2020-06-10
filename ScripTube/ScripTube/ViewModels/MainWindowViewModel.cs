@@ -135,6 +135,20 @@ namespace ScripTube.ViewModels
             }
         }
 
+        private BookmarkItem mSelectedBookmarkItem;
+        public BookmarkItem SelectedBookmarkItem
+        {
+            get
+            {
+                return mSelectedBookmarkItem;
+            }
+            set
+            {
+                mSelectedBookmarkItem = value;
+                notifyPropertyChanged(nameof(SelectedBookmarkItem));
+            }
+        }
+
         private Thumbnail mTargetThumbnail;
         public Thumbnail TargetThumbnail
         {
@@ -189,7 +203,7 @@ namespace ScripTube.ViewModels
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptCommand = new SaveScriptCommand();
             AddBookmarkCommand = new AddBookmarkCommand();
-            RemoveBookmarkCommand = new RemoveBookmarkCommand();
+            RemoveBookmarkCommand = new RemoveBookmarkCommand(this);
             ExecutePapagoCommand = new ExecutePapagoCommand();
             CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();
             CopyTimeAndSubtitleTextToClipboardCommand = new CopyTimeAndSubtitleTextToClipboardCommand();

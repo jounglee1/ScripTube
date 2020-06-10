@@ -325,16 +325,22 @@
                                 <Button
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     Command="{Binding Path=RemoveBookmarkCommand}"
-                                    CommandParameter="{Binding }"
+                                    CommandParameter="{Binding ElementName=xListViewBookmark, Path=SelectedItem}"
                                     BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                                     >
-                                    <md:PackIcon Kind="BookmarkOffOutline" Width="auto" Height="auto" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"/>
+                                    <md:PackIcon
+                                        Kind="BookmarkOffOutline"
+                                        Width="auto"
+                                        Height="auto"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
+                                        />
                                 </Button>
                             </StackPanel>
 
-
                             <ListView
+                                x:Name="xListViewBookmark"
                                 Grid.Row="1"
+                                SelectionMode="Single"
                                 ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                 >
                                 <ListView.ItemContainerStyle>
@@ -356,7 +362,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Image
                                                 Grid.RowSpan="2"
-                                                Source="{Binding Path=ImagePath}"
+                                                Source="{Binding Path=ImageSource}"
                                                 />
                                             <TextBlock
                                                 Padding="6"
