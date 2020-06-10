@@ -89,6 +89,7 @@
     <Compile Include="Models\YouTube\SubtitleItem.cs" />
     <Compile Include="Models\YouTube\Video.cs" />
     <Compile Include="Models\YouTube\Subtitle.cs" />
+    <Compile Include="Views\Controls\SubtitleListView.cs" />
     <Compile Include="Views\Controls\VideoPlayer.xaml.cs">
       <DependentUpon>VideoPlayer.xaml</DependentUpon>
     </Compile>

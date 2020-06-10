@@ -163,16 +163,22 @@ namespace ScripTube.ViewModels
             }
         }
 
-        private bool mbAutoScroll;
-        public bool IsAutoScroll
+
+
+        private int mLastHighlightedIndex;
+        public int LastHighlightedIndex
         {
             get
             {
-                return mbAutoScroll;
+                return mLastHighlightedIndex;
             }
             set
             {
-                mbAutoScroll = value;
+                if (mLastHighlightedIndex != value)
+                {
+                    mLastHighlightedIndex = value;
+                    notifyPropertyChanged(nameof(LastHighlightedIndex));
+                }
             }
         }
 
@@ -194,8 +200,6 @@ namespace ScripTube.ViewModels
         public ICommand CopyTimeAndSubtitleTextToClipboardCommand { get; }
         #endregion
 
-        private int mLastHighlightedIndex;
-
         public MainWindowViewModel()
         {
             YouTubeUrlDialogViewModel = new YouTubeUrlDialogViewModel(this);
@@ -215,7 +219,7 @@ namespace ScripTube.ViewModels
             var items = SelectedSubtitle.Items;
             items[mLastHighlightedIndex].IsHighlighted = false;
             items[index].IsHighlighted = true;
-            mLastHighlightedIndex = index;
+            LastHighlightedIndex = index;
         }
     }
 }

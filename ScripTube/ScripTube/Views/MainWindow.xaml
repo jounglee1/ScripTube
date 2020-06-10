@@ -35,7 +35,10 @@
                 TargetType="{x:Type ctrl:UrlTextBox}"
                 BasedOn="{StaticResource MaterialDesignTextBox}"
                 />
-            
+            <Style
+                TargetType="{x:Type ctrl:SubtitleListView}"
+                BasedOn="{StaticResource MaterialDesignListView}"
+                />
             <DataTemplate DataType="{x:Type vm:YouTubeUrlDialogViewModel}">
             <!-- Dialog Host -->
                 <Grid Margin="24">
@@ -119,18 +122,16 @@
                         Header="새 링크"
                         Command="{Binding Path=OpenYouTubeUrlDialogCommand}"
                         />
-                    <MenuItem Header="저장">
-                        <MenuItem
-                                Header="자막 파일 저장"
-                                Command="{Binding Path=SaveScriptCommand}"
-                                >
-                            <MenuItem.CommandParameter>
-                                <MultiBinding Converter="{cvtr:VideoAndSubtitleMultiConverter}">
-                                    <Binding Path="TargetVideo" Source="{StaticResource mainWindowViewModel}"/>
-                                    <Binding Path="SelectedSubtitle" Source="{StaticResource mainWindowViewModel}"/>
-                                </MultiBinding>
-                            </MenuItem.CommandParameter>
-                        </MenuItem>
+                    <MenuItem
+                        Header="자막 저장"
+                        Command="{Binding Path=SaveScriptCommand}"
+                        >
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{cvtr:VideoAndSubtitleMultiConverter}">
+                                <Binding Path="TargetVideo" Source="{StaticResource mainWindowViewModel}"/>
+                                <Binding Path="SelectedSubtitle" Source="{StaticResource mainWindowViewModel}"/>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
                     </MenuItem>
                 </Menu>
 
@@ -174,7 +175,6 @@
                     <md:Card
                         Grid.Row="2"
                         Grid.ColumnSpan="3"
-
                         Margin="8"
                         >
                         <Grid>
@@ -182,30 +182,36 @@
                                 <RowDefinition Height="36" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <WrapPanel Margin="4">
+                            
+                            <WrapPanel Margin="4" >
                                 <CheckBox
                                     Content="자동 스크롤"
-                                    IsChecked="{Binding IsAutoScroll}"
+                                    IsChecked="{Binding ElementName=xSubtitleListView, Path=AutoScroll}"
+                                    HorizontalAlignment="Right"
                                     />
                                 <TextBlock
                                     Text="표시 언어"
-                                    Height="Auto"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,0"
                                     />
                                 <ComboBox
                                     IsReadOnly="True"
                                     ItemsSource="{Binding Path=Subtitles, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedItem="{Binding Path=SelectedSubtitle, UpdateSourceTrigger=PropertyChanged}"
                                     DisplayMemberPath="LanguageName"
+                                    Margin="8,0,0,0"
                                     />
                             </WrapPanel>
 
-                            <ListView
-                                x:Name="xListView"
+                            <ctrl:SubtitleListView
+                                x:Name="xSubtitleListView"
                                 Grid.Row="1"
                                 ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
                                 SelectionMode="Extended"
+                                AutoScroll="True"
+                                HighlightedIndex="{Binding Path=LastHighlightedIndex}"
                                 >
-                                <ListView.ItemTemplate>
+                                <ctrl:SubtitleListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -244,17 +250,17 @@
                                                 />
                                         </Grid>
                                     </DataTemplate>
-                                </ListView.ItemTemplate>
+                                </ctrl:SubtitleListView.ItemTemplate>
 
-                                <ListView.InputBindings>
+                                <ctrl:SubtitleListView.InputBindings>
                                     <MouseBinding
                                         MouseAction="LeftDoubleClick"
                                         Command="{Binding Source={StaticResource mainWindowViewModel}, Path=PlayerSeekToCommand}"
                                         CommandParameter="{Binding }"
                                         />
-                                </ListView.InputBindings>
+                                </ctrl:SubtitleListView.InputBindings>
                                 
-                                <ListView.ContextMenu>
+                                <ctrl:SubtitleListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem
                                             Header="파파고로 번역 (브라우저)"
@@ -291,8 +297,9 @@
                                             </MenuItem>
                                         </MenuItem>
                                     </ContextMenu>
-                                </ListView.ContextMenu>
-                            </ListView>
+                                </ctrl:SubtitleListView.ContextMenu>
+                            </ctrl:SubtitleListView>
+                                    
                         </Grid>
                     </md:Card>
 
@@ -325,7 +332,11 @@
                                     Command="{Binding Path=AddBookmarkCommand}"
                                     CommandParameter="{Binding }"
                                     >
-                                    <md:PackIcon Kind="BookmarkPlus" Width="auto" Height="auto" />
+                                    <md:PackIcon
+                                        Kind="BookmarkPlus"
+                                        Width="auto"
+                                        Height="auto"
+                                        />
                                 </Button>
                                 <Button
                                     Grid.Column="1"

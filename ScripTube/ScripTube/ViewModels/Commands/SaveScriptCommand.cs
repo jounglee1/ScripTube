@@ -67,7 +67,7 @@ namespace ScripTube.ViewModels.Commands
         public bool CanExecute(object parameter)
         {
             var values = (object[])parameter;
-            return values[0] != null && values[1] != null;
+            return values != null && values[0] != null && values[1] != null;
         }
 
         public void Execute(object parameter)
