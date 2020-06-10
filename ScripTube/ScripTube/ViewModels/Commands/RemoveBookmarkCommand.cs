@@ -32,6 +32,7 @@ namespace ScripTube.ViewModels.Commands
         public bool CanExecute(object parameter)
         {
             var item = parameter as BookmarkItem;
+
             return item != null;
         }
 

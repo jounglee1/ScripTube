@@ -30,15 +30,9 @@ namespace ScripTube.Views.Controls
         public static readonly DependencyProperty AutoScrollProperty =
             DependencyProperty.Register("AutoScroll", typeof(bool), typeof(SubtitleListView), new PropertyMetadata(false));
 
-
         private static void notifyHighlightIndexChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var subtitleListView = sender as SubtitleListView;
-
-            if (subtitleListView == null)
-            {
-                return;
-            }
 
             if (subtitleListView.AutoScroll)
             {

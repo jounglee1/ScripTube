@@ -13,21 +13,16 @@ namespace ScripTube.Views.Converters
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return getVisibility(value);
+            if (!(value is bool))
+            {
+                return Visibility.Hidden;
+            }
+            return ((bool)value) ? Visibility.Visible : Visibility.Hidden;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        private object getVisibility(object value)
-        {
-            if (!(value is bool))
-            {
-                return Visibility.Hidden;
-            }   
-            return ((bool)value) ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }

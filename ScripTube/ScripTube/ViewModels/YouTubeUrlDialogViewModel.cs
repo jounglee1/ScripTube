@@ -65,7 +65,6 @@ namespace ScripTube.ViewModels
         }
 
         public ICommand ImportVideoCommand { get; set; }
-
         #endregion
 
         public MainWindowViewModel Parent { get; }

@@ -104,7 +104,7 @@ namespace ScripTube.Views.Controls
             xWebView.InvokeScript("stopVideo");
         }
 
-        private void snapshot(Thumbnail thumbnail)
+        private void saveSnapShot(Thumbnail thumbnail)
         {
             var topLeftCorner = xWebView.PointToScreen(new System.Windows.Point(0, 0));
             var topLeftGdiPoint = new System.Drawing.Point((int)topLeftCorner.X, (int)topLeftCorner.Y);
@@ -119,8 +119,8 @@ namespace ScripTube.Views.Controls
             {
                 screenShot.Save(thumbnail.ImagePath, ImageFormat.Png);
             }
-            thumbnail.Bitmap = screenShot;
-            thumbnail.BitmapSource = convert(screenShot);
+            //thumbnail.Bitmap = screenShot;
+            //thumbnail.BitmapSource = convert(screenShot);
         }
 
         private BitmapSource convert(Bitmap bitmap)
@@ -137,6 +137,24 @@ namespace ScripTube.Views.Controls
 
             bitmap.UnlockBits(bitmapData);
             return bitmapSource;
+        }
+
+        private void mTimer_Tick(object sender, EventArgs e)
+        {
+            if (VideoSource != null)
+            {
+                try
+                {
+                    string stringTime = xWebView.InvokeScript("getCurrentTime");
+                    if (double.TryParse(stringTime, out double time))
+                    {
+                        CurrentTime = time;
+                    }
+                }
+                catch (System.Exception)
+                {
+                }
+            }
         }
 
         private static void notifyVideoSourcePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs args)
@@ -185,26 +203,8 @@ namespace ScripTube.Views.Controls
             var player = source as VideoPlayer;
             if (player != null)
             {
-                player.snapshot(player.GenerateThumbnail);
+                player.saveSnapShot(player.GenerateThumbnail);
                 player.notifyPropertyChanged(nameof(GenerateThumbnail));
-            }
-        }
-
-        private void mTimer_Tick(object sender, EventArgs e)
-        {
-            if (VideoSource != null)
-            {
-                try
-                {
-                    string stringTime = xWebView.InvokeScript("getCurrentTime");
-                    if (double.TryParse(stringTime, out double time))
-                    {
-                        CurrentTime = time;
-                    }
-                }
-                catch (System.Exception)
-                {
-                }
             }
         }
 

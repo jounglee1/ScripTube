@@ -17,12 +17,13 @@ namespace ScripTube.Views.Controls
             set { SetValue(IsSelectedTextProperty, value); }
         }
 
-        public static readonly DependencyProperty IsSelectedTextProperty = DependencyProperty.RegisterAttached("IsSelectedText",
+        public static readonly DependencyProperty IsSelectedTextProperty = DependencyProperty.RegisterAttached(nameof(IsSelectedText),
              typeof(bool), typeof(UrlTextBox), new FrameworkPropertyMetadata(false, notifyIsSelectedChanged));
 
         private static void notifyIsSelectedChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             UrlTextBox textbox = sender as UrlTextBox;
+
             if ((bool)e.NewValue)
             {
                 textbox.Focus();
