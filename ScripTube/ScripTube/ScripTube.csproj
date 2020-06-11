@@ -93,6 +93,7 @@
     <Compile Include="Views\Controls\VideoPlayer.xaml.cs">
       <DependentUpon>VideoPlayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\BooleanToForegroundConverter.cs" />
     <Compile Include="Views\Converters\InvertBooleanToVisiblityConverter.cs" />
     <Compile Include="Views\Converters\BooleanToVisiblityConverter.cs" />
     <Compile Include="Views\Converters\SecondsToTimeFormatStringConverter.cs" />

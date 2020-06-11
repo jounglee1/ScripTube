@@ -179,26 +179,44 @@
                         >
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="36" />
+                                <RowDefinition Height="40" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            
-                            <WrapPanel Margin="4" >
-                                <CheckBox
-                                    Content="자동 스크롤"
-                                    IsChecked="{Binding ElementName=xSubtitleListView, Path=AutoScroll}"
-                                    HorizontalAlignment="Right"
-                                    />
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <WrapPanel Margin="12,12,0,0">
                                 <TextBlock
                                     Text="표시 언어"
-                                    VerticalAlignment="Center"
-                                    Margin="8,0,0,0"
                                     />
                                 <ComboBox
                                     IsReadOnly="True"
                                     ItemsSource="{Binding Path=Subtitles, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedItem="{Binding Path=SelectedSubtitle, UpdateSourceTrigger=PropertyChanged}"
                                     DisplayMemberPath="LanguageName"
+                                    Margin="8,-5,0,0"
+                                    />
+                            </WrapPanel>
+
+                            <WrapPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Margin="0,12,18,0"
+                                >
+                                <md:PackIcon
+                                    Kind="ScrollVerticalLock"
+                                    Foreground="{Binding ElementName=xSubtitleListView, Path=ScrollLock, Converter={cvtr:BooleanToForegroundConverter}}"
+                                    />
+                                <TextBlock
+                                    Text="스크롤 잠금"
+                                    Foreground="{Binding ElementName=xSubtitleListView, Path=ScrollLock, Converter={cvtr:BooleanToForegroundConverter}}"
+                                    VerticalAlignment="Center"
+                                    Margin="4,0,0,0"
+                                    />
+                                <ToggleButton
+                                    IsChecked="{Binding ElementName=xSubtitleListView, Path=ScrollLock}"
                                     Margin="8,0,0,0"
                                     />
                             </WrapPanel>
@@ -206,24 +224,25 @@
                             <ctrl:SubtitleListView
                                 x:Name="xSubtitleListView"
                                 Grid.Row="1"
+                                Grid.ColumnSpan="2"
                                 ItemsSource="{Binding Path=SubtitleItems, UpdateSourceTrigger=PropertyChanged}"
                                 SelectionMode="Extended"
-                                AutoScroll="True"
+                                ScrollLock="False"
                                 HighlightedIndex="{Binding Path=LastHighlightedIndex}"
                                 >
                                 <ctrl:SubtitleListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="4" />
+                                                <ColumnDefinition Width="auto" />
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            <Rectangle
-                                                Fill="DarkSlateBlue"
+                                            <md:PackIcon
+                                                Kind="TimelineTextOutline"
+                                                Foreground="OrangeRed"
                                                 Visibility="{Binding Path=IsHighlighted, Converter={cvtr:BooleanToVisibilityConverter}}"
-                                                >
-                                            </Rectangle>
+                                                />
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Cursor="Hand"
@@ -334,8 +353,8 @@
                                     >
                                     <md:PackIcon
                                         Kind="BookmarkPlus"
-                                        Width="auto"
-                                        Height="auto"
+                                        Width="Auto"
+                                        Height="Auto"
                                         />
                                 </Button>
                                 <Button
@@ -347,8 +366,8 @@
                                     >
                                     <md:PackIcon
                                         Kind="BookmarkOffOutline"
-                                        Width="auto"
-                                        Height="auto"
+                                        Width="Auto"
+                                        Height="Auto"
                                         BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
                                         />
                                 </Button>

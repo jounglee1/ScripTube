@@ -17,6 +17,7 @@ namespace ScripTube.Views.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string videoTitle = value as string;
+
             if (videoTitle != null && videoTitle.Trim() != string.Empty)
             {
                 return string.Format("{0} - {1}", videoTitle, WINDOW_TITLE);

@@ -18,7 +18,7 @@ namespace ScripTube.Views.Controls
             set { SetValue(HighlightedIndexProperty, value); }
         }
 
-        public bool AutoScroll
+        public bool ScrollLock
         {
             get { return (bool)GetValue(AutoScrollProperty); }
             set { SetValue(AutoScrollProperty, value); }
@@ -28,13 +28,13 @@ namespace ScripTube.Views.Controls
             DependencyProperty.Register("HighlightedIndex", typeof(int), typeof(SubtitleListView), new PropertyMetadata(0, notifyHighlightIndexChanged));
 
         public static readonly DependencyProperty AutoScrollProperty =
-            DependencyProperty.Register("AutoScroll", typeof(bool), typeof(SubtitleListView), new PropertyMetadata(false));
+            DependencyProperty.Register("ScrollLock", typeof(bool), typeof(SubtitleListView), new PropertyMetadata(false));
 
         private static void notifyHighlightIndexChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             var subtitleListView = sender as SubtitleListView;
 
-            if (subtitleListView.AutoScroll)
+            if (!subtitleListView.ScrollLock)
             {
                 var items = new List<object>();
                 foreach (var item in subtitleListView.SelectedItems)
