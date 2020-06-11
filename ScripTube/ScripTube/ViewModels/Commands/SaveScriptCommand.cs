@@ -1,4 +1,5 @@
 ﻿using ScripTube.Models.YouTube;
+using ScripTube.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -134,9 +135,11 @@ namespace ScripTube.ViewModels.Commands
             streamWriter.WriteLine("</HEAD>");
             streamWriter.WriteLine("<BODY>");
 
-            for (int i = 0; i < subtitle.Items.Count; i++)
+            foreach (var item in subtitle.Items)
             {
-                streamWriter.WriteLine("<P>[{0}] {1}</P>", subtitle.Items[i].StartTimeFormat, subtitle.Items[i].Text);
+                streamWriter.WriteLine("<P>[{0}] {1}</P>",
+                    TimeFormatUtil.GetHHMMSSOrMMSS(item.StartSeconds, item.IsOneHourExcessed),
+                    item.Text);
                 streamWriter.WriteLine("\r\n");
             }
 
@@ -152,11 +155,11 @@ namespace ScripTube.ViewModels.Commands
             streamWriter.WriteLine("</HEAD>");
             streamWriter.WriteLine("<BODY>");
 
-            for (int i = 0; i < subtitle.Items.Count; i++)
+            foreach (var item in subtitle.Items)
             {
-                streamWriter.WriteLine("<SYNC Start={0}>", (subtitle.Items[i].StartSeconds * 1000).ToString());
-                streamWriter.WriteLine("<P Class=KRCC>{0}</P>", subtitle.Items[i].Text);
-                streamWriter.WriteLine("\r\n");
+                streamWriter.WriteLine("<SYNC Start={0}>", item.StartSeconds * 1000);
+                streamWriter.WriteLine("<P Class=KRCC>{0}</P>", item.Text);
+                streamWriter.Write("\r\n");
             }
 
             streamWriter.WriteLine("</BODY>");
@@ -167,17 +170,21 @@ namespace ScripTube.ViewModels.Commands
         {
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
+                var item = subtitle.Items[i];
                 streamWriter.WriteLine(i);
-                streamWriter.WriteLine("{0} --> {1}", subtitle.Items[i].StartTimeFormatSRT, subtitle.Items[i].EndTimeFormatSRT);
+                streamWriter.WriteLine("{0} --> {1}",
+                    TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.StartSeconds, item.IsOneHourExcessed),
+                    TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.StartSeconds + item.DurationSeconds, item.IsOneHourExcessed));
                 streamWriter.WriteLine(subtitle.Items[i].Text);
+                streamWriter.WriteLine();
             }
         }
 
         private static void saveAsTXT(StreamWriter streamWriter, Video video, Subtitle subtitle)
         {
-            for (int i = 0; i < subtitle.Items.Count; i++)
+            foreach (var item in subtitle.Items)
             {
-                streamWriter.WriteLine("[{0}] {1}", subtitle.Items[i].StartTimeFormat, subtitle.Items[i].Text);
+                streamWriter.WriteLine("[{0}] {1}", TimeFormatUtil.GetHHMMSSOrMMSS(item.StartSeconds, item.IsOneHourExcessed), item.Text);
             }
         }
 

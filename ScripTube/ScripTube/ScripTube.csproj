@@ -73,6 +73,7 @@
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
+    <Compile Include="Utils\TimeFormatUtil.cs" />
     <Compile Include="Utils\YouTubeUtil.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Commands\AddBookmarkCommand.cs" />

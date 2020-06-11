@@ -1,4 +1,5 @@
 ﻿using ScripTube.Models.YouTube;
+using ScripTube.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace ScripTube.ViewModels.Commands
                 var sb = new StringBuilder();
                 foreach (var item in subtitleItems)
                 {
-                    sb.Append(item.StartTimeFormat);
+                    sb.Append(TimeFormatUtil.GetHHMMSSOrMMSS(item.StartSeconds, item.IsOneHourExcessed));
                     sb.Append(' ');
                     sb.Append(item.Text);
                     sb.Append(Environment.NewLine);

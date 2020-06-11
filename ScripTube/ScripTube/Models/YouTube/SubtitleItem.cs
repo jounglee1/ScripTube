@@ -30,67 +30,6 @@ namespace ScripTube.Models.YouTube
             }
         }
 
-        public string StartTimeFormat
-        {
-            get
-            {
-                int total = Convert.ToInt32(StartSeconds);
-                int min = total / 60;
-                int sec = total % 60;
-                if (IsOneHourExcessed)
-                {
-                    int hour = min / 60;
-                    min %= 60;
-                    return $"{hour.ToString("D2")}:{min.ToString("D2")}:{sec.ToString("D2")}";
-                }
-                return $"{min.ToString("D2")}:{sec.ToString("D2")}";
-            }
-        }
-
-        public string StartTimeFormatSRT
-        {
-            get
-            {
-                double total = StartSeconds;
-                int min = (Convert.ToInt32(total)) / 60;
-                double sec = total % 60;
-                double dec = sec % 1;
-                
-                if (IsOneHourExcessed)
-                {
-                    int hour = min / 60;
-                    min %= 60;
-                    return $"{hour.ToString("00")}:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
-                }
-                else
-                {
-                    return $"00:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
-                }
-            }
-        }
-
-        public string EndTimeFormatSRT
-        {
-            get
-            {
-                double total = StartSeconds + DurationSeconds;
-                int min = (Convert.ToInt32(total)) / 60;
-                double sec = total % 60;
-                double dec = sec % 1;
-
-                if (IsOneHourExcessed)
-                {
-                    int hour = min / 60;
-                    min %= 60;
-                    return $"{hour.ToString("00")}:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
-                }
-                else
-                {
-                    return $"00:{min.ToString("00")}:{sec.ToString("00")},{dec.ToString("000")}";
-                }
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SubtitleItem(string text, string start, string duration, bool bOneHourExcessed)
@@ -104,6 +43,7 @@ namespace ScripTube.Models.YouTube
         private static string unescapeXML(string str)
         {
             StringBuilder sb = new StringBuilder(str);
+
             sb.Replace("&#34;", "\"");
             sb.Replace("&#38;", "&");
             sb.Replace("&#39;", "\'");
@@ -115,6 +55,7 @@ namespace ScripTube.Models.YouTube
             sb.Replace("&apos;", "\'");
             sb.Replace("&lt;", "<");
             sb.Replace("&gt;", ">");
+
             return sb.ToString();
         }
 

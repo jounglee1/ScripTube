@@ -477,6 +477,8 @@
                                                     Padding="6"
                                                     Grid.Row="1"
                                                     Grid.Column="1"
+                                                    FontStyle="Italic"
+                                                    VerticalAlignment="Bottom"
                                                     Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
                                                     />
 
