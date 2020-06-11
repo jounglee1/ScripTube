@@ -117,7 +117,7 @@
         <Grid DataContext="{StaticResource mainWindowViewModel}">
             <!-- Upper Menu -->
             <DockPanel>
-                <Menu DockPanel.Dock="Top">
+                <Menu DockPanel.Dock="Top" Background="LightGray">
                     <MenuItem
                         Header="새 링크"
                         Command="{Binding Path=OpenYouTubeUrlDialogCommand}"
@@ -151,7 +151,7 @@
                     <md:Card
                         Grid.Column="0"
                         Padding="1"
-                        Margin="8"
+                        Margin="16, 16, 8, 8"
                         >
                         <ctrl:VideoPlayer
                             x:Name="xVideoPlayer"
@@ -168,7 +168,7 @@
                         Grid.Column="1"
                         Grid.RowSpan="2"
                         Margin="0,0,0,8"
-                        Width="4"
+                        Width="3"
                         Background="LightGray"
                         HorizontalAlignment="Stretch"
                         />
@@ -177,7 +177,7 @@
                     <md:Card
                         Grid.Row="2"
                         Grid.ColumnSpan="3"
-                        Margin="8"
+                        Margin="16, 8, 16, 16"
                         >
                         <Grid>
                             <Grid.RowDefinitions>
@@ -328,15 +328,14 @@
                     <GridSplitter
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
-
-                        Height="4"
+                        Height="3"
                         Background="LightGray"
                         HorizontalAlignment="Stretch"
                         />
 
                     <md:Card
                         Grid.Column="2"
-                        Margin="8"
+                        Margin="8, 16, 16, 8"
                         >
                         <Grid>
                             <Grid.RowDefinitions>
@@ -368,7 +367,7 @@
                                     BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                                     >
                                     <md:PackIcon
-                                        Kind="BookmarkOffOutline"
+                                        Kind="BookmarkRemoveOutline"
                                         Width="Auto"
                                         Height="Auto"
                                         BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
@@ -404,6 +403,7 @@
                                             <Image
                                                 Grid.RowSpan="2"
                                                 Source="{Binding Path=ImageSource}"
+                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                 />
                                             <TextBlock
                                                 Padding="6"
