@@ -44,14 +44,14 @@ namespace ScripTube.ViewModels.Commands
                 return;
             }
 
-            var msg = new WarningMessageDialog();
+            var msg = new RemoveBookmarkDialog();
             
             msg.Title = item.Memo;
             if (msg.Title.Length > 10)
             {
                 msg.Title = item.Memo.Substring(0, 10) + "...";
             }
-            msg.Message = string.Format("시간: {0} 초\n\n이 북마크를 삭제합니까?", TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.Seconds, true));
+            msg.Message = string.Format("시간: {0}\n\n이 북마크를 삭제합니까?", TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.Seconds, true));
 
             if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
             {

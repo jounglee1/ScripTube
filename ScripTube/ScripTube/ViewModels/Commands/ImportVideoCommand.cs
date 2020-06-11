@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ScripTube.Enums;
+using ScripTube.Models.Dialog;
 using ScripTube.Models.YouTube;
 using System;
 using System.Diagnostics;
@@ -34,7 +35,7 @@ namespace ScripTube.ViewModels.Commands
             return parameter as string != string.Empty;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             string id = parameter as string;
 
@@ -45,27 +46,31 @@ namespace ScripTube.ViewModels.Commands
 
             var video = new Video(id);
 
+            DialogHost.CloseDialogCommand.Execute(true, null);
+
             switch (video.Status)
             {
                 case EVideoStatus.OK:
                     YouTubeUrlDialogViewModel.Parent.TargetVideo = video;
                     if (!video.IsSubtitleExisted)
                     {
-                        MessageBox.Show("자막이 없는 동영상입니다.", "경고", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        await DialogHost.Show(new MessageDialog() { Title = "경고", Message = "자막이 없는 동영상입니다." }, "RootDialog");
                     }
-                    DialogHost.CloseDialogCommand.Execute(true, null);
+                    YouTubeUrlDialogViewModel.IsDialogOpen = false;
                     break;
                 
                 case EVideoStatus.UNPLAYABLE:
-                    MessageBox.Show("저작권의 이유로 인하여 불러올 수 없는 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await DialogHost.Show(new MessageDialog() { Title = "에러", Message = "저작권의 이유로 인하여 불러올 수 없는 동영상입니다." }, "RootDialog");
                     YouTubeUrlDialogViewModel.SelectAllText();
+                    YouTubeUrlDialogViewModel.Parent.OpenYouTubeUrlDialogCommand.Execute(null);
                     break;
                 
                 case EVideoStatus.ERROR:
-                    MessageBox.Show("유효하지 않은 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
+                    await DialogHost.Show(new MessageDialog() { Title = "에러", Message = "유효하지 않은 동영상입니다." }, "RootDialog");
                     YouTubeUrlDialogViewModel.SelectAllText();
+                    YouTubeUrlDialogViewModel.Parent.OpenYouTubeUrlDialogCommand.Execute(null);
                     break;
-                    
+
                 default:
                     Debug.Assert(false, "Invalid Video Status");
                     break;

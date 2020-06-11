@@ -38,7 +38,7 @@ namespace ScripTube.ViewModels.Commands
                     double time = viewModel.CurrentVideoTime;
                     string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + time.GetHashCode() + ".png");
 
-                    var msg = new CreateBookmarkDialog() { MemoText = "Memo" + tray.Items.Count.ToString() };
+                    var msg = new AddBookmarkDialog() { MemoText = "Memo" + tray.Items.Count.ToString() };
                     if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
                     {
                         viewModel.TargetThumbnail = new Thumbnail(filename);

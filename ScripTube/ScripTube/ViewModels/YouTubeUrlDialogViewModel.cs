@@ -60,6 +60,9 @@ namespace ScripTube.ViewModels
             }
         }
 
+        public string Title { get; }
+        public string UnvalidURLText { get; }
+
         public ICommand ImportVideoCommand { get; set; }
         #endregion
 
@@ -69,6 +72,9 @@ namespace ScripTube.ViewModels
         {
             ImportVideoCommand = new ImportVideoCommand(this);
             Parent = mainWindowViewModel;
+
+            Title = "유튜브 URL";
+            UnvalidURLText = "올바른 URL이 아닙니다.";
         }
 
         public void SelectAllText()

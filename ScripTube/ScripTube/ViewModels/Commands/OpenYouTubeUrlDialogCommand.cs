@@ -33,8 +33,10 @@ namespace ScripTube.ViewModels.Commands
         public async void Execute(object parameter)
         {
             ViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = true;
-            await DialogHost.Show(ViewModel.YouTubeUrlDialogViewModel, "RootDialog");
-            ViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = false;
+            if ((bool)await DialogHost.Show(ViewModel.YouTubeUrlDialogViewModel, "RootDialog") == false)
+            {
+                ViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = false;
+            }
         }
     }
 }

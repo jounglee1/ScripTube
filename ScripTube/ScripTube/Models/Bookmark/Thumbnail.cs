@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Media.Imaging;
-
-namespace ScripTube.Models.Bookmark
+﻿namespace ScripTube.Models.Bookmark
 {
     public class Thumbnail
     {

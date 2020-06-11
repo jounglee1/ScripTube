@@ -5,13 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ScripTube.ViewModels"
-    xmlns:cmd="clr-namespace:ScripTube.ViewModels.Commands"
     xmlns:cvtr="clr-namespace:ScripTube.Views.Converters"
     xmlns:ctrl="clr-namespace:ScripTube.Views.Controls"
     xmlns:dlg="clr-namespace:ScripTube.Models.Dialog"
-    xmlns:wpf="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    xmlns:mvvmlight="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
     Height="800"
@@ -30,6 +26,7 @@
     <!-- Resources -->
     <Window.Resources>
         <ResourceDictionary>
+            
             <cvtr:VideoTitleToWindowTitleConverter x:Key="VideoTitleToWindowTitleConverter" />
             <vm:MainWindowViewModel x:Key="mainWindowViewModel" />
             <Style
@@ -51,7 +48,7 @@
                         HorizontalAlignment="Left"
                         >
                         <TextBlock
-                            Text="유튜브 URL"
+                            Text="{Binding Path=Title}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             />
                         <ctrl:UrlTextBox
@@ -59,8 +56,7 @@
                             Width="360"
                             Text="{Binding Path=TextUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsSelectedText="{Binding Path=IsUrlTextAllSelected}"
-                            >
-                        </ctrl:UrlTextBox>
+                            />
                         <StackPanel
                             Orientation="Horizontal"
                             Margin="0,8,0,0"
@@ -74,7 +70,7 @@
                                 Foreground="OrangeRed"
                                 />
                             <TextBlock
-                                Text="올바른 URL이 아닙니다."
+                                Text="{Binding Path=UnvalidURLText}"
                                 Foreground="OrangeRed"                                
                                 />
                         </StackPanel>
@@ -84,7 +80,6 @@
                             HorizontalAlignment="Right"
                             >
                             <Button
-                                x:Name="xButtonClose"
                                 Content="취소"
                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                 Command="{x:Static md:DialogHost.CloseDialogCommand}"
@@ -112,6 +107,108 @@
 
             <!-- MessageDialog -->
             <DataTemplate DataType="{x:Type dlg:MessageDialog}">
+                <Grid MinWidth="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Margin="24"
+                        >
+                        <TextBlock
+                            Text="{Binding Title}"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            FontWeight="Bold"
+                            />
+                        <TextBlock
+                            Text="{Binding Message}"
+                            Margin="0,16,0,0"
+                            />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        >
+                        <Button
+                            Content="확인"
+                            IsDefault="True"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            FontWeight="SemiBold"
+                            Margin="0, 0, 8, 0"
+                            Height="36"
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            >
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            
+            <!-- CreateBookmarkDialog -->
+            <DataTemplate DataType="{x:Type dlg:AddBookmarkDialog}">
+                <Grid MinWidth="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="24">
+                        <TextBlock
+                            Text="{Binding Title}"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            FontWeight="Bold"
+                            />
+                        <TextBox
+                            Margin="0,8,0,0"
+                            Width="150"
+                            Text="{Binding Path=MemoText}"
+                            />
+                    </StackPanel>
+                    
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        >
+                        <Button
+                            Content="취소"
+                            FontWeight="SemiBold"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            Margin="8, 0, 0, 0"
+                            >
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    False
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                            Content="추가"
+                            FontWeight="SemiBold"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            Margin="0, 0, 8, 0"
+                            >
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <!-- RemoveBookmarkDialog -->
+            <DataTemplate DataType="{x:Type dlg:RemoveBookmarkDialog}">
                 <Grid MinWidth="200">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -170,64 +267,6 @@
                 </Grid>
             </DataTemplate>
 
-            <!-- CreateBookmarkDialog -->
-            <DataTemplate DataType="{x:Type dlg:CreateBookmarkDialog}">
-                <Grid MinWidth="200">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="52" />
-                    </Grid.RowDefinitions>
-
-                    <StackPanel
-                        Margin="24"
-                        >
-                        <TextBlock
-                            Text="{Binding Title}"
-                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                            FontWeight="Bold"
-                            />
-                        <TextBox
-                            Margin="0,8,0,0"
-                            Width="150"
-                            Text="{Binding Path=MemoText}"
-                            />
-                    </StackPanel>
-                    
-                    <StackPanel
-                        Grid.Row="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                        >
-                        <Button
-                            Content="취소"
-                            FontWeight="SemiBold"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                            Margin="8, 0, 0, 0"
-                            >
-                            <Button.CommandParameter>
-                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                    False
-                                </system:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
-                        <Button
-                            Content="추가"
-                            FontWeight="SemiBold"
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                            Margin="0, 0, 8, 0"
-                            >
-                            <Button.CommandParameter>
-                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                                    True
-                                </system:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
-            
         </ResourceDictionary>
     </Window.Resources>
     
@@ -290,12 +329,118 @@
                             />
                     </md:Card>
 
-                    <!-- GridSplitter -->
+                    <!-- Vertical GridSplitter -->
                     <GridSplitter
                         Grid.Column="1"
                         Grid.RowSpan="2"
                         Margin="0,0,0,8"
                         Width="3"
+                        Background="LightGray"
+                        HorizontalAlignment="Stretch"
+                        />
+
+                    <!-- Bookmark Card -->
+                    <md:Card
+                        Grid.Column="2"
+                        Margin="8, 16, 16, 8"
+                        >
+                        <md:DialogHost Identifier="BookmarkDialog">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="36" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding Path=AddBookmarkCommand}"
+                                        CommandParameter="{Binding }"
+                                        >
+                                        <md:PackIcon
+                                            Kind="BookmarkPlus"
+                                            Width="Auto"
+                                            Height="Auto"
+                                            />
+                                    </Button>
+                                    <Button
+                                        Grid.Column="1"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding Path=RemoveBookmarkCommand}"
+                                        CommandParameter="{Binding ElementName=xListViewBookmark, Path=SelectedItem}"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        >
+                                        <md:PackIcon
+                                            Kind="BookmarkRemoveOutline"
+                                            Width="Auto"
+                                            Height="Auto"
+                                            BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
+                                            />
+                                    </Button>
+                                </Grid>
+
+                                <ListView
+                                    x:Name="xListViewBookmark"
+                                    Grid.Row="1"
+                                    SelectionMode="Single"
+                                    ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+                                    <ListView.ItemContainerStyle>
+                                        <Style
+                                            TargetType="ListViewItem"
+                                            BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32" />
+                                                    <RowDefinition Height="32" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Image
+                                                    Grid.RowSpan="2"
+                                                    Source="{Binding Path=ImageSource}"
+                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                                    />
+                                                <TextBlock
+                                                    Padding="6"
+                                                    Grid.Column="1"
+                                                    Text="{Binding Path=Memo}"
+                                                    FontWeight="Bold"
+                                                    />
+                                                <TextBlock
+                                                    Padding="6"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    FontStyle="Italic"
+                                                    VerticalAlignment="Bottom"
+                                                    Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
+                                                    />
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+                        </md:DialogHost>
+                    </md:Card>
+                    
+                    <!-- Horizontal GridSplitter -->
+                    <GridSplitter
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Height="3"
                         Background="LightGray"
                         HorizontalAlignment="Stretch"
                         />
@@ -316,6 +461,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
+                            <!-- Language -->
                             <WrapPanel Margin="14,12,0,0">
                                 <TextBlock
                                     Text="표시 언어"
@@ -329,6 +475,7 @@
                                     />
                             </WrapPanel>
 
+                            <!-- ScrollLock -->
                             <WrapPanel
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
@@ -350,6 +497,7 @@
                                     />
                             </WrapPanel>
 
+                            <!-- SubtitleListView -->
                             <ctrl:SubtitleListView
                                 x:Name="xSubtitleListView"
                                 Grid.Row="1"
@@ -448,118 +596,15 @@
                                     </ContextMenu>
                                 </ctrl:SubtitleListView.ContextMenu>
                             </ctrl:SubtitleListView>
-                                    
+
                         </Grid>
                     </md:Card>
 
-                    <GridSplitter
-                        Grid.Row="1"
-                        Grid.ColumnSpan="3"
-                        Height="3"
-                        Background="LightGray"
-                        HorizontalAlignment="Stretch"
-                        />
-
-                    
-                    <md:Card
-                        Grid.Column="2"
-                        Margin="8, 16, 16, 8"
-                        >
-                        <md:DialogHost Identifier="BookmarkDialog">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="36" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Button
-                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                        Command="{Binding Path=AddBookmarkCommand}"
-                                        CommandParameter="{Binding }"
-                                        >
-                                        <md:PackIcon
-                                            Kind="BookmarkPlus"
-                                            Width="Auto"
-                                            Height="Auto"
-                                            />
-                                    </Button>
-                                    <Button
-                                        Grid.Column="1"
-                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                        Command="{Binding Path=RemoveBookmarkCommand}"
-                                        CommandParameter="{Binding ElementName=xListViewBookmark, Path=SelectedItem}"
-                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                        >
-                                        <md:PackIcon
-                                            Kind="BookmarkRemoveOutline"
-                                            Width="Auto"
-                                            Height="Auto"
-                                            BorderBrush="{DynamicResource PrimaryHueMidBrush}" Foreground="Gray"
-                                            />
-                                    </Button>
-                                </Grid>
-
-                                <ListView
-                                    x:Name="xListViewBookmark"
-                                    Grid.Row="1"
-                                    SelectionMode="Single"
-                                    ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
-                                    >
-                                    <ListView.ItemContainerStyle>
-                                        <Style
-                                            TargetType="ListViewItem"
-                                            BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                            <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="32" />
-                                                    <RowDefinition Height="32" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-                                                <Image
-                                                    Grid.RowSpan="2"
-                                                    Source="{Binding Path=ImageSource}"
-                                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                                    />
-                                                <TextBlock
-                                                    Padding="6"
-                                                    Grid.Column="1"
-                                                    Text="{Binding Path=Memo}"
-                                                    FontWeight="Bold"
-                                                    />
-                                                <TextBlock
-                                                    Padding="6"
-                                                    Grid.Row="1"
-                                                    Grid.Column="1"
-                                                    FontStyle="Italic"
-                                                    VerticalAlignment="Bottom"
-                                                    Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
-                                                    />
-
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Grid>
-                        </md:DialogHost>
-                    </md:Card>
                 </Grid>
 
             </DockPanel>
         </Grid>
-        
+
     </md:DialogHost>
+    
 </Window>

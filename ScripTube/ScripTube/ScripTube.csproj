@@ -67,9 +67,9 @@
     <Compile Include="Models\Bookmark\BookmarkItem.cs" />
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
     <Compile Include="Models\Bookmark\Thumbnail.cs" />
-    <Compile Include="Models\Dialog\CreateBookmarkDialog.cs" />
+    <Compile Include="Models\Dialog\AddBookmarkDialog.cs" />
     <Compile Include="Models\Dialog\MessageDialog.cs" />
-    <Compile Include="Models\Dialog\WarningMessageDialog.cs" />
+    <Compile Include="Models\Dialog\RemoveBookmarkDialog.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
