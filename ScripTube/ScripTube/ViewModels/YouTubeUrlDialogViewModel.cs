@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ScripTube.ViewModels
@@ -25,7 +26,7 @@ namespace ScripTube.ViewModels
                 notifyPropertyChanged(nameof(IsDialogOpen));
                 if (mbDialogOpen)
                 {
-                    TextUrl = "https://www.youtube.com/watch?v=qC5KtatMcUw"; //Clipboard.GetText().Trim();
+                    TextUrl = Clipboard.GetText().Trim(); // https://www.youtube.com/watch?v=qC5KtatMcUw
                 }
             }
         }

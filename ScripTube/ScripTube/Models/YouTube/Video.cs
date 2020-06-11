@@ -85,9 +85,14 @@ namespace ScripTube.Models.YouTube
                 {
                     XmlDocument xmlDoc = new XmlDocument();
                     xmlDoc.Load(jToken["baseUrl"].ToString());
+
                     foreach (XmlNode xmlNode in xmlDoc.DocumentElement.ChildNodes)
                     {
-                        subtitle.AddItem(new SubtitleItem((xmlNode.FirstChild.InnerText), xmlNode.Attributes["start"].Value, xmlNode.Attributes["dur"].Value, LengthSeconds >= 3600));
+                        if (xmlNode.FirstChild == null)
+                        {
+                            continue;
+                        }
+                        subtitle.AddItem(new SubtitleItem(xmlNode.FirstChild.InnerText, xmlNode.Attributes["start"].Value, xmlNode.Attributes["dur"].Value, LengthSeconds >= 3600));
                     }
                     mSubtitles.Add(subtitle);
                 }
