@@ -394,6 +394,7 @@
                                             TargetType="ListViewItem"
                                             BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                            <EventSetter Event="MouseDoubleClick" Handler="xListViewBookmarkItem_MouseDoubleClick" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
 
