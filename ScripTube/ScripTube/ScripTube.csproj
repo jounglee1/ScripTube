@@ -68,6 +68,8 @@
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
     <Compile Include="Enums\EBookmarkSortingType.cs" />
     <Compile Include="Models\Bookmark\Thumbnail.cs" />
+    <Compile Include="Models\Dialog\MessageDialog.cs" />
+    <Compile Include="Models\Dialog\WarningMessageDialog.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
     <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
@@ -165,8 +167,6 @@
       <Version>2.0.20525</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\DialogBox\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

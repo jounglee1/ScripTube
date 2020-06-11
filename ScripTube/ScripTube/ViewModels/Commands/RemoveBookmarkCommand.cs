@@ -1,4 +1,6 @@
-﻿using ScripTube.Models.Bookmark;
+﻿using MaterialDesignThemes.Wpf;
+using ScripTube.Models.Bookmark;
+using ScripTube.Models.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace ScripTube.ViewModels.Commands
             return item != null;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             var item = parameter as BookmarkItem;
 
@@ -45,7 +47,28 @@ namespace ScripTube.ViewModels.Commands
                 return;
             }
 
-            MainWindowViewModel.TargetVideo.BookmarkTray.RemoveItem(item);
+            RaiseCanExecuteChanged();
+            
+            var msg = new WarningMessageDialog();
+            
+            msg.Title = item.Memo;
+            if (msg.Title.Length > 10)
+            {
+                msg.Title = item.Memo.Substring(0, 10) + "...";
+            }
+            msg.Message = "이 북마크를 삭제합니까?";
+
+            if ((bool)await DialogHost.Show(msg, "BookmarkDialog") == true)
+            {
+                MainWindowViewModel.TargetVideo.BookmarkTray.RemoveItem(item);
+            }
+            
+            RaiseCanExecuteChanged();            
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

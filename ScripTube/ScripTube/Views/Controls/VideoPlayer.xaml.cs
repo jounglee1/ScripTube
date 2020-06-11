@@ -77,7 +77,7 @@ namespace ScripTube.Views.Controls
             xWebView.NavigateToLocal(relativePath);
         }
 
-        public void SeekTo(double time)
+        public bool SeekTo(double time)
         {
             try
             {
@@ -85,23 +85,48 @@ namespace ScripTube.Views.Controls
             }
             catch (System.AggregateException)
             {
-                return;
+                return false;
             }
+            return true;
         }
 
-        public void Play()
+        public bool Play()
         {
-            xWebView.InvokeScript("playVideo");
+            try
+            {
+                xWebView.InvokeScript("playVideo");
+            }
+            catch (System.AggregateException)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Pause()
+        public bool Pause()
         {
-            xWebView.InvokeScript("pauseVideo");
+            try
+            {
+                xWebView.InvokeScript("pauseVideo");
+            }
+            catch (System.AggregateException)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void Stop()
+        public bool Stop()
         {
-            xWebView.InvokeScript("stopVideo");
+            try
+            {
+                xWebView.InvokeScript("stopVideo");
+            }
+            catch (System.AggregateException)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void saveSnapShot(Thumbnail thumbnail)
