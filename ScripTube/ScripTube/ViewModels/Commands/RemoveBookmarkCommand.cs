@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ScripTube.Models.Bookmark;
 using ScripTube.Models.Dialog;
+using ScripTube.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace ScripTube.ViewModels.Commands
             {
                 msg.Title = item.Memo.Substring(0, 10) + "...";
             }
-            msg.Message = "이 북마크를 삭제합니까?";
+            msg.Message = string.Format("시간: {0} 초\n\n이 북마크를 삭제합니까?", TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.Seconds, true));
 
             if ((bool)await DialogHost.Show(msg, "BookmarkDialog") == true)
             {

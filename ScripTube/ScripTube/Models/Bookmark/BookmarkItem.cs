@@ -28,15 +28,19 @@ namespace ScripTube.Models.Bookmark
             CreatedDateTime = DateTime.Now;
 
             var bitmap = new BitmapImage();
-            var stream = File.OpenRead(imagePath);
 
-            bitmap.BeginInit();
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.StreamSource = stream;
-            bitmap.EndInit();
+            if (File.Exists(imagePath))
+            {
+                var stream = File.OpenRead(imagePath);
 
-            stream.Close();
-            stream.Dispose();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+
+                stream.Close();
+                stream.Dispose();
+            }
 
             ImageSource = bitmap;
         }

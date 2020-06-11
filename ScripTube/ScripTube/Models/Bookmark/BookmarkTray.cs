@@ -57,9 +57,12 @@ namespace ScripTube.Models.Bookmark
         public bool RemoveItem(BookmarkItem item)
         {
             bool bSuccess = mItems.Remove(item);
-            if (File.Exists(item.ImagePath))
+            if (!mItems.Contains(item))
             {
-                File.Delete(item.ImagePath);
+                if (File.Exists(item.ImagePath))
+                {
+                    File.Delete(item.ImagePath);
+                }
             }
             saveAsJson();
             return bSuccess;
