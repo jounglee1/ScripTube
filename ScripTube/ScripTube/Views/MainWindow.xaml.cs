@@ -42,23 +42,23 @@ namespace ScripTube.Views
                 var droppedData = e.Data.GetData(e.Data.GetFormats()[0]) as BookmarkItem;
                 var target = ((ListViewItem)sender).DataContext as BookmarkItem;
 
-                int removedIdx = xListViewBookmark.Items.IndexOf(droppedData);
-                int targetIdx = xListViewBookmark.Items.IndexOf(target);
+                int removedIndex = xListViewBookmark.Items.IndexOf(droppedData);
+                int targetIndex = xListViewBookmark.Items.IndexOf(target);
 
                 var items = ((MainWindowViewModel)xListViewBookmark.DataContext).BookmarkItems;
 
-                if (removedIdx < targetIdx)
+                if (removedIndex < targetIndex)
                 {
-                    items.Insert(targetIdx + 1, droppedData);
-                    items.RemoveAt(removedIdx);
+                    items.Insert(targetIndex + 1, droppedData);
+                    items.RemoveAt(removedIndex);
                 }
                 else
                 {
-                    int remIdx = removedIdx + 1;
-                    if (items.Count + 1 > remIdx)
+                    int remainIndex = removedIndex + 1;
+                    if (items.Count + 1 > remainIndex)
                     {
-                        items.Insert(targetIdx, droppedData);
-                        items.RemoveAt(remIdx);
+                        items.Insert(targetIndex, droppedData);
+                        items.RemoveAt(remainIndex);
                     }
                 }
 
