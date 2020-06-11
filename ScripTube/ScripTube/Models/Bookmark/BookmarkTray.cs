@@ -38,7 +38,7 @@ namespace ScripTube.Models.Bookmark
         public void AddItem(BookmarkItem item)
         {
             mItems.Add(item);
-            saveAsJson();
+            SaveAsJson();
         }
 
         public bool RemoveItem(BookmarkItem item)
@@ -57,8 +57,13 @@ namespace ScripTube.Models.Bookmark
             {
                 File.Delete(item.ImagePath);
             }
-            saveAsJson();
+            SaveAsJson();
             return bSuccess;
+        }
+        public void SaveAsJson()
+        {
+            string json = JsonConvert.SerializeObject(Items, Formatting.Indented);
+            System.IO.File.WriteAllText(generateJsonPath(), json);
         }
 
         private void loadAsJson()
@@ -75,12 +80,6 @@ namespace ScripTube.Models.Bookmark
                 string json = r.ReadToEnd();
                 Items = JsonConvert.DeserializeObject<ObservableCollection<BookmarkItem>>(json);
             }
-        }
-
-        private void saveAsJson()
-        {
-            string json = JsonConvert.SerializeObject(Items, Formatting.Indented);
-            System.IO.File.WriteAllText(generateJsonPath(), json);
         }
 
         private string generateJsonPath()

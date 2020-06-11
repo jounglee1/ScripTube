@@ -37,7 +37,8 @@
                 TargetType="{x:Type ctrl:SubtitleListView}"
                 BasedOn="{StaticResource MaterialDesignListView}"
                 />
-            
+
+
             <!-- Dialog Host -->
             <DataTemplate DataType="{x:Type vm:YouTubeUrlDialogViewModel}">
                 <Grid
@@ -389,12 +390,17 @@
                                     SelectionMode="Single"
                                     ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                     >
+                                    
                                     <ListView.ItemContainerStyle>
                                         <Style
                                             TargetType="ListViewItem"
                                             BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Left" />
                                             <EventSetter Event="MouseDoubleClick" Handler="xListViewBookmarkItem_MouseDoubleClick" />
+                                            <!-- Drag and Drop -->
+                                            <Setter Property="AllowDrop" Value="true" />
+                                            <EventSetter Event="PreviewMouseMove" Handler="xListViewBookmark_PreviewMouseMove" />
+                                            <EventSetter Event="Drop" Handler="xListViewBookmark_Drop" />
                                         </Style>
                                     </ListView.ItemContainerStyle>
 
