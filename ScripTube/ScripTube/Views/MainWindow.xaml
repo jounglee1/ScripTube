@@ -166,6 +166,8 @@
                     <!-- GridSplitter -->
                     <GridSplitter
                         Grid.Column="1"
+                        Grid.RowSpan="2"
+                        Margin="0,0,0,8"
                         Width="4"
                         Background="LightGray"
                         HorizontalAlignment="Stretch"
@@ -326,7 +328,7 @@
                     <GridSplitter
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
-                        Margin="4"
+
                         Height="4"
                         Background="LightGray"
                         HorizontalAlignment="Stretch"
@@ -381,8 +383,10 @@
                                 ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                 >
                                 <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Style
+                                        TargetType="ListViewItem"
+                                        BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
                                     </Style>
                                 </ListView.ItemContainerStyle>
 
