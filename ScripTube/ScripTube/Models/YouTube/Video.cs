@@ -24,13 +24,19 @@ namespace ScripTube.Models.YouTube
 
         public bool IsSubtitleExisted
         {
-            get { return (mSubtitles.Count > 0); }
+            get
+            {
+                return mSubtitles.Count > 0;
+            }
         }
 
         private ObservableCollection<Subtitle> mSubtitles = new ObservableCollection<Subtitle>();
         public ObservableCollection<Subtitle> Subtitles
         {
-            get { return mSubtitles; }
+            get
+            {
+                return mSubtitles;
+            }
         }
 
         public BookmarkTray BookmarkTray { get; }
@@ -43,17 +49,17 @@ namespace ScripTube.Models.YouTube
             Debug.Assert(mMetadata != null);
 
             Status = loadStatus(mMetadata["playabilityStatus"]["status"]);
+
             if (Status == EVideoStatus.OK)
             {
                 Title = mMetadata["videoDetails"]["title"].ToString();
                 LengthSeconds = Convert.ToInt32(mMetadata["videoDetails"]["lengthSeconds"]);
                 loadSubtitles();
-                BookmarkTray = new BookmarkTray(id) { SortingType = EBookmarkSortingType.CREATED_ASCENDING };
+                BookmarkTray = new BookmarkTray(id);
             }
         }
 
-        public static int ID_LENGTH = 11;
-        public static string METADATA_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
+        private static string METADATA_URL = "https://www.youtube.com/get_video_info?video_id={0}&asv=2";
         private static string PLAYER_RESPONSE_NAME = "player_response=";
 
         private JObject mMetadata;
@@ -78,6 +84,7 @@ namespace ScripTube.Models.YouTube
             {
                 return;
             }
+
             foreach (var jToken in mMetadata["captions"]["playerCaptionsTracklistRenderer"]["captionTracks"])
             {
                 var subtitle = new Subtitle(jToken["languageCode"], jToken["name"]["simpleText"], jToken["kind"]);

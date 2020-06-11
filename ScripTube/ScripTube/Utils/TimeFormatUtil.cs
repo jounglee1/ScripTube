@@ -1,10 +1,4 @@
-﻿using ScripTube.Views.Converters;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace ScripTube.Utils
 {
@@ -41,6 +35,7 @@ namespace ScripTube.Utils
             {
                 return bHourNecessary ? INVALID_HHMMSS : INVALID_MMSS;
             }
+
             double remainder = seconds - (int)seconds;
 
             var sb = new StringBuilder();

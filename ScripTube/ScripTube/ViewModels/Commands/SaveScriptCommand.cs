@@ -1,11 +1,8 @@
 ﻿using ScripTube.Models.YouTube;
 using ScripTube.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -41,6 +38,7 @@ namespace ScripTube.ViewModels.Commands
             new SaveMethod(saveAsSMI),
             new SaveMethod(saveAsSRT),
             new SaveMethod(saveAsHTML),
+            new SaveMethod(saveAsTXT),
         };
 
         private static string[] EXTENSIONS = new string[]
@@ -83,6 +81,7 @@ namespace ScripTube.ViewModels.Commands
             }
 
             var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+
             saveFileDialog.Filter = EXTENSION_FILTER;
             saveFileDialog.FilterIndex = mLastFilterIndex;
             saveFileDialog.FileName = getFilenameExceptIllegalCharacter(video.Title);
@@ -96,7 +95,6 @@ namespace ScripTube.ViewModels.Commands
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
 
-                // 등록되지 않은 확장자는 txt 저장 방식을 따른다
                 SaveMethod saveMethod = saveAsTXT;
                 for (int i = 0; i < METHODS.Length; ++i)
                 {
@@ -171,6 +169,7 @@ namespace ScripTube.ViewModels.Commands
             for (int i = 0; i < subtitle.Items.Count; i++)
             {
                 var item = subtitle.Items[i];
+
                 streamWriter.WriteLine(i);
                 streamWriter.WriteLine("{0} --> {1}",
                     TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.StartSeconds, item.IsOneHourExcessed),

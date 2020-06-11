@@ -1,16 +1,9 @@
 ﻿using MaterialDesignThemes.Wpf;
-using Newtonsoft.Json;
 using ScripTube.Models.Bookmark;
 using ScripTube.Models.Dialog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace ScripTube.ViewModels.Commands
 {
@@ -53,11 +46,6 @@ namespace ScripTube.ViewModels.Commands
                     }
                 }
             }
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

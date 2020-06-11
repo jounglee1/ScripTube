@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -25,7 +20,6 @@ namespace ScripTube.Models.Bookmark
             Memo = memo;
             Seconds = seconds;
             ImagePath = imagePath;
-            CreatedDateTime = DateTime.Now;
 
             var bitmap = new BitmapImage();
 
@@ -43,6 +37,8 @@ namespace ScripTube.Models.Bookmark
             }
 
             ImageSource = bitmap;
+
+            CreatedDateTime = DateTime.Now;
         }
     }
 }

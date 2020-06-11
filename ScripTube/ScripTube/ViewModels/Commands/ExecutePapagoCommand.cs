@@ -1,21 +1,18 @@
 ﻿using ScripTube.Models.YouTube;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace ScripTube.ViewModels.Commands
 {
     class ExecutePapagoCommand : ICommand
     {
-        private static string NEW_LINE = "%0A%0A";
-        private static string PAPAGO_URL = "https://papago.naver.com/?sk=auto&tk=ko&hn=1&st=";
-        private static int MAX_STRING_SIZE = 5000;
+        private static readonly string NEW_LINE = "%0A%0A";
+        private static readonly string PAPAGO_URL = "https://papago.naver.com/?sk=auto&tk=ko&hn=1&st=";
+        private static readonly int MAX_STRING_SIZE = 5000;
 
         public event EventHandler CanExecuteChanged
         {
@@ -35,8 +32,10 @@ namespace ScripTube.ViewModels.Commands
             if (enumerable != null)
             {
                 var subtitleItems = enumerable.OfType<SubtitleItem>().OrderBy(s => s.StartSeconds).ToList();
+
                 return subtitleItems.Count > 0;
             }
+
             return false;
         }
 
@@ -46,8 +45,10 @@ namespace ScripTube.ViewModels.Commands
             if (enumerable != null)
             {
                 var subtitleItems = enumerable.OfType<SubtitleItem>().OrderBy(s => s.StartSeconds).ToList();
+                
                 var sb = new StringBuilder(PAPAGO_URL);
                 int count = 0;
+
                 foreach (var item in subtitleItems)
                 {
                     string plainText = item.Text.Replace('\n', ' ').Trim();
@@ -71,6 +72,7 @@ namespace ScripTube.ViewModels.Commands
                     }
                 }
                 sb.Length -= NEW_LINE.Length;
+
                 if (sb.Length > PAPAGO_URL.Length)
                 {
                     System.Diagnostics.Process.Start(sb.ToString());

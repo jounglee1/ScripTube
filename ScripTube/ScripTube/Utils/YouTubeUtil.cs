@@ -1,15 +1,12 @@
-﻿using ScripTube.Models.YouTube;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScripTube.Utils
 {
     public static class YouTubeUtil
     {
+        private static int ID_LENGTH = 11;
+
         public static string GetVideoIdByUrl(string urlOrNull)
         {
             try
@@ -18,11 +15,12 @@ namespace ScripTube.Utils
                 {
                     return string.Empty;
                 }
+
                 Uri uri = new Uri(urlOrNull);
                 if (uri.Host == "www.youtube.com" || uri.Host == "youtu.be")
                 {
                     System.Collections.Specialized.NameValueCollection query = System.Web.HttpUtility.ParseQueryString(uri.Query);
-                    if (query.AllKeys.Contains("v") && query["v"].Length == Video.ID_LENGTH)
+                    if (query.AllKeys.Contains("v") && query["v"].Length == ID_LENGTH)
                     {
                         return query["v"];
                     }

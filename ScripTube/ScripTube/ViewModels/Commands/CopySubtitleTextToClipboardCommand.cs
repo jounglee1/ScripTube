@@ -1,10 +1,8 @@
 ﻿using ScripTube.Models.YouTube;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,8 +28,10 @@ namespace ScripTube.ViewModels.Commands
             if (enumerable != null)
             {
                 var subtitleItems = enumerable.OfType<SubtitleItem>().OrderBy(s => s.StartSeconds).ToList();
+
                 return subtitleItems.Count > 0;
             }
+
             return false;
         }
 
@@ -41,6 +41,7 @@ namespace ScripTube.ViewModels.Commands
             if (enumerable != null)
             {
                 var subtitleItems = enumerable.OfType<SubtitleItem>().OrderBy(s => s.StartSeconds).ToList();
+
                 var sb = new StringBuilder();
                 foreach (var item in subtitleItems)
                 {
@@ -49,6 +50,7 @@ namespace ScripTube.ViewModels.Commands
                     sb.Append(Environment.NewLine);
                 }
                 sb.Length -= Environment.NewLine.Length;
+
                 Clipboard.SetText(sb.ToString());
             }
         }

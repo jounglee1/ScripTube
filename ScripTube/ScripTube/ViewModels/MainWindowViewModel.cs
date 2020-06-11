@@ -1,19 +1,7 @@
-﻿using GalaSoft.MvvmLight.CommandWpf;
-using ScripTube.Models.Bookmark;
+﻿using ScripTube.Models.Bookmark;
 using ScripTube.Models.YouTube;
-using ScripTube.Utils;
 using ScripTube.ViewModels.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ScripTube.ViewModels

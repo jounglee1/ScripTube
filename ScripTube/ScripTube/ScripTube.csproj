@@ -66,7 +66,6 @@
     </ApplicationDefinition>
     <Compile Include="Models\Bookmark\BookmarkItem.cs" />
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
-    <Compile Include="Enums\EBookmarkSortingType.cs" />
     <Compile Include="Models\Bookmark\Thumbnail.cs" />
     <Compile Include="Models\Dialog\CreateBookmarkDialog.cs" />
     <Compile Include="Models\Dialog\MessageDialog.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="ViewModels\Commands\ImportVideoCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenYouTubeUrlDialogCommand.cs" />
     <Compile Include="ViewModels\Commands\PlayerSeekToCommand.cs" />
-    <Compile Include="ViewModels\Commands\RelayCommand.cs" />
     <Compile Include="ViewModels\Commands\RemoveBookmarkCommand.cs" />
     <Compile Include="ViewModels\Commands\SaveScriptCommand.cs" />
     <Compile Include="ViewModels\YouTubeUrlDialogViewModel.cs" />

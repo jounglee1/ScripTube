@@ -1,14 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ScripTube.Enums;
-using ScripTube.Models.Bookmark;
 using ScripTube.Models.YouTube;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -37,35 +31,44 @@ namespace ScripTube.ViewModels.Commands
 
         public bool CanExecute(object parameter)
         {
-            string id = parameter as string;
-            return (id != string.Empty);
+            return parameter as string != string.Empty;
         }
 
         public void Execute(object parameter)
         {
             string id = parameter as string;
-            if (id != null)
+
+            if (id == null)
             {
-                var video = new Video(id);
-                if (video.Status == EVideoStatus.OK)
-                {
+                return;
+            }
+
+            var video = new Video(id);
+
+            switch (video.Status)
+            {
+                case EVideoStatus.OK:
                     YouTubeUrlDialogViewModel.Parent.TargetVideo = video;
                     if (!video.IsSubtitleExisted)
                     {
                         MessageBox.Show("자막이 없는 동영상입니다.", "경고", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                     DialogHost.CloseDialogCommand.Execute(true, null);
-                }
-                else if (video.Status == EVideoStatus.UNPLAYABLE)
-                {
+                    break;
+                
+                case EVideoStatus.UNPLAYABLE:
                     MessageBox.Show("저작권의 이유로 인하여 불러올 수 없는 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
                     YouTubeUrlDialogViewModel.SelectAllText();
-                }
-                else if (video.Status == EVideoStatus.ERROR)
-                {
+                    break;
+                
+                case EVideoStatus.ERROR:
                     MessageBox.Show("유효하지 않은 동영상입니다.", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
                     YouTubeUrlDialogViewModel.SelectAllText();
-                }
+                    break;
+                    
+                default:
+                    Debug.Assert(false, "Invalid Video Status");
+                    break;
             }
         }
     }

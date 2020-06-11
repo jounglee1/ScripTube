@@ -3,10 +3,6 @@ using ScripTube.Models.Bookmark;
 using ScripTube.Models.Dialog;
 using ScripTube.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ScripTube.ViewModels.Commands
@@ -48,8 +44,6 @@ namespace ScripTube.ViewModels.Commands
                 return;
             }
 
-            RaiseCanExecuteChanged();
-            
             var msg = new WarningMessageDialog();
             
             msg.Title = item.Memo;
@@ -63,13 +57,6 @@ namespace ScripTube.ViewModels.Commands
             {
                 MainWindowViewModel.TargetVideo.BookmarkTray.RemoveItem(item);
             }
-            
-            RaiseCanExecuteChanged();            
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

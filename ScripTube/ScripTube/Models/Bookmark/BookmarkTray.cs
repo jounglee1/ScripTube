@@ -1,14 +1,8 @@
 ﻿using Newtonsoft.Json;
-using ScripTube.Enums;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScripTube.Models.Bookmark
 {
@@ -30,8 +24,6 @@ namespace ScripTube.Models.Bookmark
             }
         }
 
-        public EBookmarkSortingType SortingType { get; set; }
-
         public BookmarkTray(string videoId)
         {
             VideoId = videoId;
@@ -42,11 +34,6 @@ namespace ScripTube.Models.Bookmark
         public static readonly string CACHE_FOLDER_NAME = "Cache";
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void createCacheFolder()
-        {
-            System.IO.Directory.CreateDirectory(BookmarkTray.CACHE_FOLDER_NAME);
-        }
 
         public void AddItem(BookmarkItem item)
         {
@@ -99,6 +86,11 @@ namespace ScripTube.Models.Bookmark
         private string generateJsonPath()
         {
             return string.Format("{0}.{1}", Path.Combine(CACHE_FOLDER_NAME, VideoId), "json");
+        }
+
+        private void createCacheFolder()
+        {
+            System.IO.Directory.CreateDirectory(BookmarkTray.CACHE_FOLDER_NAME);
         }
 
         private void notifyPropertyChanged(string propertyName)
