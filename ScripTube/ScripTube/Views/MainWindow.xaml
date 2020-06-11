@@ -187,7 +187,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <WrapPanel Margin="12,12,0,0">
+                            <WrapPanel Margin="14,12,0,0">
                                 <TextBlock
                                     Text="표시 언어"
                                     />
@@ -263,22 +263,23 @@
                                                         />
                                                 </TextBlock.InputBindings>
                                             </TextBlock>
+                                            <!-- Script Text -->
                                             <TextBlock
                                                 Grid.Column="2"
                                                 Text="{Binding Text}"
-                                                />
+                                                >
+                                                <TextBlock.InputBindings>
+                                                    <MouseBinding
+                                                        MouseAction="LeftDoubleClick"
+                                                        Command="{Binding Source={StaticResource mainWindowViewModel}, Path=PlayerSeekToCommand}"
+                                                        CommandParameter="{Binding }"
+                                                        />
+                                                </TextBlock.InputBindings>
+                                            </TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ctrl:SubtitleListView.ItemTemplate>
 
-                                <ctrl:SubtitleListView.InputBindings>
-                                    <MouseBinding
-                                        MouseAction="LeftDoubleClick"
-                                        Command="{Binding Source={StaticResource mainWindowViewModel}, Path=PlayerSeekToCommand}"
-                                        CommandParameter="{Binding }"
-                                        />
-                                </ctrl:SubtitleListView.InputBindings>
-                                
                                 <ctrl:SubtitleListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem
