@@ -55,7 +55,7 @@ namespace ScripTube.Views.Controls
             InitializeComponent();
             xWebView.NavigateToLocal("yt.html");
             mTimer.Tick += mTimer_Tick;
-            mTimer.Interval = TimeSpan.FromMilliseconds(500);
+            mTimer.Interval = TimeSpan.FromMilliseconds(333);
         }
 
         public static readonly DependencyProperty VideoSourceProperty =
