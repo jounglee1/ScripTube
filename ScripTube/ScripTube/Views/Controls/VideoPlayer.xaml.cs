@@ -106,10 +106,14 @@ namespace ScripTube.Views.Controls
 
         private void saveSnapShot(Thumbnail thumbnail)
         {
+            int marginX = 5;
+            int marginY = 5;
             var topLeftCorner = xWebView.PointToScreen(new System.Windows.Point(0, 0));
-            var topLeftGdiPoint = new System.Drawing.Point((int)topLeftCorner.X, (int)topLeftCorner.Y);
-            var size = new System.Drawing.Size((int)xWebView.ActualWidth, (int)xWebView.ActualHeight);
-            Bitmap screenShot = new Bitmap((int)xWebView.ActualWidth, (int)xWebView.ActualHeight);
+            var topLeftGdiPoint = new System.Drawing.Point((int)topLeftCorner.X + marginX, (int)topLeftCorner.Y + marginY) ;
+            int width = (int)xWebView.ActualWidth - marginX - 6;
+            int height = (int)xWebView.ActualHeight - marginY - 14;
+            var size = new System.Drawing.Size(width, height);
+            Bitmap screenShot = new Bitmap(width, height);
             using (var graphics = Graphics.FromImage(screenShot))
             {
                 graphics.CopyFromScreen(topLeftGdiPoint, new System.Drawing.Point(), size, CopyPixelOperation.SourceCopy);
