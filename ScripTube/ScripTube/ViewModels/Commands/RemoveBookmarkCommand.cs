@@ -59,7 +59,7 @@ namespace ScripTube.ViewModels.Commands
             }
             msg.Message = string.Format("시간: {0} 초\n\n이 북마크를 삭제합니까?", TimeFormatUtil.GetHHMMSSOrMMSSPrecision(item.Seconds, true));
 
-            if ((bool)await DialogHost.Show(msg, "BookmarkDialog") == true)
+            if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
             {
                 MainWindowViewModel.TargetVideo.BookmarkTray.RemoveItem(item);
             }

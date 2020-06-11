@@ -68,6 +68,7 @@
     <Compile Include="Models\Bookmark\BookmarkTray.cs" />
     <Compile Include="Enums\EBookmarkSortingType.cs" />
     <Compile Include="Models\Bookmark\Thumbnail.cs" />
+    <Compile Include="Models\Dialog\CreateBookmarkDialog.cs" />
     <Compile Include="Models\Dialog\MessageDialog.cs" />
     <Compile Include="Models\Dialog\WarningMessageDialog.cs" />
     <Compile Include="Utils\ConverterMarkupExtension.cs" />

@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
 using ScripTube.Models.Bookmark;
+using ScripTube.Models.Dialog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +34,7 @@ namespace ScripTube.ViewModels.Commands
             return (viewModel != null && viewModel.BookmarkItems != null);
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             var viewModel = parameter as MainWindowViewModel;
             if (viewModel != null)
@@ -40,11 +42,22 @@ namespace ScripTube.ViewModels.Commands
                 var tray = viewModel.TargetVideo.BookmarkTray;
                 if (tray != null)
                 {
-                    string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + viewModel.CurrentVideoTime.GetHashCode() + ".png");
-                    viewModel.TargetThumbnail = new Thumbnail(filename);
-                    tray.AddItem(new BookmarkItem("memo", viewModel.CurrentVideoTime, filename));
+                    double time = viewModel.CurrentVideoTime;
+                    string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + time.GetHashCode() + ".png");
+
+                    var msg = new CreateBookmarkDialog() { MemoText = "Memo" + tray.Items.Count.ToString() };
+                    if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
+                    {
+                        viewModel.TargetThumbnail = new Thumbnail(filename);
+                        tray.AddItem(new BookmarkItem(msg.MemoText, time, filename));
+                    }
                 }
             }
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

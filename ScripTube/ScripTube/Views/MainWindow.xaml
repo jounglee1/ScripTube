@@ -40,13 +40,19 @@
                 TargetType="{x:Type ctrl:SubtitleListView}"
                 BasedOn="{StaticResource MaterialDesignListView}"
                 />
+            
             <!-- Dialog Host -->
             <DataTemplate DataType="{x:Type vm:YouTubeUrlDialogViewModel}">
-                <Grid Margin="24">
-                    <StackPanel>
+                <Grid
+                    Margin="24"
+                    MinWidth="360"
+                    >
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        >
                         <TextBlock
                             Text="유튜브 URL"
-                            Style="{StaticResource MaterialDesignBody1TextBlock}"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             />
                         <ctrl:UrlTextBox
                             Margin="0,8,0,0"
@@ -78,17 +84,12 @@
                             HorizontalAlignment="Right"
                             >
                             <Button
-                                Content="불러오기"
-                                IsDefault="True"
-                                Command="{Binding Path=ImportVideoCommand}"
-                                CommandParameter="{Binding Path=TextUrl, Converter={cvtr:UrlToVideoIdConverter}}"
-                                Margin="0, 0, 8, 0"
-                                />
-                            <Button
                                 x:Name="xButtonClose"
                                 Content="취소"
                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                 Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                                Margin="0, 0, 8, 0"
+                                FontWeight="SemiBold"
                                 >
                                 <Button.CommandParameter>
                                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
@@ -96,6 +97,14 @@
                                     </system:Boolean>
                                 </Button.CommandParameter>
                             </Button>
+                            <Button
+                                Content="불러오기"
+                                Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding Path=ImportVideoCommand}"
+                                CommandParameter="{Binding Path=TextUrl, Converter={cvtr:UrlToVideoIdConverter}}"
+                                IsDefault="True"
+                                FontWeight="SemiBold"
+                                />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -118,8 +127,8 @@
                             FontWeight="Bold"
                             />
                         <TextBlock
-                        Text="{Binding Message}"
-                            Margin="0,20,0,0"
+                            Text="{Binding Message}"
+                            Margin="0,16,0,0"
                             />
                     </StackPanel>
 
@@ -161,6 +170,64 @@
                 </Grid>
             </DataTemplate>
 
+            <!-- CreateBookmarkDialog -->
+            <DataTemplate DataType="{x:Type dlg:CreateBookmarkDialog}">
+                <Grid MinWidth="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="52" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Margin="24"
+                        >
+                        <TextBlock
+                            Text="{Binding Title}"
+                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                            FontWeight="Bold"
+                            />
+                        <TextBox
+                            Margin="0,8,0,0"
+                            Width="150"
+                            Text="{Binding Path=MemoText}"
+                            />
+                    </StackPanel>
+                    
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        >
+                        <Button
+                            Content="취소"
+                            FontWeight="SemiBold"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            Margin="8, 0, 0, 0"
+                            >
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    False
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                            Content="추가"
+                            FontWeight="SemiBold"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                            Margin="0, 0, 8, 0"
+                            >
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Window.Resources>
     
