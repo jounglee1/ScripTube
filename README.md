@@ -14,3 +14,5 @@ Windows Programming Project Assignment.
 - Microsoft.Toolkit.Wpf.UI.Controls.WebView
 - Newtonsoft.Json
 - System.Windows.Interactivity
+
+![](image.png)
