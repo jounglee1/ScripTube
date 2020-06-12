@@ -3,7 +3,7 @@
 
 Windows Programming Project Assignment.
 
-## Team Names
+## Team Members' Name
 - Jubin Park
 - Joung Lee
 
