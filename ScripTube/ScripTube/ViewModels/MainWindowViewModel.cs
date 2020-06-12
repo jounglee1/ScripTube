@@ -194,7 +194,7 @@ namespace ScripTube.ViewModels
             OpenYouTubeUrlDialogCommand = new OpenYouTubeUrlDialogCommand(this);
             PlayerSeekToCommand = new PlayerSeekToCommand(this);
             SaveScriptCommand = new SaveScriptCommand();
-            AddBookmarkCommand = new AddBookmarkCommand();
+            AddBookmarkCommand = new AddBookmarkCommand(this);
             RemoveBookmarkCommand = new RemoveBookmarkCommand(this);
             ExecutePapagoCommand = new ExecutePapagoCommand();
             CopySubtitleTextToClipboardCommand = new CopySubtitleTextToClipboardCommand();

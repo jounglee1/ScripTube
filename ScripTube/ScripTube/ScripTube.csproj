@@ -114,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Converters\VideoAndCurrentTimeMultiConverter.cs" />
     <Compile Include="Views\Converters\VideoAndSubtitleMultiConverter.cs" />
     <Compile Include="Views\Converters\VideoTitleToWindowTitleConverter.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

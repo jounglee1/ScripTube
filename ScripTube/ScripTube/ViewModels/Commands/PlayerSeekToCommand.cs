@@ -18,11 +18,11 @@ namespace ScripTube.ViewModels.Commands
             }
         }
 
-        public MainWindowViewModel ViewModel { get; }
+        public MainWindowViewModel MainWindowViewModel { get; }
 
-        public PlayerSeekToCommand(MainWindowViewModel viewModel)
+        public PlayerSeekToCommand(MainWindowViewModel mainWindowViewModel)
         {
-            ViewModel = viewModel;
+            MainWindowViewModel = mainWindowViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -39,8 +39,8 @@ namespace ScripTube.ViewModels.Commands
                 return;
             }
 
-            ViewModel.SetVideoTime = subtitleItem.StartSeconds + 0.001;
-            ViewModel.SetVideoTime = subtitleItem.StartSeconds;
+            MainWindowViewModel.SetVideoTime = subtitleItem.StartSeconds + 0.001;
+            MainWindowViewModel.SetVideoTime = subtitleItem.StartSeconds;
         }
     }
 }

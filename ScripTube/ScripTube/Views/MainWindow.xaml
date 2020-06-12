@@ -118,12 +118,12 @@
                         Margin="24"
                         >
                         <TextBlock
-                            Text="{Binding Title}"
+                            Text="{Binding Path=Title}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             FontWeight="Bold"
                             />
                         <TextBlock
-                            Text="{Binding Message}"
+                            Text="{Binding Path=Message}"
                             Margin="0,16,0,0"
                             />
                     </StackPanel>
@@ -162,7 +162,7 @@
 
                     <StackPanel Margin="24">
                         <TextBlock
-                            Text="{Binding Title}"
+                            Text="{Binding Path=Title}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             FontWeight="Bold"
                             />
@@ -220,12 +220,12 @@
                         Margin="24"
                         >
                         <TextBlock
-                            Text="{Binding Title}"
+                            Text="{Binding Path=Title}"
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                             FontWeight="Bold"
                             />
                         <TextBlock
-                            Text="{Binding Message}"
+                            Text="{Binding Path=Message}"
                             Margin="0,16,0,0"
                             />
                     </StackPanel>
@@ -323,10 +323,10 @@
                         <ctrl:VideoPlayer
                             x:Name="xVideoPlayer"
                             Visibility="{Binding Path=YouTubeUrlDialogViewModel.IsDialogOpen, Mode=OneWay, Converter={cvtr:InvertBooleanToVisiblityConverter}}"
-                            VideoSource="{Binding TargetVideo}"
-                            CurrentTime="{Binding CurrentVideoTime, Mode=OneWayToSource}"
-                            SetTime="{Binding SetVideoTime, Mode=OneWay}"
-                            GenerateThumbnail="{Binding TargetThumbnail}"
+                            VideoSource="{Binding Path=TargetVideo}"
+                            CurrentTime="{Binding Path=CurrentVideoTime, Mode=OneWayToSource}"
+                            SetTime="{Binding Path=SetVideoTime, Mode=OneWay}"
+                            GenerateThumbnail="{Binding Path=TargetThumbnail}"
                             />
                     </md:Card>
 
@@ -360,13 +360,18 @@
                                     <Button
                                         Style="{DynamicResource MaterialDesignFlatButton}"
                                         Command="{Binding Path=AddBookmarkCommand}"
-                                        CommandParameter="{Binding }"
                                         >
                                         <md:PackIcon
                                             Kind="BookmarkPlus"
                                             Width="Auto"
                                             Height="Auto"
                                             />
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{cvtr:VideoAndCurrentTimeMultiConverter}">
+                                                <Binding Path="TargetVideo" Source="{StaticResource mainWindowViewModel}"/>
+                                                <Binding Path="CurrentVideoTime" Source="{StaticResource mainWindowViewModel}"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
                                     </Button>
                                     <Button
                                         Grid.Column="1"
@@ -388,7 +393,7 @@
                                     x:Name="xListViewBookmark"
                                     Grid.Row="1"
                                     SelectionMode="Single"
-                                    ItemsSource="{Binding BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemsSource="{Binding Path=BookmarkItems, UpdateSourceTrigger=PropertyChanged}"
                                     >
                                     
                                     <ListView.ItemContainerStyle>
@@ -434,7 +439,6 @@
                                                     VerticalAlignment="Bottom"
                                                     Text="{Binding Path=Seconds, Converter={cvtr:SecondsToTimeFormatStringConverter}}"
                                                     />
-
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
@@ -550,7 +554,7 @@
                                             <!-- Script Text -->
                                             <TextBlock
                                                 Grid.Column="2"
-                                                Text="{Binding Text}"
+                                                Text="{Binding Path=Text}"
                                                 >
                                                 <TextBlock.InputBindings>
                                                     <MouseBinding
@@ -568,7 +572,7 @@
                                     <ContextMenu>
                                         <MenuItem
                                             Header="파파고로 번역 (브라우저)"
-                                            Command="{Binding ExecutePapagoCommand}"
+                                            Command="{Binding Path=ExecutePapagoCommand}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems}"
                                             >
                                             <MenuItem.Icon>
@@ -583,7 +587,7 @@
                                             </MenuItem.Icon>
                                             <MenuItem
                                                 Header="자막만"
-                                                Command="{Binding CopySubtitleTextToClipboardCommand}"
+                                                Command="{Binding Path=CopySubtitleTextToClipboardCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems}"
                                                 >
                                                 <MenuItem.Icon>
@@ -592,7 +596,7 @@
                                             </MenuItem>
                                             <MenuItem
                                                 Header="시간과 자막 모두"
-                                                Command="{Binding CopyTimeAndSubtitleTextToClipboardCommand}"
+                                                Command="{Binding Path=CopyTimeAndSubtitleTextToClipboardCommand}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItems}"
                                                 >
                                                 <MenuItem.Icon>

@@ -1,8 +1,11 @@
 ﻿using MaterialDesignThemes.Wpf;
 using ScripTube.Models.Bookmark;
 using ScripTube.Models.Dialog;
+using ScripTube.Models.YouTube;
 using System;
+using System.Collections;
 using System.IO;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace ScripTube.ViewModels.Commands
@@ -21,30 +24,45 @@ namespace ScripTube.ViewModels.Commands
             }
         }
 
+        public MainWindowViewModel MainWindowViewModel { get; }
+
+        public AddBookmarkCommand(MainWindowViewModel mainWindowViewModel)
+        {
+            MainWindowViewModel = mainWindowViewModel;
+        }
+
         public bool CanExecute(object parameter)
         {
-            var viewModel = parameter as MainWindowViewModel;
-            return (viewModel != null && viewModel.BookmarkItems != null);
+            var values = (object[])parameter;
+            return values != null && values[0] != null;
         }
 
         public async void Execute(object parameter)
         {
-            var viewModel = parameter as MainWindowViewModel;
-            if (viewModel != null)
-            {
-                var tray = viewModel.TargetVideo.BookmarkTray;
-                if (tray != null)
-                {
-                    double time = viewModel.CurrentVideoTime;
-                    string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", viewModel.TargetVideo.ID + time.GetHashCode() + ".png");
+            var values = (object[])parameter;
 
-                    var msg = new AddBookmarkDialog() { MemoText = "Memo" + tray.Items.Count.ToString() };
-                    if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
-                    {
-                        viewModel.TargetThumbnail = new Thumbnail(filename);
-                        tray.AddItem(new BookmarkItem(msg.MemoText, time, filename));
-                    }
-                }
+            if (values == null)
+            {
+                return;
+            }
+
+            var video = values[0] as Video;
+            
+            if (video == null)
+            {
+                return;
+            }
+
+            var currentTime = (double)values[1];
+            var tray = video.BookmarkTray;
+
+            string filename = Path.Combine(Directory.GetCurrentDirectory(), "Cache", video.ID + currentTime.GetHashCode() + ".png");
+
+            var msg = new AddBookmarkDialog() { MemoText = "Memo" + tray.Items.Count.ToString() };
+            if ((bool)await DialogHost.Show(msg, "BookmarkDialog"))
+            {
+                MainWindowViewModel.TargetThumbnail = new Thumbnail(filename);
+                tray.AddItem(new BookmarkItem(msg.MemoText, currentTime, filename));
             }
         }
     }
