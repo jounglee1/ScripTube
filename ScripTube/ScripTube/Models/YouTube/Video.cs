@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Xml;
 
 namespace ScripTube.Models.YouTube
@@ -85,7 +86,19 @@ namespace ScripTube.Models.YouTube
                 return;
             }
 
-            foreach (var jToken in mMetadata["captions"]["playerCaptionsTracklistRenderer"]["captionTracks"])
+            var renderer = mMetadata["captions"]["playerCaptionsTracklistRenderer"];
+            if (renderer == null)
+            {
+                return;
+            }
+
+            var tracks = renderer["captionTracks"];
+            if (tracks == null)
+            {
+                return;
+            }
+
+            foreach (var jToken in tracks)
             {
                 var subtitle = new Subtitle(jToken["languageCode"], jToken["name"]["simpleText"], jToken["kind"]);
                 try
