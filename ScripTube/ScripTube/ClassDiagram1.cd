@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ScripTube.App" Collapsed="true">
+    <Position X="59.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.Bookmark.BookmarkItem">
+    <Position X="36.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAIAAAAAAAIACAAABAAAAAAA=</HashCode>
+      <FileName>Models\Bookmark\BookmarkItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.Bookmark.BookmarkTray" BaseTypeListCollapsed="true">
+    <Position X="34.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAICAAAJAgAAAAAgIAAAAAEAAAAAABAgAA=</HashCode>
+      <FileName>Models\Bookmark\BookmarkTray.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Models.Bookmark.Thumbnail">
+    <Position X="38" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Bookmark\Thumbnail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.Dialog.AddBookmarkDialog">
+    <Position X="47" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Dialog\AddBookmarkDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.Dialog.MessageDialog">
+    <Position X="48.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Dialog\MessageDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.Dialog.RemoveBookmarkDialog">
+    <Position X="49.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Dialog\RemoveBookmarkDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.YouTube.Subtitle">
+    <Position X="34.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAgIAgIAAAAAAAAABEAAA=</HashCode>
+      <FileName>Models\YouTube\Subtitle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Models.YouTube.SubtitleItem" BaseTypeListCollapsed="true">
+    <Position X="36.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAgAoAAAgAAgAAAAAAAACgAAgAA=</HashCode>
+      <FileName>Models\YouTube\SubtitleItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Models.YouTube.Video">
+    <Position X="34.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAIAAAEAAAAoEAAQAAEAAAACAAAAAAIAAEAAAEgYAA=</HashCode>
+      <FileName>Models\YouTube\Video.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PleaseTranscribe.Properties.Resources" Collapsed="true">
+    <Position X="59.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PleaseTranscribe.Properties.Settings" Collapsed="true">
+    <Position X="59.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Utils.ConverterMarkupExtension&lt;T&gt;" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAQIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\ConverterMarkupExtension.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScripTube.Utils.EventArgsConverterExtension&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="53.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\EventArgsConverterExtension.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Utils.MultiConverterMarkupExtension&lt;T&gt;" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAQIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\MultiConverterMarkupExtension.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScripTube.Utils.TimeFormatUtil">
+    <Position X="53.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAACAAAAAAAAAQgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\TimeFormatUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Utils.YouTubeUtil">
+    <Position X="56.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Utils\YouTubeUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.ViewModels.BaseViewModel" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>ViewModels\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.MainWindowViewModel">
+    <Position X="0.5" Y="1.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>cQAAAkAAAAEAIAAoYAAAIAABABMAAABEggAAICAACAU=</HashCode>
+      <FileName>ViewModels\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.ViewModels.YouTubeUrlDialogViewModel">
+    <Position X="4.25" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAQACAAAgAAEAAEAAAYIAABAAAAAEAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\YouTubeUrlDialogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.AddBookmarkCommand" BaseTypeListCollapsed="true">
+    <Position X="22" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\Commands\AddBookmarkCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.CopySubtitleTextToClipboardCommand" BaseTypeListCollapsed="true">
+    <Position X="22" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Commands\CopySubtitleTextToClipboardCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.CopyTimeAndSubtitleTextToClipboardCommand" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="6" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Commands\CopyTimeAndSubtitleTextToClipboardCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.ExecutePapagoCommand" BaseTypeListCollapsed="true">
+    <Position X="29" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAABAIAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Commands\ExecutePapagoCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.ImportVideoCommand" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Commands\ImportVideoCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.OpenYouTubeUrlDialogCommand" BaseTypeListCollapsed="true">
+    <Position X="22" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\Commands\OpenYouTubeUrlDialogCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.PlayerSeekToCommand" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\Commands\PlayerSeekToCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.RemoveBookmarkCommand" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\Commands\RemoveBookmarkCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.ViewModels.Commands.SaveScriptCommand" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="0.5" Width="2.75" />
+    <NestedTypes>
+      <Delegate Name="ScripTube.ViewModels.Commands.SaveScriptCommand.SaveMethod" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ViewModels\Commands\SaveScriptCommand.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAACEAQAAEAAAAAhAAACAAoAAAAAARAAAEA=</HashCode>
+      <FileName>ViewModels\Commands\SaveScriptCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Views.Controls.SubtitleListView">
+    <Position X="44.25" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAACAAABAAAAAAAACAAAAAI=</HashCode>
+      <FileName>Views\Controls\SubtitleListView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Controls.UrlTextBox">
+    <Position X="44.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Controls\UrlTextBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Controls.VideoPlayer" BaseTypeListCollapsed="true">
+    <Position X="40.75" Y="2.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>ABAkAAEIAAAGgAMAIAAAIEBAgAAAgAAgoAABgIAAgAA=</HashCode>
+      <FileName>Views\Controls\VideoPlayer.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Views.Converters.BooleanToForegroundConverter" Collapsed="true">
+    <Position X="15.75" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\BooleanToForegroundConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.BooleanToVisibilityConverter" Collapsed="true">
+    <Position X="18.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\BooleanToVisiblityConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.InvertBooleanToVisiblityConverter" Collapsed="true">
+    <Position X="7.5" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\InvertBooleanToVisiblityConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.SecondsToTimeFormatStringConverter" Collapsed="true">
+    <Position X="10.25" Y="3" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\SecondsToTimeFormatStringConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.SecondsToTimeFormatStringMultiConverter" Collapsed="true">
+    <Position X="7.5" Y="6" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\SecondsToTimeFormatStringMultiConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.UrlToVideoIdConverter" Collapsed="true">
+    <Position X="13.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\UrlToVideoIdConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.VideoAndCurrentTimeMultiConverter" Collapsed="true">
+    <Position X="11.25" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\VideoAndCurrentTimeMultiConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.VideoAndSubtitleMultiConverter" Collapsed="true">
+    <Position X="14.75" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Converters\VideoAndSubtitleMultiConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScripTube.Views.Converters.VideoTitleToWindowTitleConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Views\Converters\VideoTitleToWindowTitleConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScripTube.Views.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="40.75" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="ScripTube.Enums.EVideoStatus">
+    <Position X="37" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Enums\EVideoStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

@@ -70,9 +70,9 @@
     <Compile Include="Models\Dialog\AddBookmarkDialog.cs" />
     <Compile Include="Models\Dialog\MessageDialog.cs" />
     <Compile Include="Models\Dialog\RemoveBookmarkDialog.cs" />
-    <Compile Include="Utils\ConverterMarkupExtension.cs" />
+    <Compile Include="Views\Converters\ConverterMarkupExtension.cs" />
     <Compile Include="Utils\EventArgsConverterExtension.cs" />
-    <Compile Include="Utils\MultiConverterMarkupExtension.cs" />
+    <Compile Include="Views\Converters\MultiConverterMarkupExtension.cs" />
     <Compile Include="Utils\TimeFormatUtil.cs" />
     <Compile Include="Utils\YouTubeUtil.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -140,6 +140,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

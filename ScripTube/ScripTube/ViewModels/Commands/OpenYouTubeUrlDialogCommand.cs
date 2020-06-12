@@ -18,11 +18,11 @@ namespace ScripTube.ViewModels.Commands
             }
         }
 
-        public MainWindowViewModel ViewModel { get; }
+        public MainWindowViewModel MainWindowViewModel { get; }
 
-        public OpenYouTubeUrlDialogCommand(MainWindowViewModel viewModel)
+        public OpenYouTubeUrlDialogCommand(MainWindowViewModel mainWindowViewModel)
         {
-            ViewModel = viewModel;
+            MainWindowViewModel = mainWindowViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -32,10 +32,10 @@ namespace ScripTube.ViewModels.Commands
 
         public async void Execute(object parameter)
         {
-            ViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = true;
-            if ((bool)await DialogHost.Show(ViewModel.YouTubeUrlDialogViewModel, "RootDialog") == false)
+            MainWindowViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = true;
+            if ((bool)await DialogHost.Show(MainWindowViewModel.YouTubeUrlDialogViewModel, "RootDialog") == false)
             {
-                ViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = false;
+                MainWindowViewModel.YouTubeUrlDialogViewModel.IsDialogOpen = false;
             }
         }
     }
