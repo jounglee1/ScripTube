@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ScripTube.App" Collapsed="true">
-    <Position X="59.5" Y="1.25" Width="1.5" />
+    <Position X="57.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
@@ -73,13 +73,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PleaseTranscribe.Properties.Resources" Collapsed="true">
-    <Position X="59.5" Y="3.25" Width="1.5" />
+    <Position X="57.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PleaseTranscribe.Properties.Settings" Collapsed="true">
-    <Position X="59.5" Y="2.25" Width="1.5" />
+    <Position X="57.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
@@ -93,7 +93,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ScripTube.Utils.EventArgsConverterExtension&lt;T&gt;" BaseTypeListCollapsed="true">
-    <Position X="53.5" Y="2.75" Width="2.25" />
+    <Position X="53.25" Y="4.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utils\EventArgsConverterExtension.cs</FileName>
@@ -109,14 +109,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ScripTube.Utils.TimeFormatUtil">
-    <Position X="53.5" Y="0.5" Width="2.5" />
+    <Position X="53.25" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAACAAAAAAAAAQgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Utils\TimeFormatUtil.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ScripTube.Utils.YouTubeUtil">
-    <Position X="56.25" Y="0.5" Width="1.75" />
+    <Position X="53.25" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Utils\YouTubeUtil.cs</FileName>
@@ -145,7 +145,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ScripTube.ViewModels.Commands.AddBookmarkCommand" BaseTypeListCollapsed="true">
-    <Position X="22" Y="3.25" Width="2" />
+    <Position X="22" Y="3.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>ViewModels\Commands\AddBookmarkCommand.cs</FileName>
@@ -201,7 +201,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ScripTube.ViewModels.Commands.RemoveBookmarkCommand" BaseTypeListCollapsed="true">
-    <Position X="24.25" Y="3.25" Width="2.25" />
+    <Position X="24.75" Y="3.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>ViewModels\Commands\RemoveBookmarkCommand.cs</FileName>
